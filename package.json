@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "update": "git add . && git commit -am \"update\" && npm run build && npm version patch && npm publish"
   },
   "dependencies": {},
   "peerDependencies": {
