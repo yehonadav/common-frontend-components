@@ -8,7 +8,7 @@ export const links = {
 
   goBackOrHome: (): void => {
     history.action === "PUSH"
-      ? history.goBack()
+      ? history.back()
       : history.push(routes.home);
   },
 
