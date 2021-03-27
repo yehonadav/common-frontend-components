@@ -1,4 +1,4 @@
-export * from './config';
+export * from './appConfig';
 export * from './ids';
 export * from './routes';
 export * from './sizes';

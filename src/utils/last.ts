@@ -1,0 +1,1 @@
+export const last = (value:Array<any>, index=-1) => value[value.length+index];

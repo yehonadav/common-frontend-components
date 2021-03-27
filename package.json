@@ -15,8 +15,12 @@
     "start": "rollup -c -w",
     "update": "git add . && git commit -am \"update\" && npm run build && npm version patch && npm publish"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "peerDependencies": {
+    "storage-factory": "^0.2.0",
+    "react-router": "^5.2.0",
+    "history": "^4.10.1",
     "react": ">= 16.8.0 < 2",
     "react-dom": ">= 16.8.0 < 2"
   },

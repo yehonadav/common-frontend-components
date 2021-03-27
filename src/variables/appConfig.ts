@@ -3,7 +3,7 @@ const apiRemote = '';
 
 const apiUrl = process.env.REACT_APP_STAGE === 'local' ? apiLocal : apiRemote;
 
-export const config = {
+export const appConfig = {
   apiUrl,
   reCaptchaSiteKey: '',
   googleLoginClientId: '',
