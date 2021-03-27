@@ -17,6 +17,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
+    "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",
     "react-dom": ">= 16.8.0 < 2",
     "react": ">= 16.8.0 < 2",
