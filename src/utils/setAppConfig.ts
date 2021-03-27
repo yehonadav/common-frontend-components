@@ -1,10 +1,6 @@
-import {appConfig} from "../variables"
+import {appConfig, TappConfig} from "../variables"
 
-export interface IsetAppConfigProps {
-  apiUrl: string;
-  [x:string]: any;
-}
-
-export const setAppConfig = (props:IsetAppConfigProps) => {
+export const setAppConfig = (props:Partial<TappConfig>):TappConfig => {
   Object.assign(appConfig, props);
+  return appConfig;
 }

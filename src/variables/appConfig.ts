@@ -1,18 +1,28 @@
-const apiLocal = 'http://localhost:4000/dev';
-const apiRemote = '';
+export type TappConfig = {
+  apiUrl: string;
+  reCaptchaSiteKey: string;
+  googleLoginClientId: string;
+  google_maps_key: string;
+  ipinfo_token: string;
+  company: string;
+  website: string;
+  app_name: string;
+  app_slogan: string;
+  app_description: string;
+  terms_last_update: string;
+  [x:string]: any;
+}
 
-const apiUrl = process.env.REACT_APP_STAGE === 'local' ? apiLocal : apiRemote;
-
-export const appConfig = {
-  apiUrl,
-  reCaptchaSiteKey: '',
-  googleLoginClientId: '',
-  google_maps_key: '',
+export const appConfig: TappConfig = {
+  apiUrl: "",
+  reCaptchaSiteKey: "",
+  googleLoginClientId: "",
+  google_maps_key: "",
   ipinfo_token: "",
-  company: '',
-  website: '',
-  app_name: '',
-  app_slogan: '',
-  app_description: '',
+  company: "",
+  website: "",
+  app_name: "",
+  app_slogan: "",
+  app_description: "",
   terms_last_update: "",
 };
