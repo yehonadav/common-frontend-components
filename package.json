@@ -35,6 +35,9 @@
     "dist"
   ],
   "keywords": [
+    "common",
+    "frontend",
+    "components",
     "react",
     "typescript",
     "npm"
