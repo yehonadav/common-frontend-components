@@ -41,7 +41,7 @@ const state:State = {
 const stateCreator = ():State => CreateFetcher(fetchStore, state);
 
 // persist options
-export const persistOptions = {
+const persistOptions = {
   name: "useLanguageStore", // set a unique name
   whitelist: ["language"],
   getStorage: getStorageCall,
@@ -52,16 +52,35 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
 // @ts-ignore
-export const useLanguageStore = createStore<State>(persist(stateCreator, persistOptions));
+const useStore = createStore<State>(persist(stateCreator, persistOptions));
 
 // getters
-export const get = useLanguageStore.getState;
-export const getLanguage = ():LanguageType => get().language;
+const get = useStore.getState;
+const getLanguage = ():LanguageType => get().language;
 
 // setters
-export const set = useLanguageStore.setState;
-export const setLanguage = (language: LanguageType):void => set({language});
+const set = useStore.setState;
+const setLanguage = (language: LanguageType):void => set({language});
 
 // hooks
-export const useLanguage = ():LanguageType => useLanguageStore(fetchStore.language);
-export const useRTL = ():boolean => Boolean(useLanguage().rtl);
+const useLanguage = ():LanguageType => useStore(fetchStore.language);
+const useRTL = ():boolean => Boolean(useLanguage().rtl);
+
+export {
+  fetchStore as fetchLanguageStore,
+  LanguageType,
+  languageMap,
+  State as TlanguageStoreState,
+  state as languageStoreState,
+  stateCreator as LanguageStoreStateCreator,
+  persistOptions as LanguageStorePersistOptions,
+  useStore as useLanguageStore,
+  get as getLanguageStore,
+  set as setLanguageStore,
+
+  getLanguage,
+  setLanguage,
+
+  useLanguage,
+  useRTL,
+}

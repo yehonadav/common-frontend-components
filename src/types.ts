@@ -1,7 +1,7 @@
-import React, {ChangeEvent, FC, ReactNode} from 'react'
-import {StandardTextFieldProps} from "@material-ui/core";
-import {DateTimePickerProps} from "@material-ui/pickers/DateTimePicker/DateTimePicker";
-import {TimePickerProps} from "@material-ui/pickers/TimePicker/TimePicker";
+import React, { ChangeEvent, FC, ReactNode } from 'react'
+import { StandardTextFieldProps } from '@material-ui/core'
+import { DateTimePickerProps } from '@material-ui/pickers/DateTimePicker/DateTimePicker'
+import { TimePickerProps } from '@material-ui/pickers/TimePicker/TimePicker'
 
 export type BaseFunctionType = () => void;
 export type Function = (...args: Array<any>) => any;
@@ -85,3 +85,4 @@ export type StyleType = {[x:string]:undefined|number|string};
 export type ItiContainerType = {iti?:any};
 
 export type DivType = FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>;
+export declare type Size = { width: number, height: number };

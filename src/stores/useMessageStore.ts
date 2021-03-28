@@ -1,46 +1,68 @@
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
-import {getStorageCall} from '../utils/persist'
-import produce from 'immer'
-import {CreateFetcher} from '../utils/storeFetchFunctions'
+import {getStorageCall} from '../utils'
+import {CreateFetcher} from '../utils'
 
 // improve performance by fetching state
 // from dynamically created functions
 // functions are created on store creation time
-export const fetchStore: any = {
+const fetchStore: any = {
   // [state[key]]: state => state[state[key]],
 };
 
+type State = {
+  // persistent
+  persistentMsg: string,
+
+  // not persistent
+  msg: string,
+}
+
+// state initial values
+const state: State = {
+  // persistent
+  persistentMsg: '',
+
+  // not persistent
+  msg: '',
+};
+
+// create state and update fetch function
+const stateCreator = ():State => CreateFetcher(fetchStore, state);
+
 // persist options
-export const persistOptions = {
+const persistOptions = {
   name: "useMessageStore",
   whitelist: ["persistentMsg"],
   getStorage: getStorageCall,
 };
 
-export const useMessageStore = createStore(
-  persist(
-    (set: any, get: any) => CreateFetcher(fetchStore, {
-      // persistent
-      persistentMsg: '',
+// create store
+// @ts-ignore
+const useStore = createStore<State>(persist(stateCreator, persistOptions));
 
-      // not persistent
-      msg: '',
+// getters
+const get = useStore.getState;
+const getMsg = ():string => get().msg;
 
-      // getters
-      get,
-      getMsg: () => get().msg,
+// setters
+const set = useStore.setState;
+const setMsg = (...args: any[]):void => set(() => ({msg: args.map(i=>(typeof i !== "string" ? JSON.stringify(i) : i)).join(" ")}));
 
-      // setters
-      setState: set,
-      set: (fn: any) => set(produce(fn)),
-      setMsg: (...args: any[]) => set(() => ({msg: args.map(i=>(typeof i !== "string" ? JSON.stringify(i) : i)).join(" ")})),
-    }),
-    // @ts-ignore
-    persistOptions,
-  )
-);
+// hooks
+const useMsg = ():string => useStore(fetchStore.msg);
 
-export const useMsg = ():string => useMessageStore(fetchStore.msg);
-export const getMsg = ():string => useMessageStore.getState().msg;
-export const setMsg = (...args: any[]) => useMessageStore.getState().setMsg(...args);
+export {
+  fetchStore as fetchMessageStore,
+  State as TmessageStoreState,
+  state as messageStoreState,
+  stateCreator as messageStoreStateCreator,
+  persistOptions as messageStorePersistOptions,
+  useStore as useMessageStore,
+  get as getMessageStore,
+  set as setMessageStore,
+
+  getMsg,
+  setMsg,
+  useMsg,
+}

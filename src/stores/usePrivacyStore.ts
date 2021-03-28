@@ -1,9 +1,9 @@
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
-import {CreateFetcher} from "../utils/storeFetchFunctions";
+import {CreateFetcher} from '../utils';
 import {useEffect} from "react";
-import {getStorageCall} from "../utils/persist"
-import {isLocalStorageAvailable} from "../utils/isLocalStorageAvailable";
+import {getStorageCall} from '../utils'
+import {isLocalStorageAvailable} from '../utils';
 import {clearDataService} from "../services/ClearData";
 
 // state type

@@ -81,19 +81,19 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
 // @ts-ignore
-const useIpinfoStore = createStore<State>(persist(stateCreator, persistOptions));
+const useStore = createStore<State>(persist(stateCreator, persistOptions));
 
 // getters
-const get = useIpinfoStore.getState;
+const get = useStore.getState;
 
 // setters
-const set = useIpinfoStore.setState;
+const set = useStore.setState;
 const setIpinfoCountry = (iso2:string):void => set({country:iso2.toLowerCase()});
 
 // hooks
-const useIpinfo = ():IpinfoType => useIpinfoStore(fetchStore.ipinfo);
-const useIpinfoCountry = ():string => useIpinfoStore(fetchStore.country);
-const useIpinfoLoading = ():null|boolean => useIpinfoStore(fetchStore.loading);
+const useIpinfo = ():IpinfoType => useStore(fetchStore.ipinfo);
+const useIpinfoCountry = ():string => useStore(fetchStore.country);
+const useIpinfoLoading = ():null|boolean => useStore(fetchStore.loading);
 
 // global hook
 const useLoadIpinfo = ():void => {
@@ -114,10 +114,10 @@ const useLoadIpinfo = ():void => {
 export {
   IpinfoType,
   fetchStore as fetchIpinfoStore,
-  state as IpinfoStoreState,
-  stateCreator as IpinfoStoreStateCreator,
-  persistOptions as IpinfoStorePersistOptions,
-  useIpinfoStore as useIpinfoStore,
+  state as ipinfoStoreState,
+  stateCreator as ipinfoStoreStateCreator,
+  persistOptions as ipinfoStorePersistOptions,
+  useStore as useIpinfoStore,
   get as getIpinfoStore,
   set as setIpinfoStore,
 
