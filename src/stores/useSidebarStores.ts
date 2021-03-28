@@ -1,19 +1,19 @@
-import createStore from 'zustand'
-import {CreateFetcher} from "../utils/storeFetchFunctions";
-import {persist} from 'zustand/middleware'
-import {getStorageCall} from "../utils/persist"
 import produce from 'immer'
+import createStore from 'zustand'
+import {CreateFetcher} from '../utils';
+import {persist} from 'zustand/middleware'
+import {getStorageCall} from '../utils'
 import {clearDataService} from "../services/ClearData";
 
 // improve performance by fetching state
 // from dynamically created functions
 // functions are created on store creation time
-export const fetchSidebar: any = {
+const fetchStore: any = {
   // [state[key]]: state => state[state[key]],
 };
 
 // state type
-export type State = {
+type State = {
   expanded: {[x: string]: boolean},
   routes: {
     [x: string]: {
@@ -26,7 +26,7 @@ export type State = {
 };
 
 // state initial values
-export const state: State = {
+const state: State = {
   // persistent
   expanded: {
     // [route]: bool
@@ -44,10 +44,10 @@ export const state: State = {
 };
 
 // create state and update fetch function
-export const stateCreator = () => CreateFetcher(fetchSidebar, state);
+const stateCreator = () => CreateFetcher(fetchStore, state);
 
 // persist options
-export const persistOptions = {
+const persistOptions = {
   name: "useSidebarStore",
   whitelist: ["expanded"],
   getStorage: getStorageCall,
@@ -58,17 +58,17 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
 // @ts-ignore
-export const useSidebarStore = createStore<State>(persist(stateCreator, persistOptions));
+const useStore = createStore<State>(persist(stateCreator, persistOptions));
 
 // getters
-export const get = useSidebarStore.getState;
+const get = useStore.getState;
 
 // setters
-export const set = useSidebarStore.setState;
-export const immer = (fn:(s:State)=>void):void => set(produce(fn));
+const set = useStore.setState;
+const immer = (fn:(s:State)=>void):void => set(produce(fn));
 
 // actions
-export const getRouteStore = (route: string) => {
+const getRouteStore = (route: string) => {
   const state = get();
 
   if (state.expanded[route] === undefined || state.routes[route] === undefined) {
@@ -96,3 +96,16 @@ export const getRouteStore = (route: string) => {
   }
   return state.routes[route];
 };
+
+export {
+  fetchStore as fetchSidebarStore,
+  State as TstateSidebarStore,
+  state as stateSidebarStore,
+  stateCreator as stateCreatorSidebarStore,
+  persistOptions as persistOptionsSidebarStore,
+  useStore as useSidebarStore,
+  get as getSidebarStore,
+  set as setSidebarStore,
+  immer as setImmerSidebarStore,
+  getRouteStore,
+}

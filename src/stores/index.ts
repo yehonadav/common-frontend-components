@@ -8,5 +8,5 @@ export * from "./usePageStore";
 export * from "./usePrivacyStore";
 export * from "./useRouterStore";
 export * from "./useSidebarStores";
-export * from "./useTestStore";
+export * from "./useTestAppsStore";
 export * from "./useVersionStore";

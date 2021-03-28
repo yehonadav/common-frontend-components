@@ -24,15 +24,15 @@ export const state: State = {
 // improve performance by fetching state
 // from dynamically created functions
 // functions are created on store creation time
-export const fetchPrivacy: {[key:string]:(state:{[key:string]: any}) => any} = {
+const fetchStore: {[key:string]:(state:{[key:string]: any}) => any} = {
   // [state[key]]: state => state[state[key]],
 };
 
 // create state and update fetch function
-export const stateCreator = () => CreateFetcher(fetchPrivacy, state);
+const stateCreator = () => CreateFetcher(fetchStore, state);
 
 // persist options
-export const persistOptions = {
+const persistOptions = {
   name: "usePrivacyStore",
   whitelist: ["privacyPolicyAccepted"],
   getStorage: getStorageCall,
@@ -43,16 +43,16 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
 // @ts-ignore
-export const usePrivacyStore = createStore(persist(stateCreator, persistOptions));
+const useStore = createStore(persist(stateCreator, persistOptions));
 
 // getters
-export const get = usePrivacyStore.getState;
+const get = useStore.getState;
 
 // setters
-export const set = usePrivacyStore.setState;
+const set = useStore.setState;
 
 // actions
-export const areCookiesEnabled = () => {
+const areCookiesEnabled = () => {
   let cookieEnabled = navigator.cookieEnabled;
   if (!cookieEnabled){
     document.cookie = "areCookiesEnabled";
@@ -61,14 +61,32 @@ export const areCookiesEnabled = () => {
   return cookieEnabled;
 };
 
-export const onAcceptingPrivacyPolicy = () => set({privacyPolicyAccepted: true});
+const onAcceptingPrivacyPolicy = () => set({privacyPolicyAccepted: true});
 
 // hooks
-export const useCheckAreCookiesEnabled = () => {
+const useCheckAreCookiesEnabled = () => {
   useEffect(()=>{
     set({cookiesEnabled: areCookiesEnabled() && isLocalStorageAvailable()})
   }, []);
 };
 
-export const useCookiesEnabled = ():null|boolean => usePrivacyStore(fetchPrivacy.cookiesEnabled);
-export const usePrivacyPolicyAccepted = ():boolean => usePrivacyStore(fetchPrivacy.privacyPolicyAccepted);
+const useCookiesEnabled = ():null|boolean => useStore(fetchStore.cookiesEnabled);
+const usePrivacyPolicyAccepted = ():boolean => useStore(fetchStore.privacyPolicyAccepted);
+
+export {
+  State as TstatePrivacyStore,
+  state as statePrivacyStore,
+  fetchStore as fetchPrivacyStore,
+  stateCreator as stateCreatorPrivacyStore,
+  persistOptions as persistOptionsPrivacyStore,
+  useStore as usePrivacyStore,
+  get as getPrivacyStore,
+  set as setPrivacyStore,
+
+  areCookiesEnabled,
+  onAcceptingPrivacyPolicy,
+
+  useCheckAreCookiesEnabled,
+  useCookiesEnabled,
+  usePrivacyPolicyAccepted,
+}

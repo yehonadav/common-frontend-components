@@ -1,39 +1,46 @@
 import createStore from 'zustand'
-import {CreateFetcher} from "../utils/storeFetchFunctions";
+import {CreateFetcher} from '../utils';
 import {persist} from 'zustand/middleware'
-import {getStorageCall} from "../utils/persist"
-import {useOnLoad} from "../hooks/useOnLoad";
+import {getStorageCall} from '../utils'
+import {useOnLoad} from '../hooks';
 import {request} from "../api/request";
-import {appConfig} from "../variables/appConfig";
+import {appConfig} from '../variables';
 import {accountService} from "../services/account/service";
 import {clearDataService} from "../services/ClearData";
+import { NullableString } from '../types'
 
-const baseUrl = `${appConfig.apiUrl}/version`;
+let baseUrl = `${appConfig.apiUrl}/version`;
+
+const getVersionStoreUrl = ():string => {
+  return baseUrl
+}
+
+const setVersionStoreUrl = (url:string):void => {
+  baseUrl = url;
+}
 
 // improve performance by fetching state
 // from dynamically created functions
 // functions are created on store creation time
-export const fetchVersion: any = {
+const fetchStore: any = {
   // [state[key]]: state => state[state[key]],
 };
 
-export type VersionType = null | string;
-
 // state type
-export type State = {
-  version: VersionType,
+type State = {
+  version: NullableString,
 };
 
 // state initial values
-export const state: State = {
+const state: State = {
   version: null,
 };
 
 // create state and update fetch function
-export const stateCreator = () => CreateFetcher(fetchVersion, state);
+const stateCreator = () => CreateFetcher(fetchStore, state);
 
 // persist options
-export const persistOptions = {
+const persistOptions = {
   name: "useVersionStore",
   whitelist: ["version"],
   getStorage: getStorageCall,
@@ -44,20 +51,20 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
 // @ts-ignore
-export const useVersionStore = createStore<State>(persist(stateCreator, persistOptions));
+const useStore = createStore<State>(persist(stateCreator, persistOptions));
 
 // getters
-export const get = useVersionStore.getState;
+const get = useStore.getState;
 
 // setters
-export const set = useVersionStore.setState;
+const set = useStore.setState;
 
 // actions
-export const getVersion = () => get().version;
+const getVersion = () => get().version;
 
-export const setVersion = (version:VersionType) => set({version});
+const setVersion = (version:NullableString) => set({version});
 
-export const getVersionDate = (version:VersionType) => {
+const getVersionDate = (version:NullableString):Date|void => {
   if (version) {
     const versionParsed = version.split(".").map(i => parseInt(i));
     // @ts-ignore
@@ -66,16 +73,16 @@ export const getVersionDate = (version:VersionType) => {
 };
 
 // hooks
-export const useVersion = ():VersionType => useVersionStore(fetchVersion.version);
+const useVersion = ():NullableString => useStore(fetchStore.version);
 
 // global hook
-export const useUpdateVersion = () => {
+const useUpdateVersion = () => {
   useOnLoad(()=>{
     const currentVersion = getVersionDate(get().version);
     console.log("currentVersion", currentVersion);
 
     request.get(baseUrl)
-      .then((responseDate) => {
+      .then((responseDate: { version: NullableString; }) => {
         const latestVersion = getVersionDate(responseDate.version);
 
         console.log("latestVersion", latestVersion);
@@ -97,3 +104,24 @@ export const useUpdateVersion = () => {
       })
   });
 };
+
+export {
+  getVersionStoreUrl,
+  setVersionStoreUrl,
+  fetchStore as fetchVersionStore,
+  State as TstateVersionStore,
+  state as stateVersionStore,
+  stateCreator as stateCreatorVersionStore,
+  persistOptions as persistOptionsVersionStore,
+  useStore as useVersionStore,
+  get as getVersionStore,
+  set as setVersionStore,
+
+  getVersion,
+  setVersion,
+
+  getVersionDate,
+
+  useVersion,
+  useUpdateVersion,
+}
