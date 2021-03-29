@@ -21,7 +21,7 @@ type TerrorMessageError = {
   };
 } | any;
 
-function error_message(e:TerrorMessageError) {
+export function error_message(e:TerrorMessageError) {
   return (e.response && e.response.data && e.response.data.message)
   || (e.response && e.response.statusText)
   || 'Something went wrong! Please try again later'
