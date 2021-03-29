@@ -1,5 +1,4 @@
 import { hour } from '../variables'
-import assert from "assert";
 
 export const date = new Date();
 
@@ -100,7 +99,9 @@ export function getDateFromHoursAndMinutesFormat(hoursAndMinutesFormat: string|D
   if (typeof hoursAndMinutesFormat !== 'string')
     return hoursAndMinutesFormat;
 
-  assert(hoursAndMinutesFormat.length===5)
+  if (hoursAndMinutesFormat.length !== 5)
+    throw Error(`hoursAndMinutesFormatError: assertion hoursAndMinutesFormat.length !== 5 failed, hoursAndMinutesFormat.length=${hoursAndMinutesFormat.length}`)
+
   const date = new Date();
   const hours = Number(hoursAndMinutesFormat[0] + hoursAndMinutesFormat[1])
   const minutes = Number(hoursAndMinutesFormat[3] + hoursAndMinutesFormat[4])
