@@ -4,34 +4,47 @@ import {CreateFetcher} from '../../utils';
 // improve performance by fetching state
 // from dynamically created functions
 // functions are created on store creation time
-export const fetchBackdrop: any = {
+const fetchStore: any = {
   // [state[key]]: state => state[state[key]],
 };
 
-export type State = {
+type State = {
   loading: boolean;
 }
 
-export const state: State = {
+const state: State = {
   loading: false,
 }
 
 // stateCreatorInstallStore function
-export const stateCreator = ():State => CreateFetcher(fetchBackdrop, {
+const stateCreator = ():State => CreateFetcher(fetchStore, {
   loading: false,
 });
 
 // store
-export const useBackdropStore = createStore<State>(stateCreator);
+const useStore = createStore<State>(stateCreator);
 
 // getters
-export const get = useBackdropStore.getState;
+const get = useStore.getState;
 
 // setters
-export const set = useBackdropStore.setState;
+const set = useStore.setState;
 
 // actions
-export const setBackdrop = (loading:boolean):void => set({loading});
+const setBackdrop = (loading:boolean):void => set({loading});
 
 // hooks
-export const useBackdropIsLoading = ():boolean => useBackdropStore(fetchBackdrop.loading);
+const useBackdropIsLoading = ():boolean => useStore(fetchStore.loading);
+
+export {
+  fetchStore as fetchBackdropStore,
+  State as TstateBackdropStore,
+  state as stateBackdropStore,
+  stateCreator as stateCreatorBackdropStore,
+  useStore as useBackdropStore,
+  get as getBackdropStore,
+  set as setBackdropStore,
+
+  setBackdrop,
+  useBackdropIsLoading,
+}

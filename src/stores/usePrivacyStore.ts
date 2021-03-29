@@ -4,16 +4,16 @@ import {CreateFetcher} from '../utils';
 import {useEffect} from "react";
 import {getStorageCall} from '../utils'
 import {isLocalStorageAvailable} from '../utils';
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from '../services';
 
 // state type
-export type State = {
+type State = {
   privacyPolicyAccepted: boolean,
   cookiesEnabled: null|boolean,
 };
 
 // state initial values
-export const state: State = {
+const state: State = {
   // persistent
   privacyPolicyAccepted: false,
 
