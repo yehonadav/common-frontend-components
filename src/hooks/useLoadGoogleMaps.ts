@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import {useState, useEffect} from "react"
 import {useLoadScript} from "@react-google-maps/api"
 import {appConfig} from '../variables'
 import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url'

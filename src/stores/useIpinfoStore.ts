@@ -2,7 +2,7 @@ import {CreateFetcher} from '../utils'
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
 import {useEffect} from "react";
-import request from "axios";
+import {request} from "../api/request";
 import {appConfig} from '../variables';
 import {getStorageCall} from '../utils';
 import {clearDataService} from "../services/ClearData";
@@ -101,11 +101,10 @@ const useLoadIpinfo = ():void => {
     if (!get().ipinfo) {
       set({loading: true});
       request.get(`https://ipinfo.io/json?token=${appConfig.ipinfo_token}`)
-        .then(resp => set(() => ({
-          ipinfo: resp.data,
-          country: resp.data.country ? resp.data.country : get().country,
+        .then((data:any) => set(() => ({
+          ipinfo: data,
+          country: data.country ? data.country : get().country,
         })))
-        .catch(e => console.error('ipinfo error:', e))
         .finally(() => set({loading: false}));
     } else set({loading: false})
   }, [])

@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useTheme } from '@material-ui/core'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { appConfig } from '../variables'
 
 // improve performance by fetching state
 // from dynamically created functions
@@ -32,6 +33,9 @@ type State = {
   lg: boolean;
   xl: boolean;
 
+  // is it a mobile page version
+  isMobile: boolean;
+
   // page style
   theme: null | Theme;
 }
@@ -50,6 +54,8 @@ const state:State = {
   lg: false,
   xl: false,
 
+  isMobile: false,
+
   theme: null,
 };
 
@@ -67,6 +73,7 @@ const getSM = (): boolean => get().sm;
 const getMD = (): boolean => get().md;
 const getLG = (): boolean => get().lg;
 const getXL = (): boolean => get().xl;
+const getMobile = ():boolean => get().isMobile;
 const getPageTheme = (): null | Theme => get().theme;
 
 // setters
@@ -77,9 +84,14 @@ const setEnteredPage = (entered_page:boolean):void => set({entered_page});
 
 // actions
 const updateWindowDimensions = ():void => setImmer((s: State)=>{
-  s.width=window.innerWidth;
-  s.height=window.innerHeight;
-  s.size={width: window.innerWidth, height: window.innerHeight};
+  const size = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  }
+  s.isMobile = size.width < appConfig.desktopMinWidth;
+  s.width = size.width;
+  s.height = size.height;
+  s.size = size;
 });
 
 // hooks
@@ -93,6 +105,7 @@ const useSM = (): boolean => useStore(fetchStore.sm);
 const useMD = (): boolean => useStore(fetchStore.md);
 const useLG = (): boolean => useStore(fetchStore.lg);
 const useXL = (): boolean => useStore(fetchStore.xl);
+const useMobile = (): boolean => useStore(fetchStore.isMobile);
 const usePageTheme = (): null | Theme => useStore(fetchStore.theme);
 
 // high order hooks
@@ -147,6 +160,7 @@ export {
   getMD,
   getLG,
   getXL,
+  getMobile,
   getPageTheme,
 
   setPageLoading,
@@ -164,6 +178,7 @@ export {
   useMD,
   useLG,
   useXL,
+  useMobile,
   usePageTheme,
 
   useSizeListener,

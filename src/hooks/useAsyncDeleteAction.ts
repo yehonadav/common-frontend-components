@@ -1,9 +1,9 @@
 import {IAsyncButton} from "../interfaces";
 import {Dispatch, SetStateAction, useState} from "react";
 import {TuseAsyncActionResult} from "./useAsyncAction";
-import {deleteWarningPopup, IdeletePopup} from "../popups/warnings/deleteWarningPopup";
+import {deleteWarningPopup, IdeletePopup} from '../popups';
 import {setBackdrop} from "../services/backdrop/useStore";
-import {deleteSuccessPopup} from "../popups/success/deleteSuccessPopup";
+import {deleteSuccessPopup} from '../popups';
 
 export type TuseAsyncDeleteAction = IAsyncButton & IdeletePopup;
 

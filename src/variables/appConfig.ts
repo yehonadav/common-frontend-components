@@ -1,4 +1,5 @@
 export type TappConfig = {
+  logo: string;
   apiUrl: string;
   reCaptchaSiteKey: string;
   googleLoginClientId: string;
@@ -10,10 +11,12 @@ export type TappConfig = {
   app_slogan: string;
   app_description: string;
   terms_last_update: string;
+  desktopMinWidth: number;
   [x:string]: any;
 }
 
 export const appConfig: TappConfig = {
+  logo: "",
   apiUrl: "",
   reCaptchaSiteKey: "",
   googleLoginClientId: "",
@@ -25,4 +28,5 @@ export const appConfig: TappConfig = {
   app_slogan: "",
   app_description: "",
   terms_last_update: "",
+  desktopMinWidth: 1200,
 };

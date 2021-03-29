@@ -70,6 +70,8 @@ export type DateTimeInputType = DateTimePickerProps & {
 
 export type NullableBoolean = null | boolean;
 export type NullableString = null | string;
+export type OptionalBoolean = undefined | boolean;
+export type OptionalString = undefined | string;
 
 export type setValueType = (name: string, value: any, config?: any) => void;
 

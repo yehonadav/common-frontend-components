@@ -13,7 +13,7 @@ type TtestAppsStoreOption = {
 const NoAppTestAppsStoreOption:TtestAppsStoreOption = {label: "NoApp", Component: ():null => null};
 
 // state type
-export type State = {
+type State = {
   selectedApp: string,
 };
 
@@ -83,4 +83,11 @@ const createTestAppsStore = (name:string, apps:Record<string, TtestAppsStoreOpti
     onSelectApp,
     useCurrentlyTestedApp,
   }
+}
+
+export {
+  TtestAppsStoreOption,
+  NoAppTestAppsStoreOption,
+  State as TstateTestAppsStore,
+  createTestAppsStore,
 }

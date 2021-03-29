@@ -1,6 +1,5 @@
 import {useOpenSpring} from './useOpenSpring'
 
-
 export const useCollapseWidth = ({width=0, open=true, closeWidth=0}) => {
   const {style, set_style, animaStyle} = useOpenSpring({
     open,
