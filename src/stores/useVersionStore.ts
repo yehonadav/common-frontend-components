@@ -3,21 +3,11 @@ import {CreateFetcher} from '../utils';
 import {persist} from 'zustand/middleware'
 import {getStorageCall} from '../utils'
 import {useOnLoad} from '../hooks';
-import {request} from "../api/request";
+import {request} from '../api';
 import {appConfig} from '../variables';
 import {accountService} from "../services/account/service";
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from '../services';
 import { NullableString } from '../types'
-
-let baseUrl = `${appConfig.apiUrl}/version`;
-
-const getVersionStoreUrl = ():string => {
-  return baseUrl
-}
-
-const setVersionStoreUrl = (url:string):void => {
-  baseUrl = url;
-}
 
 // improve performance by fetching state
 // from dynamically created functions
@@ -81,7 +71,7 @@ const useUpdateVersion = () => {
     const currentVersion = getVersionDate(get().version);
     console.log("currentVersion", currentVersion);
 
-    request.get(baseUrl)
+    request.get(appConfig.versionUrl||"")
       .then((responseDate: { version: NullableString; }) => {
         const latestVersion = getVersionDate(responseDate.version);
 
@@ -106,8 +96,6 @@ const useUpdateVersion = () => {
 };
 
 export {
-  getVersionStoreUrl,
-  setVersionStoreUrl,
   fetchStore as fetchVersionStore,
   State as TstateVersionStore,
   state as stateVersionStore,

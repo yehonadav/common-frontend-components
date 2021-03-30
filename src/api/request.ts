@@ -44,7 +44,7 @@ function put_file(url: string, key: string, file: any):Promise<any> {
 function authHeader(url: string) {
   // return auth header with jwt if user is logged in and request is to the api url
   const user = getUser();
-  const isApiUrl = url.startsWith(appConfig.apiUrl);
+  const isApiUrl = url.startsWith(appConfig.apiUrl||"");
   if (user && user.jwtToken && isApiUrl)
     return { Authorization: `Bearer ${user.jwtToken}` };
   return {};
