@@ -1,10 +1,10 @@
 import createStore from 'zustand'
 import {useHistory, useLocation, useParams, useRouteMatch} from "react-router-dom";
-import {CreateFetcher} from '../utils';
+import {CreateFetcher} from '../../utils';
 import {useEffect} from "react";
 import {match as Match} from 'react-router';
 import {History, Location} from 'history';
-import {history} from '../utils'
+import {history} from '../../utils'
 
 // improve performance by fetching state
 // from dynamically created functions

@@ -6,7 +6,6 @@ export * from "./useMessageStore";
 export * from "./useNavbarStore";
 export * from "./usePageStore";
 export * from "./usePrivacyStore";
-export * from "./useRouterStore";
 export * from "./useSidebarStores";
 export * from "./useTestAppsStore";
 export * from "./useVersionStore";
