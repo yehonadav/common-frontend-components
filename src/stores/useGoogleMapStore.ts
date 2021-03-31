@@ -45,7 +45,7 @@ const setImmer = (fn: any) => set(produce(fn));
 // this is a global hook
 const useLoadGoogleMaps = () => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: appConfig.google_maps_key,
+    googleMapsApiKey: appConfig.google_maps_key||"",
     libraries,
   });
 
