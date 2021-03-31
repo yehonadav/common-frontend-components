@@ -88,7 +88,8 @@ const updateWindowDimensions = ():void => setImmer((s: State)=>{
     width: window.innerWidth,
     height: window.innerHeight,
   }
-  s.isMobile = size.width < appConfig.desktopMinWidth;
+  if (appConfig.desktopMinWidth !== undefined)
+    s.isMobile = size.width < appConfig.desktopMinWidth;
   s.width = size.width;
   s.height = size.height;
   s.size = size;
