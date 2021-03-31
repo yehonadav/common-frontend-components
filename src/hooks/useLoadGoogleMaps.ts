@@ -9,7 +9,7 @@ const libraries:Libraries = ["places"];
 export default () => {
   const [ loaded_google_maps, set_loaded_google_maps ] = useState<null|boolean>(null);
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: appConfig.google_maps_key,
+    googleMapsApiKey: appConfig.google_maps_key || "",
     libraries,
   });
 
