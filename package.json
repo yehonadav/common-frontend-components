@@ -13,7 +13,9 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "update": "npm i && git add . && git commit -am \"update\" && npm run build && npm version patch && npm publish"
+    "build:version": "npm run build && npm version patch && npm publish",
+    "update:version": "git add . && git commit -am \"update\" && git push && npm run build:version",
+    "i:update:version": "npm i && npm run update:version"
   },
   "dependencies": {
     "@date-io/date-fns": "^2.10.8",
