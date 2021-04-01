@@ -14,6 +14,7 @@ export {
   Redirect,
   RouteComponentProps,
   matchPath,
+  match,
 } from "react-router-dom";
 
 export interface IBrowserRouterProvider {
