@@ -3,12 +3,14 @@ import { history } from '../../utils';
 import { Router } from "react-router-dom";
 import { History } from 'history';
 
-interface IBrowserRouterProvider {
+export * from "react-router-dom";
+
+export interface IBrowserRouterProvider {
   history?: History;
   children: ReactNode;
 }
 
-const BrowserRouterProvider:
+export const BrowserRouterProvider:
   FC<IBrowserRouterProvider> =
   ({children }) =>
 {
@@ -17,9 +19,4 @@ const BrowserRouterProvider:
       {children}
     </Router>
   )
-}
-
-export {
-  BrowserRouterProvider,
-  IBrowserRouterProvider,
 }
