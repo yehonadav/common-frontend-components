@@ -13,6 +13,7 @@ export {
   Link,
   Redirect,
   RouteComponentProps,
+  matchPath,
 } from "react-router-dom";
 
 export interface IBrowserRouterProvider {
