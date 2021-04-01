@@ -20,18 +20,6 @@ const BrowserRouterProvider:
 }
 
 export {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  RouteComponentProps,
-  matchPath,
-  match,
-
   BrowserRouterProvider,
   IBrowserRouterProvider,
 }
