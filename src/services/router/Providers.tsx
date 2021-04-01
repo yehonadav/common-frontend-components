@@ -3,7 +3,7 @@ import { history } from '../../utils';
 import { Router } from "react-router-dom";
 import { History } from 'history';
 
-export {
+import {
   useHistory,
   useLocation,
   useParams,
@@ -17,12 +17,12 @@ export {
   match,
 } from "react-router-dom";
 
-export interface IBrowserRouterProvider {
+interface IBrowserRouterProvider {
   history?: History;
   children: ReactNode;
 }
 
-export const BrowserRouterProvider:
+const BrowserRouterProvider:
   FC<IBrowserRouterProvider> =
   ({children }) =>
 {
@@ -31,4 +31,21 @@ export const BrowserRouterProvider:
       {children}
     </Router>
   )
+}
+
+export {
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  RouteComponentProps,
+  matchPath,
+  match,
+
+  BrowserRouterProvider,
+  IBrowserRouterProvider,
 }
