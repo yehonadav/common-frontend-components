@@ -8,6 +8,9 @@ export {
   useLocation,
   useParams,
   useRouteMatch,
+  Switch,
+  Route,
+  Link,
 } from "react-router-dom";
 
 export interface IBrowserRouterProvider {
