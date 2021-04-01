@@ -49,6 +49,7 @@
     "react-measure": "^2.5.2",
     "react-popper": "^2.2.5",
     "react-pwa-install": "^1.0.12",
+    "react-router": "^5.2.0",
     "react-router-dom": "5.0.0",
     "react-spring": "^9.0.0",
     "storage-factory": "^0.2.0",
