@@ -11,6 +11,7 @@ export {
   Switch,
   Route,
   Link,
+  Redirect,
 } from "react-router-dom";
 
 export interface IBrowserRouterProvider {
