@@ -3,20 +3,6 @@ import { history } from '../../utils';
 import { Router } from "react-router-dom";
 import { History } from 'history';
 
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  RouteComponentProps,
-  matchPath,
-  match,
-} from "react-router-dom";
-
 interface IBrowserRouterProvider {
   history?: History;
   children: ReactNode;
