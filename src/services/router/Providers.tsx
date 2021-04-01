@@ -12,6 +12,7 @@ export {
   Route,
   Link,
   Redirect,
+  RouteComponentProps,
 } from "react-router-dom";
 
 export interface IBrowserRouterProvider {
