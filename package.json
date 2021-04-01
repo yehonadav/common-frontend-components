@@ -49,8 +49,8 @@
     "react-measure": "^2.5.2",
     "react-popper": "^2.2.5",
     "react-pwa-install": "^1.0.12",
-    "react-router": "^5.2.0",
-    "react-router-dom": "5.0.0",
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0",
     "react-spring": "^9.0.0",
     "storage-factory": "^0.2.0",
     "styled-components": "^5.2.1",
@@ -75,8 +75,8 @@
   "peerDependencies": {
     "react-dom": ">= 17.0.1 < 2",
     "react": ">= 17.0.1 < 2",
-    "react-router": "^5.2.0",
-    "react-router-dom": "5.0.0"
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0"
   },
   "devDependencies": {
     "tslib": "^2.1.0",
