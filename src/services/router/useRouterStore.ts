@@ -74,6 +74,9 @@ const useConnectRouterStore = ():void => {
 };
 
 export {
+  Location,
+  History,
+  Match,
   fetchStore as fetchRouterStore,
   MatchType,
   State as TstateRouterStore,
