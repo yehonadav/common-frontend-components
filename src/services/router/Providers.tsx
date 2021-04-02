@@ -3,7 +3,7 @@ import { history } from '../../utils';
 import { Router } from "react-router-dom";
 import { History } from 'history';
 
-export * from "react-router-dom";
+// export * from "react-router-dom";
 
 export interface IBrowserRouterProvider {
   history?: History;
