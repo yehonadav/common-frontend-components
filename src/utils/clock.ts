@@ -110,3 +110,12 @@ export function getDateFromHoursAndMinutesFormat(hoursAndMinutesFormat: string|D
   date.setMinutes(minutes);
   return date;
 }
+
+export const datetimePretty = (value:Date|string|null|undefined|false) => {
+  if (!value)
+    return "--";
+
+  const date = new Date(value);
+
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+}
