@@ -111,7 +111,7 @@ export function getDateFromHoursAndMinutesFormat(hoursAndMinutesFormat: string|D
   return date;
 }
 
-export const datetimePretty = (value:Date|string|null|undefined|false) => {
+export function datetimePretty (value:Date|string|null|undefined|false):string {
   if (!value)
     return "--";
 
