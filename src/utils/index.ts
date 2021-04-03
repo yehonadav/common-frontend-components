@@ -15,3 +15,4 @@ export * from "./storage";
 export * from "./storeFetchFunctions";
 export * from "./setAppConfig";
 export * from "./uuid";
+export * from "./tryOrNull";

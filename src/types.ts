@@ -4,6 +4,7 @@ import { DateTimePickerProps } from '@material-ui/pickers/DateTimePicker/DateTim
 import { TimePickerProps } from '@material-ui/pickers/TimePicker/TimePicker'
 
 export type BaseFunctionType = () => void;
+export type ReturnAnyFunction = () => any;
 export type Function = (...args: Array<any>) => any;
 export type FunctionEvent = (event: ChangeEvent<HTMLInputElement>) => any;
 export type AsyncArglessFunction = () => Promise<any>;
