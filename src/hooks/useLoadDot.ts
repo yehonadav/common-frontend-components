@@ -1,5 +1,5 @@
-import {useState} from "react";
-import useInterval from "./useInterval";
+import { useState } from "react";
+import { useInterval } from "./useInterval";
 
 export const useLoadDot = (loading:boolean|null|undefined) => {
   const [load_msg, set_load_msg] = useState('    ');
