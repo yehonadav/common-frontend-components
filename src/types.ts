@@ -48,6 +48,7 @@ export type NullableString = null | string;
 export type NullableDate = null | Date;
 export type OptionalBoolean = undefined | boolean;
 export type OptionalString = undefined | string;
+export type Dateable = Date | string | null | undefined | false;
 
 export type setValueType = (name: string, value: any, config?: any) => void;
 

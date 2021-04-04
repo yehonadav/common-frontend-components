@@ -1,4 +1,5 @@
 import { hour } from '../variables'
+import { Dateable, Function } from '../types'
 
 export const date = new Date();
 
@@ -111,11 +112,24 @@ export function getDateFromHoursAndMinutesFormat(hoursAndMinutesFormat: string|D
   return date;
 }
 
-export function datetimePretty (value:Date|string|null|undefined|false):string {
-  if (!value)
-    return "--";
+export type DatePrettyWrappedFunction = (value:Dateable) => string;
+export type DatePrettyFunction = (value:Date) => string;
 
-  const date = new Date(value);
+export const datePrettyWrapper = (call:DatePrettyFunction):DatePrettyWrappedFunction => {
+  return (value:Dateable):string => {
+    if (!value)
+      return "--";
 
-  return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    const date = new Date(value);
+
+    return call(date);
+  }
 }
+
+export const datetimePretty:DatePrettyWrappedFunction = datePrettyWrapper((date:Date):string => {
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+});
+
+export const datePretty:DatePrettyWrappedFunction = datePrettyWrapper((date:Date):string => {
+  return date.toLocaleDateString();
+});
