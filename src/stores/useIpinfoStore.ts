@@ -2,10 +2,10 @@ import {CreateFetcher} from '../utils'
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
 import {useEffect} from "react";
-import {request} from "../api/request";
+import {request} from '../api';
 import {appConfig} from '../variables';
 import {getStorageCall} from '../utils';
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from '../services';
 
 // improve performance by fetching state
 // from dynamically created functions
