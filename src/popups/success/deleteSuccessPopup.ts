@@ -1,5 +1,5 @@
 import Swal, {SweetAlertResult} from "sweetalert2";
-import {IdeletePopup} from "../warnings/deleteWarningPopup";
+import {IdeletePopup} from '../warnings';
 
 export const deleteSuccessPopup = ({name, value, ...options}:IdeletePopup): Promise<SweetAlertResult> => {
   return (
