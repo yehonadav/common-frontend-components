@@ -19,6 +19,7 @@ export type TappConfig = {
   app_description?: string;
   terms_last_update?: string;
   logo?: string;
+  defaultAvatar?: string;
 
   // global app variables
   desktopMinWidth?: number;
