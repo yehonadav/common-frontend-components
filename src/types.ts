@@ -43,32 +43,6 @@ export type ID = string;
 
 export type Error = any;
 
-// @ts-ignore
-export interface InputPropsType extends StandardTextFieldProps {
-  error?: Error,
-  icon?: ReactNode,
-  endIcon?: ReactNode,
-  variant?: "standard" | "filled" | "outlined" | undefined,
-}
-
-export type onDateChangeType = (date:Date|undefined|null) => Date|undefined|null;
-
-export type TimeInputType = TimePickerProps & {
-  InputProps?: InputPropsType;
-  onChange?: any;
-  value?: any;
-  initialvalue?: Date|string;
-  onDateChange?: onDateChangeType;
-};
-
-export type DateTimeInputType = DateTimePickerProps & {
-  InputProps?: InputPropsType;
-  onChange?: any;
-  value?: any;
-  initialvalue?: Date;
-  onDateChange?: onDateChangeType;
-};
-
 export type NullableBoolean = null | boolean;
 export type NullableString = null | string;
 export type NullableDate = null | Date;
@@ -91,3 +65,29 @@ export type ItiContainerType = {iti?:any};
 
 export type DivType = FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>;
 export declare type Size = { width: number, height: number };
+
+// @ts-ignore
+export interface InputPropsType extends StandardTextFieldProps {
+  error?: Error,
+  icon?: ReactNode,
+  endIcon?: ReactNode,
+  variant?: "standard" | "filled" | "outlined" | undefined,
+}
+
+export type onDateChangeType = (date:NullableDate) => NullableDate;
+
+export type TimeInputType = TimePickerProps & {
+  InputProps?: InputPropsType;
+  onChange?: any;
+  value?: any;
+  initialvalue?: Date|string;
+  onDateChange?: onDateChangeType;
+};
+
+export type DateTimeInputType = DateTimePickerProps & {
+  InputProps?: InputPropsType;
+  onChange?: any;
+  value?: any;
+  initialvalue?: Date;
+  onDateChange?: onDateChangeType;
+};

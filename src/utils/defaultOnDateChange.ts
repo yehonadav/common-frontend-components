@@ -1,3 +1,3 @@
-import { NullableDate } from '../types'
+import { onDateChangeType } from '../types'
 
-export const defaultOnDateChange = (date:NullableDate):NullableDate => date;
+export const defaultOnDateChange:onDateChangeType = (date) => date;
