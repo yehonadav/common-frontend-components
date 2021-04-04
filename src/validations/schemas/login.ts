@@ -1,10 +1,10 @@
 import { object } from "yup";
-import { email } from "../email";
+import { emailValidation } from "../email";
 import { passwordValidation } from '../password'
 import { recaptchaValidation } from '../recaptcha'
 
 export const loginValidationSchemaFields = {
-  email,
+  email: emailValidation,
   password: passwordValidation,
   recaptcha: recaptchaValidation,
 };

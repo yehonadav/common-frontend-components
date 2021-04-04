@@ -1,5 +1,6 @@
 import {string} from "yup";
 
+// deprecated
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const optionalDate = () => string().nullable().test('optional date', "invalid date", function(value) {
   const { path, createError } = this;
@@ -14,3 +15,5 @@ export const optionalDate = () => string().nullable().test('optional date', "inv
     return createError({path, message: `invalid date ${e}`})
   }
 });
+
+export const optionalDateValidation = optionalDate;

@@ -4,6 +4,7 @@ import {ItiContainerType} from "../types";
 // export const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 export const phoneRegExp = /^\+[1-9]\d{10,14}$/;
 
+// deprecated
 export const phone = (container: ItiContainerType, message='Valid phone number required') => string().test('phone', message, function(_value) {
   const { path, createError } = this;
   // [value] - value of the property being tested
@@ -13,6 +14,7 @@ export const phone = (container: ItiContainerType, message='Valid phone number r
   return (iti && iti.getNumber && iti.isValidNumber()) || createError({path, message});
 });
 
+// deprecated
 export const phoneOptional = (container: ItiContainerType, message='Valid phone number required') => string().test('phone', message, function(_value) {
   const { path, createError } = this;
   // [value] - value of the property being tested
@@ -26,6 +28,10 @@ export const phoneOptional = (container: ItiContainerType, message='Valid phone 
   }
   return createError({path, message});
 });
+
+export const phoneValidation = phone;
+
+export const phoneOptionalValidation = phoneOptional;
 
 export const getNumber = (container: { iti?: any; }, value: any) => {
   const {iti} = container;

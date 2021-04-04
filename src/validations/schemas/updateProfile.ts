@@ -1,8 +1,8 @@
 import {object} from "yup";
-import {phone} from "../phone";
+import {phoneValidation} from "../phone";
 import { firstNameValidation } from '../firstName'
 import { lastNameValidation } from '../lastName'
-import { email } from '../email'
+import { emailValidation } from '../email'
 import { newsletterValidation } from '../newsletter'
 import { confirmPasswordValidation, passwordValidation } from '../password'
 import { ItiContainerType } from '../../types'
@@ -10,8 +10,8 @@ import { ItiContainerType } from '../../types'
 const createUpdateProfileValidationSchema = (phone_container:ItiContainerType) => object().shape({
   firstName: firstNameValidation,
   lastName: lastNameValidation,
-  email,
-  phone: phone(phone_container),
+  email: emailValidation,
+  phone: phoneValidation(phone_container),
   newsletter: newsletterValidation,
 });
 
