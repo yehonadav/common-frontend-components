@@ -3,7 +3,7 @@ import createStore from 'zustand'
 import {CreateFetcher} from '../utils';
 import {persist} from 'zustand/middleware'
 import {getStorageCall} from '../utils'
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from '../services';
 
 // improve performance by fetching state
 // from dynamically created functions

@@ -3,7 +3,7 @@ import {persist} from 'zustand/middleware'
 import {CreateFetcher} from '../utils';
 import React, {FC} from "react";
 import {getStorageCall} from '../utils'
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from '../services';
 
 type TtestAppsStoreOption = {
   label: string;
@@ -17,13 +17,8 @@ type State = {
   selectedApp: string,
 };
 
-const createTestAppsStore = (name:string, apps:Record<string, TtestAppsStoreOption>) => {
+const createTestAppsStore = (name:string, apps:Record<string, TtestAppsStoreOption>, initialState:State) => {
   const appsOptions = Object.values(apps)
-
-  // state initial values
-  const state: State = {
-    selectedApp: apps.DevApp.label,
-  };
 
   // improve performance by fetching state
   // from dynamically created functions
@@ -33,7 +28,7 @@ const createTestAppsStore = (name:string, apps:Record<string, TtestAppsStoreOpti
   };
 
   // create state and update fetch function
-  const stateCreator = ():State => CreateFetcher(fetchApp, state);
+  const stateCreator = ():State => CreateFetcher(fetchApp, initialState);
 
   // persist options
   const persistOptions = {
@@ -73,7 +68,6 @@ const createTestAppsStore = (name:string, apps:Record<string, TtestAppsStoreOpti
 
   return {
     appsOptions,
-    state,
     fetchApp,
     stateCreator,
     persistOptions,
