@@ -10,7 +10,7 @@ type TtestAppsStoreOption = {
   Component: FC
 }
 
-type TtestApps = Record<string, TtestAppsStoreOption>;
+type TtestAppsStoreOptions = Record<string, TtestAppsStoreOption>;
 
 const NoAppTestAppsStoreOption:TtestAppsStoreOption = {label: "NoApp", Component: ():null => null};
 
@@ -19,7 +19,7 @@ type State = {
   selectedApp: string,
 };
 
-const createTestAppsStore = (name:string, apps:TtestApps, initialState:State) => {
+const createTestAppsStore = (name:string, apps:TtestAppsStoreOptions, initialState:State) => {
   const appsOptions = Object.values(apps)
 
   // improve performance by fetching state
@@ -83,6 +83,7 @@ const createTestAppsStore = (name:string, apps:TtestApps, initialState:State) =>
 
 export {
   TtestAppsStoreOption,
+  TtestAppsStoreOptions,
   NoAppTestAppsStoreOption,
   State as TstateTestAppsStore,
   createTestAppsStore,
