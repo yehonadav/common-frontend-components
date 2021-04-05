@@ -12,7 +12,9 @@ export const getExcludedLocalStorageItems = ():ExcludedItemsType => {
   const items:ExcludedItemsType = {};
   excludedLocalStorageItemKeys.forEach(key => {
     try {
-      items[key] = local.getItem(key);
+      const item = local.getItem(key);
+      if (typeof item === "string")
+        items[key] = item;
     }
     catch (e) {
       console.error(`getExcludeLocalStorageItems failed to get ${key}`, e)
@@ -23,7 +25,7 @@ export const getExcludedLocalStorageItems = ():ExcludedItemsType => {
 
 export const setExcludedLocalStorageItemsAfterClear = (items:ExcludedItemsType):void => {
   Object.keys(items).forEach(key => {
-    items[key] = local.setItem(key, items[key]);
+    local.setItem(key, items[key]);
   });
 };
 

@@ -1,11 +1,11 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { appConfig } from '../../variables';
-import {uuid_generator} from "common-frontend-components";
 import {useAvatarStyles} from '../../assets/jss/avatarStyles'
 import Button, {ButtonProps} from "@material-ui/core/Button";
 
 import { WithUser } from '../wrappers/WithUser'
 import { User } from '../../services'
+import { uuid_generator } from '../../utils'
 
 const uuid = (new uuid_generator()).create;
 

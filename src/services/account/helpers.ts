@@ -3,7 +3,7 @@ import {refreshToken} from './actions'
 import * as api from './api'
 import { alertService } from "../alert/service"
 import {clearCachedData} from "../ClearData";
-import {IAlertOptionals} from "../alert/actions";
+import {IAlertOptionals} from '../alert';
 import {User} from "./types";
 
 // function holder
@@ -50,11 +50,11 @@ export const _logout:T_logout = async (msg, options) => {
   // alert user
   alertService.signOutAlert(msg, options);
 
-  // clear data
-  clearCachedData();
-
   // revoke token
-  api.call_revoke_token();
+  api.call_revoke_token().finally(()=>{
+    // clear data
+    clearCachedData();
+  });
 
   // stop refresh timer
   stopRefreshTokenTimer();
