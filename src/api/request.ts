@@ -1,5 +1,5 @@
 import {appConfig} from '../variables';
-import {getUser} from '../services/account/useStore';
+import {getUser} from '../services';
 import req, {AxiosResponse as Response, AxiosError as ErrorResponse} from 'axios'
 import {accountService} from "../services/account/service";
 

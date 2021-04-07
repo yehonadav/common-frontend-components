@@ -5,6 +5,7 @@ import { alertService } from "../alert/service"
 import {clearCachedData} from "../ClearData";
 import {IAlertOptionals} from '../alert';
 import {User} from "./types";
+import { setBackdrop } from '../backdrop'
 
 // function holder
 let refreshTokenTimeout: NodeJS.Timeout;
@@ -39,19 +40,24 @@ export const handleLogin = (user: User):User => {
 export type T_logout = (msg?:string, options?:IAlertOptionals) => Promise<void>;
 
 export const _logout:T_logout = async (msg, options) => {
-  // publish null user to user subscribers
-  setUserStore({
-    user: null,
-    isLogged: false,
-    didLogin: true,
-    loggedOut: true,
-  });
-
-  // alert user
-  alertService.signOutAlert(msg, options);
+  setBackdrop(true);
 
   // revoke token
-  api.call_revoke_token().finally(()=>{
+  api.call_revoke_token().finally(() => {
+    setBackdrop(false);
+
+    // DON'T LOGOUT BEFORE REVOKE (NEED TOKEN)
+    // publish null user to user subscribers
+    setUserStore({
+      user: null,
+      isLogged: false,
+      didLogin: true,
+      loggedOut: true,
+    });
+
+    // alert user
+    alertService.signOutAlert(msg, options);
+
     // clear data
     clearCachedData();
   });
