@@ -41,7 +41,7 @@ function put_file(url: string, key: string, file: any):Promise<any> {
 
 // helper functions
 
-function authHeader(url: string) {
+export function authHeader(url: string):Record<string, string> {
   // return auth header with jwt if user is logged in and request is to the api url
   const user = getUser();
   const isApiUrl = url.startsWith(appConfig.apiUrl||"");

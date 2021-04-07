@@ -6,6 +6,8 @@ import {clearCachedData} from "../ClearData";
 import {IAlertOptionals} from '../alert';
 import {User} from "./types";
 import { setBackdrop } from '../backdrop'
+import { authHeader } from '../../api'
+import { appConfig } from '../../variables'
 
 // function holder
 let refreshTokenTimeout: NodeJS.Timeout;
@@ -43,24 +45,28 @@ export const _logout:T_logout = async (msg, options) => {
   setBackdrop(true);
 
   // revoke token
-  api.call_revoke_token().finally(() => {
-    setBackdrop(false);
+  api.call_revoke_token(authHeader(appConfig.apiUrl||""))
 
-    // DON'T LOGOUT BEFORE REVOKE (NEED TOKEN)
-    // publish null user to user subscribers
-    setUserStore({
-      user: null,
-      isLogged: false,
-      didLogin: true,
-      loggedOut: true,
-    });
+    .catch(e => {alertService.error(e)})
 
-    // alert user
-    alertService.signOutAlert(msg, options);
-
-    // clear data
-    clearCachedData();
+    .finally(() => {
+      // clear data
+      clearCachedData()
+        .finally(() => {
+          setBackdrop(false);
+        });
   });
+
+  // publish null user to user subscribers
+  setUserStore({
+    user: null,
+    isLogged: false,
+    didLogin: true,
+    loggedOut: true,
+  });
+
+  // alert user
+  alertService.signOutAlert(msg, options);
 
   // stop refresh timer
   stopRefreshTokenTimer();

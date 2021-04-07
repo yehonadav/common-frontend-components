@@ -1,5 +1,6 @@
-import {request} from '../../api';
+import { handleError, handleSuccess, request } from '../../api'
 import {appConfig} from '../../variables';
+import req from 'axios'
 
 export const call_register = (params: Record<string, unknown>) =>
   request.post(`${appConfig.accountUrl}/register`, params);
@@ -28,8 +29,13 @@ export const call_resetPassword = ({token, password, confirmPassword}:{token: st
 export const call_getById = (id: string) =>
   request.get(`${appConfig.accountUrl}/${id}`);
 
-export const call_revoke_token = () =>
-  request.post(`${appConfig.accountUrl}/revoke-token`, {});
+export const call_revoke_token = (authHeaders:Record<string, string>) => {
+  const url = `${appConfig.accountUrl}/revoke-token`;
+  return req.post(url, {}, {
+    headers: { 'Content-Type': 'application/json', ...authHeaders },
+    withCredentials: true,
+  }).then(handleSuccess).catch(handleError);
+}
 
 export const call_update = (id: string, params: Record<string, unknown>) =>
   request.put(`${appConfig.accountUrl}/${id}`, params);
