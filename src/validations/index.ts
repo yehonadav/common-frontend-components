@@ -7,3 +7,4 @@ export * from "./optionalDate";
 export * from "./password";
 export * from "./phone";
 export * from "./recaptcha";
+export * from "./newsletter";
