@@ -4,10 +4,10 @@ import {useMemo} from "react";
 export const useContainer = ():Record<string, any> => useMemo(()=>({}), []);
 
 // container with initial props
-export const useWrap = (props={}):Record<string, any> => useMemo(()=>({...props}), []);
+export const useCustomContainer = <T>(props:T):T => useMemo(()=>props, []);
 
 // container update on each render
-export const useWrapper = (props:Record<string, any>):Record<string, any> => {
+export const useOverrideContainer = (props:Record<string, any>):Record<string, any> => {
   const container: Record<string, unknown> = useContainer();
   Object.assign(container, props);
   return container;

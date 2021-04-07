@@ -1,8 +1,8 @@
 import {useCallback} from "react";
-import {useWrap} from './useWrap'
+import {useCustomContainer} from './useCustomContainer'
 
 export const useFocus = () => {
-  const container = useWrap({focused:false});
+  const container = useCustomContainer({focused:false});
 
   return useCallback(ref => {
     if (!container.focused && ref) {
