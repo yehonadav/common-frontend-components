@@ -1,5 +1,5 @@
 import {User, NullableUser} from "./types";
-import { fetchUserStore, useUserStore, setIdle, getUserLoading } from './useStore'
+import { fetchUserStore, useUserStore, setIdle, getUserLoading, setUserStore } from './useStore'
 import {idle} from '../../utils';
 import {useOnLoad} from '../../hooks';
 import {_logout} from "./helpers";
@@ -39,7 +39,9 @@ const useAttemptSilentRefresh = ():void => {
   // attempt silent token refresh before startup
   useEffect(()=>{
     if (isLogged===null && !getUserLoading())
-      accountService.refreshToken();
+      accountService.refreshToken()
+        .then(()=>setUserStore({isLogged : true}))
+        .catch(()=>setUserStore({isLogged : false}));
   }, [isLogged]);
 };
 
