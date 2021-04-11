@@ -2,6 +2,7 @@ import { requestAuth, request } from '../../api'
 import {appConfig} from '../../variables';
 import req from 'axios'
 import { handleApiError, handleApiSuccess } from '../../api/helpers'
+import { headersJson } from '../../api/headers'
 
 export const call_register = (params: Record<string, unknown>) =>
   request.post(`${appConfig.accountUrl}/register`, params);
@@ -33,7 +34,7 @@ export const call_getById = (id: string) =>
 export const call_revoke_token = (authHeaders:Record<string, string>) => {
   const url = `${appConfig.accountUrl}/revoke-token`;
   return req.post(url, {}, {
-    headers: { 'Content-Type': 'application/json', ...authHeaders },
+    headers: { ...headersJson, ...authHeaders },
     withCredentials: true,
   }).then(handleApiSuccess).catch(handleApiError);
 }
