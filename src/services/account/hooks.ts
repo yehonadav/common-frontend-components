@@ -1,7 +1,7 @@
 import {User, NullableUser} from "./types";
 import { fetchUserStore, useUserStore, setIdle, setUserStore } from './useStore'
 import {idle} from '../../utils';
-import {useOnLoad} from '../../hooks';
+import { useCustomContainer, useOnLoad } from '../../hooks'
 import {_logout} from "./helpers";
 import {useEffect} from "react";
 import {accountService} from "./service";
@@ -36,13 +36,17 @@ const useLogoutIdle = (timeout:number):void => {
 const useAttemptSilentRefresh = ():void => {
   const isLogged = useIsLogged();
   const loading = useUserLoading();
+  const container = useCustomContainer({silentlyRunning: false});
 
   // attempt silent token refresh before startup
   useEffect(()=>{
-    if (isLogged===null && !loading)
+    if (isLogged === null && !loading && !container.silentlyRunning) {
+      container.silentlyRunning = true;
       accountService.refreshToken()
         .then(()=>setUserStore({isLogged : true}))
-        .catch(()=>setUserStore({isLogged : false}));
+        .catch(()=>setUserStore({isLogged : false}))
+        .finally(()=>{container.silentlyRunning = false});
+    }
   }, [isLogged, loading]);
 };
 
