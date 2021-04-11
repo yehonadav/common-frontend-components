@@ -1,5 +1,5 @@
-import {User} from "./types";
-import {now} from '../../variables'
+import { User } from './types'
+import { now } from '../../variables'
 
 export const defaultUserDetails:User = {
   id: "",
@@ -31,3 +31,5 @@ export const TokenStatus = {
   Invalid: 'Invalid',
   Missing: 'Missing',
 };
+
+export const silentRefreshShield = { silentlyRunning: false }
