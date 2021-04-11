@@ -1,31 +1,31 @@
-import { requestAuth } from '../../api'
+import { requestAuth, request } from '../../api'
 import {appConfig} from '../../variables';
 import req from 'axios'
 import { handleApiError, handleApiSuccess } from '../../api/helpers'
 
 export const call_register = (params: Record<string, unknown>) =>
-  requestAuth.post(`${appConfig.accountUrl}/register`, params);
+  request.post(`${appConfig.accountUrl}/register`, params);
 
 export const call_login = ({email, password, recaptcha}:{email:string, password:string, recaptcha:string}) =>
-  requestAuth.post(`${appConfig.accountUrl}/authenticate`, {email, password, recaptcha});
+  request.post(`${appConfig.accountUrl}/authenticate`, {email, password, recaptcha});
 
 export const call_login_google = ({ token }:{token: string}) =>
-  requestAuth.post(`${appConfig.accountUrl}/authenticate/google`, {token});
+  request.post(`${appConfig.accountUrl}/authenticate/google`, {token});
 
 export const call_refresh = () =>
-  requestAuth.post(`${appConfig.accountUrl}/refresh-token`, {});
+  request.post(`${appConfig.accountUrl}/refresh-token`, {});
 
 export const call_verifyEmail = (token: string) =>
-  requestAuth.post(`${appConfig.accountUrl}/verify-email`, {token});
+  request.post(`${appConfig.accountUrl}/verify-email`, {token});
 
 export const call_forgotPassword = (email: string) =>
-  requestAuth.post(`${appConfig.accountUrl}/forgot-password`, {email});
+  request.post(`${appConfig.accountUrl}/forgot-password`, {email});
 
 export const call_validateResetToken = (token: string) =>
-  requestAuth.post(`${appConfig.accountUrl}/validate-reset-token`, {token});
+  request.post(`${appConfig.accountUrl}/validate-reset-token`, {token});
 
 export const call_resetPassword = ({token, password, confirmPassword}:{token: string, password: string, confirmPassword: string}) =>
-  requestAuth.post(`${appConfig.accountUrl}/reset-password`, {token, password, confirmPassword});
+  request.post(`${appConfig.accountUrl}/reset-password`, {token, password, confirmPassword});
 
 export const call_getById = (id: string) =>
   requestAuth.get(`${appConfig.accountUrl}/${id}`);
