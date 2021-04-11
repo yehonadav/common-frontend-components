@@ -25,19 +25,8 @@ export const login_with_google = (token: string) => {
 };
 
 export const refreshToken = async () => {
-  // TODO: on failure: session_timed_out
   setUserStore({loading: true});
-  try {
-    const user = await api.call_refresh();
-    handleLogin(user);
-  }
-  catch (e) {
-    setUserStore({isLogged: false});
-    throw e
-  }
-  finally {
-    setUserStore({loading: false});
-  }
+  return api.call_refresh().then(handleLogin).finally(()=>{setUserStore({loading: false})});
 };
 
 export const logout_if_logged = ():void => {

@@ -13,7 +13,7 @@ export const authCall = (call:ApiCallType):ApiCallType => async (...args) => {
   catch (e)
   {
     // if token is invalid
-    if (e.response.status === 401) {
+    if (e.response?.status === 401) {
 
       // try to refresh
       try {
