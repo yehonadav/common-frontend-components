@@ -4,24 +4,20 @@ import {getUser, setUserStore, setSignin, setUser} from './useStore'
 import * as api from './api'
 import {User} from "./types";
 
-export const signInOpen = () =>
-  setSignin(true);
+export const signInOpen = () => setSignin(true);
 
-export const signInClose = () =>
-  setSignin(false);
+export const signInClose = () => setSignin(false);
 
 export const login = (email: string, password: string, recaptcha: string) => {
   setUserStore({loading: true});
   return api.call_login({email, password, recaptcha})
-    .then((user: any) => handleLogin(user))
-    .finally(() => setUserStore({loading: false}));
+    .then(handleLogin).finally(() => setUserStore({loading: false}));
 };
 
 export const login_with_google = (token: string) => {
   setUserStore({loading: true});
   return api.call_login_google({token})
-    .then((user: any) => handleLogin(user))
-    .finally(() => setUserStore({loading: false}));
+    .then(handleLogin).finally(() => setUserStore({loading: false}));
 };
 
 export const refreshToken = async () => {

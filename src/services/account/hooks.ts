@@ -1,5 +1,5 @@
 import {User, NullableUser} from "./types";
-import { fetchUserStore, useUserStore, setIdle, getUserLoading, setUserStore } from './useStore'
+import { fetchUserStore, useUserStore, setIdle, setUserStore } from './useStore'
 import {idle} from '../../utils';
 import {useOnLoad} from '../../hooks';
 import {_logout} from "./helpers";
@@ -19,7 +19,7 @@ const useUserDetails = ():User => {return useUser() || defaultUserDetails}
 
 // global hook
 const useLogoutIdle = (timeout:number):void => {
-  useOnLoad(()=>{
+  useOnLoad(() => {
     setIdle(false);
     idle({
       onIdle: () => {
@@ -35,14 +35,15 @@ const useLogoutIdle = (timeout:number):void => {
 // global hook
 const useAttemptSilentRefresh = ():void => {
   const isLogged = useIsLogged();
+  const loading = useUserLoading();
 
   // attempt silent token refresh before startup
   useEffect(()=>{
-    if (isLogged===null && !getUserLoading())
+    if (isLogged===null && !loading)
       accountService.refreshToken()
         .then(()=>setUserStore({isLogged : true}))
         .catch(()=>setUserStore({isLogged : false}));
-  }, [isLogged]);
+  }, [isLogged, loading]);
 };
 
 export {
