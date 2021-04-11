@@ -6,8 +6,8 @@ import {clearCachedData} from "../ClearData";
 import {IAlertOptionals} from '../alert';
 import {User} from "./types";
 import { setBackdrop } from '../backdrop'
-import { authHeader } from '../../api'
 import { appConfig } from '../../variables'
+import { authHeader } from '../../api/headers'
 
 // function holder
 let refreshTokenTimeout: NodeJS.Timeout;
