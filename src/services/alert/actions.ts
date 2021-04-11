@@ -1,6 +1,7 @@
 import {alertTypes} from "./variables";
 import Swal, {SweetAlertOptions, SweetAlertPosition} from "sweetalert2";
 import { getMobile } from '../../stores';
+import { safeStringify } from '../../utils/safeStringify'
 
 export interface IAlertOptionals {
   timeout?: number;
@@ -37,7 +38,7 @@ const createAlert = (props:IAlert) => {
     timerProgressBar,
     type,
     icon: type,
-    title: typeof title === "string" ? title : JSON.stringify(title),
+    title: typeof title === "string" ? title : safeStringify(title),
     ...fireProps
   });
 };

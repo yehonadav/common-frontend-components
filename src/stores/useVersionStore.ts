@@ -1,12 +1,11 @@
 import createStore from 'zustand'
-import {CreateFetcher} from '../utils';
+import { CreateFetcher, links } from '../utils'
 import {persist} from 'zustand/middleware'
 import {getStorageCall} from '../utils'
 import {useOnLoad} from '../hooks';
 import {request} from '../api';
 import {appConfig} from '../variables';
-import {accountService} from "../services/account/service";
-import {clearDataService} from '../services';
+import { alertService, clearCachedData, clearDataService, setBackdrop } from '../services'
 import { NullableString } from '../types'
 
 // improve performance by fetching state
@@ -84,12 +83,15 @@ const useUpdateVersion = () => {
           setVersion(responseDate.version);
 
         else if (currentVersion < latestVersion) {
-          accountService.logout();
-          setVersion(responseDate.version);
-          // logout will probably delete
-          // latestVersion from storage
-          // but null case will be handled
-          // in the next onLoad
+          alertService.info("loading a new version", {timeout: 6000})
+          setBackdrop(true);
+          clearCachedData()
+            .then(() => {
+              setVersion(responseDate.version);
+              links.refresh();
+            })
+            .catch((e) => alertService.error({'failed to load new version': e}))
+            .finally(() => {setBackdrop(false)});
         }
       })
   });

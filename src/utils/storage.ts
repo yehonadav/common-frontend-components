@@ -1,4 +1,5 @@
 import { storageFactory } from "storage-factory";
+import { safeStringify } from './safeStringify'
 
 export const local = storageFactory(() => localStorage);
 export const session = storageFactory(() => sessionStorage);
@@ -15,7 +16,7 @@ export const getStorage = (storage:Storage):Record<string, any> => {
   return result
 }
 
-export const setStorageItem = <T=any>(storage:Storage, uuid: string, data: T):void => {storage.setItem(uuid, JSON.stringify({data}))};
+export const setStorageItem = <T=any>(storage:Storage, uuid: string, data: T):void => {storage.setItem(uuid, safeStringify({data}))};
 
 export const getStorageItem = <T=any>(storage:Storage, uuid: string):T => {
   const value = storage.getItem(uuid);

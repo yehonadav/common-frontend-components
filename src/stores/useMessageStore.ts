@@ -2,6 +2,7 @@ import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
 import {getStorageCall} from '../utils'
 import {CreateFetcher} from '../utils'
+import { safeStringify } from '../utils/safeStringify'
 
 // improve performance by fetching state
 // from dynamically created functions
@@ -47,7 +48,7 @@ const getMsg = ():string => get().msg;
 
 // setters
 const set = useStore.setState;
-const setMsg = (...args: any[]):void => set(() => ({msg: args.map(i=>(typeof i !== "string" ? JSON.stringify(i) : i)).join(" ")}));
+const setMsg = (...args: any[]):void => set(() => ({msg: args.map(i=>(typeof i !== "string" ? safeStringify(i) : i)).join(" ")}));
 
 // hooks
 const useMsg = ():string => useStore(fetchStore.msg);

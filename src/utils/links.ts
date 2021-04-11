@@ -16,7 +16,7 @@ export const links = {
     history.push(routes.go_back),
 
   refresh: (): void =>
-    history.push(routes.refresh),
+    history.go(0),
 
   go_home: (): void =>
     history.push(routes.home),
