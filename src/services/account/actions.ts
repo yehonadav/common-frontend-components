@@ -22,7 +22,13 @@ export const login_with_google = (token: string) => {
 
 export const refreshToken = async () => {
   setUserStore({loading: true});
-  return api.call_refresh().then(handleLogin).finally(()=>{setUserStore({loading: false})});
+  return api.call_refresh()
+    .then(handleLogin)
+    .catch(e => {
+      console.error("refresh token failed", e);
+      return e
+    })
+    .finally(()=>{setUserStore({loading: false})});
 };
 
 export const logout_if_logged = ():void => {
