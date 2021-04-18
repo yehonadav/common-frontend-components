@@ -3,6 +3,7 @@ import {_logout, handleLogin} from './helpers'
 import {getUser, setUserStore, setSignin, setUser} from './useStore'
 import * as api from './api'
 import {User} from "./types";
+import { refreshShield } from './variables'
 
 export const signInOpen = () => setSignin(true);
 
@@ -20,15 +21,23 @@ export const login_with_google = (token: string) => {
     .then(handleLogin).finally(() => setUserStore({loading: false}));
 };
 
-export const refreshToken = async () => {
-  setUserStore({loading: true});
-  return api.call_refresh()
-    .then(handleLogin)
-    .catch(e => {
-      console.error("refresh token failed", e);
-      return e
-    })
-    .finally(()=>{setUserStore({loading: false})});
+export const refreshToken = () => {
+  if (!refreshShield.request) {
+    setUserStore({loading: true});
+
+    refreshShield.request = api.call_refresh()
+      .then(handleLogin)
+      .catch(e => {
+        console.error("refresh token failed", e);
+        return e
+      })
+      .finally(() => {
+        refreshShield.request = undefined;
+        setUserStore({loading: false});
+      });
+  }
+
+  return refreshShield.request;
 };
 
 export const logout_if_logged = ():void => {

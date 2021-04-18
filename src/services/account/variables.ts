@@ -32,4 +32,6 @@ export const TokenStatus = {
   Missing: 'Missing',
 };
 
-export const silentRefreshShield = { silentlyRunning: false }
+export const silentRefreshShield = { silentlyRunning: false };
+
+export const refreshShield: { request?: Promise<any> } = { request: undefined }
