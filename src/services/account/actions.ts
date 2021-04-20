@@ -4,6 +4,7 @@ import {getUser, setUserStore, setSignin, setUser} from './useStore'
 import * as api from './api'
 import {User} from "./types";
 import { refreshShield } from './variables'
+import { safeStringify } from '../../utils/safeStringify'
 
 export const signInOpen = () => setSignin(true);
 
@@ -28,7 +29,7 @@ export const refreshToken = () => {
     refreshShield.request = api.call_refresh()
       .then(handleLogin)
       .catch(e => {
-        console.error("refresh token failed", e);
+        console.error("refresh token failed", safeStringify(e));
         return e
       })
       .finally(() => {
