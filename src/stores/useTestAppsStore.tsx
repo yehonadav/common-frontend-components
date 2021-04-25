@@ -3,7 +3,7 @@ import {persist} from 'zustand/middleware'
 import {CreateFetcher} from '../utils';
 import React, {FC} from "react";
 import {getStorageCall} from '../utils'
-import {clearDataService} from '../services';
+import {clearDataService} from "@yehonadav/safestorage";
 
 type TtestAppsStoreOption = {
   label: string;

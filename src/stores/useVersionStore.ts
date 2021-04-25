@@ -5,7 +5,8 @@ import {getStorageCall} from '../utils'
 import {useOnLoad} from '../hooks';
 import {request} from '../api';
 import {appConfig} from '../variables';
-import { alertService, clearCachedData, clearDataService, setBackdrop } from '../services'
+import {clearDataService, clearCachedData} from "@yehonadav/safestorage";
+import { alertService, setBackdrop } from '../services'
 import { NullableString } from '../types'
 
 // improve performance by fetching state

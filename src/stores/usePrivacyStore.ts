@@ -4,7 +4,7 @@ import {CreateFetcher} from '../utils';
 import {useEffect} from "react";
 import {getStorageCall} from '../utils'
 import {isLocalStorageAvailable} from '../utils';
-import {clearDataService} from '../services';
+import {clearDataService} from "@yehonadav/safestorage";
 
 // state type
 type State = {

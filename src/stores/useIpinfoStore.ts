@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {request} from '../api';
 import {appConfig} from '../variables';
 import {getStorageCall} from '../utils';
-import {clearDataService} from '../services';
+import {clearDataService} from "@yehonadav/safestorage";
 
 // improve performance by fetching state
 // from dynamically created functions
