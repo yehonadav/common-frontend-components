@@ -4,7 +4,7 @@ import {getUser, setUserStore, setSignin, setUser} from './useStore'
 import * as api from './api'
 import {User} from "./types";
 import { refreshShield } from './variables'
-import { safeStringify } from '../../utils/safeStringify'
+import { safeStringify } from '@yehonadav/safestringify'
 
 export const signInOpen = () => setSignin(true);
 

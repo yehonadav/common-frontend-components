@@ -1,7 +1,7 @@
 import {alertTypes} from "./variables";
 import Swal, {SweetAlertOptions, SweetAlertPosition} from "sweetalert2";
 import { getMobile } from '../../stores';
-import { safeStringify } from '../../utils/safeStringify'
+import { safeStringify } from '@yehonadav/safestringify'
 
 export interface IAlertOptionals {
   timeout?: number;

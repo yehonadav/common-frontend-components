@@ -1,5 +1,5 @@
 import { storageFactory } from "storage-factory";
-import { safeStringify } from './safeStringify'
+import { safeStringify } from '@yehonadav/safestringify'
 
 export const local = storageFactory(() => localStorage);
 export const session = storageFactory(() => sessionStorage);
