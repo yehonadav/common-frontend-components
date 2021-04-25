@@ -2,7 +2,7 @@ import {getUser, setUserStore} from './useStore'
 import {refreshToken} from './actions'
 import * as api from './api'
 import { alertService } from "../alert/service"
-import {clearCachedData} from "../ClearData";
+import {clearCachedData} from "@yehonadav/safestorage";
 import {IAlertOptionals} from '../alert';
 import {User} from "./types";
 import { setBackdrop } from '../backdrop'

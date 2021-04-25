@@ -5,7 +5,7 @@ import {getStorageCall} from '../utils'
 import {useEffect} from "react";
 import { getSM } from './usePageStore'
 import {useCollapseWidth} from '../hooks';
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from "@yehonadav/safestorage";
 import { NullableBoolean } from '../types'
 
 // improve performance by fetching state

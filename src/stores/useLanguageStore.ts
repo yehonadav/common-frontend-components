@@ -1,7 +1,7 @@
 import {CreateFetcher} from '../utils';
 import createStore from "zustand";
 import {getStorageCall} from '../utils';
-import {clearDataService} from "../services/ClearData";
+import {clearDataService} from "@yehonadav/safestorage";
 import {persist} from "zustand/middleware";
 
 // improve performance by fetching state
