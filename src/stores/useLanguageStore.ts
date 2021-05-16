@@ -29,17 +29,6 @@ const languages: LanguageType[] = [
   },
 ]
 
-const languageMap = languages.reduce((map:{[x:string]:LanguageType}, language) => {
-  map[language.value] = language;
-  return map;
-}, {});
-
-const state:State = {
-  language: languageMap["eng"],
-};
-
-const stateCreator = ():State => CreateFetcher(fetchStore, state);
-
 // persist options
 const persistOptions = {
   name: "useLanguageStore", // set a unique name
@@ -49,22 +38,6 @@ const persistOptions = {
 
 // data will persist even after logout
 clearDataService.excludeLocalStorageItem(persistOptions.name);
-
-// create store
-// @ts-ignore
-const useStore = createStore<State>(persist(stateCreator, persistOptions));
-
-// getters
-const get = useStore.getState;
-const getLanguage = ():LanguageType => get().language;
-
-// setters
-const set = useStore.setState;
-const setLanguage = (language: LanguageType):void => set({language});
-
-// hooks
-const useLanguage = ():LanguageType => useStore(fetchStore.language);
-const useRTL = ():boolean => Boolean(useLanguage().rtl);
 
 const createLanguageStore = (supportedLanguages: LanguageType[]=languages, defaultLanguageValue:string="eng") => {
   const languageMap = supportedLanguages.reduce((map:{[x:string]:LanguageType}, language) => {
@@ -78,40 +51,37 @@ const createLanguageStore = (supportedLanguages: LanguageType[]=languages, defau
 
   const stateCreator = ():State => CreateFetcher(fetchStore, state);
 
+  // create store
+  // @ts-ignore
+  const useStore = createStore<State>(persist(stateCreator, persistOptions));
+
+  // getters
+  const get = useStore.getState;
+  const getLanguage = ():LanguageType => get().language;
+
+  // setters
+  const set = useStore.setState;
+  const setLanguage = (language: LanguageType):void => set({language});
+
+  // hooks
+  const useLanguage = ():LanguageType => useStore(fetchStore.language);
+  const useRTL = ():boolean => Boolean(useLanguage().rtl);
+
   return {
-    // create store
-    // @ts-ignore
-    useStore: createStore<State>(persist(stateCreator, persistOptions));
-
-    // getters
-    get: useStore.getState;
-    getLanguage: ():LanguageType => get().language;
-
-    // setters
-    set: useStore.setState;
-    setLanguage: (language: LanguageType):void => set({language});
-
-    // hooks
-    useLanguage: ():LanguageType => useStore(fetchStore.language);
-    useRTL: ():boolean => Boolean(useLanguage().rtl);
+    useStore,
+    get,
+    getLanguage,
+    set,
+    setLanguage,
+    useLanguage,
+    useRTL,
   }
 }
 
 export {
   fetchStore as fetchLanguageStore,
   LanguageType,
-  languageMap,
   State as TlanguageStoreState,
-  state as languageStoreState,
-  stateCreator as LanguageStoreStateCreator,
   persistOptions as LanguageStorePersistOptions,
-  useStore as useLanguageStore,
-  get as getLanguageStore,
-  set as setLanguageStore,
-
-  getLanguage,
-  setLanguage,
-
-  useLanguage,
-  useRTL,
+  createLanguageStore,
 }
