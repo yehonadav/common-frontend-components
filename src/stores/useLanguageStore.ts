@@ -66,6 +66,37 @@ const setLanguage = (language: LanguageType):void => set({language});
 const useLanguage = ():LanguageType => useStore(fetchStore.language);
 const useRTL = ():boolean => Boolean(useLanguage().rtl);
 
+const createLanguageStore = (supportedLanguages: LanguageType[]=languages, defaultLanguageValue:string="eng") => {
+  const languageMap = supportedLanguages.reduce((map:{[x:string]:LanguageType}, language) => {
+    map[language.value] = language;
+    return map;
+  }, {});
+
+  const state:State = {
+    language: languageMap[defaultLanguageValue],
+  };
+
+  const stateCreator = ():State => CreateFetcher(fetchStore, state);
+
+  return {
+    // create store
+    // @ts-ignore
+    useStore: createStore<State>(persist(stateCreator, persistOptions));
+
+    // getters
+    get: useStore.getState;
+    getLanguage: ():LanguageType => get().language;
+
+    // setters
+    set: useStore.setState;
+    setLanguage: (language: LanguageType):void => set({language});
+
+    // hooks
+    useLanguage: ():LanguageType => useStore(fetchStore.language);
+    useRTL: ():boolean => Boolean(useLanguage().rtl);
+  }
+}
+
 export {
   fetchStore as fetchLanguageStore,
   LanguageType,
