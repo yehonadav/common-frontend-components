@@ -27,6 +27,11 @@ const languages: LanguageType[] = [
     label: "English",
     rtl: false,
   },
+  {
+    value: "heb",
+    label: "עברית",
+    rtl: true,
+  },
 ]
 
 // persist options
@@ -75,10 +80,12 @@ const createLanguageStore = (supportedLanguages: LanguageType[]=languages, defau
     setLanguage,
     useLanguage,
     useRTL,
+    languageMap
   }
 }
 
 export {
+  languages,
   fetchStore as fetchLanguageStore,
   LanguageType,
   State as TlanguageStoreState,
