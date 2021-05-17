@@ -11,4 +11,9 @@ export const languages: LanguageType[] = [
     label: "עברית",
     rtl: true,
   },
-]
+];
+
+export const languageMap = languages.reduce((map:{[x:string]:LanguageType}, language) => {
+  map[language.value] = language;
+  return map;
+}, {});
