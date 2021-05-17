@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
@@ -7,7 +7,7 @@ import { useRTL } from '../store'
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
-export const RTL = ({ children }:{children:ReactNode}) => {
+export const RTL:FC<{children:ReactNode}> = ({ children }) => {
   const isRtl = useRTL();
 
   useEffect(() => {
@@ -15,7 +15,11 @@ export const RTL = ({ children }:{children:ReactNode}) => {
   }, [isRtl]);
 
   if (!isRtl)
-    return children;
+    return (
+      <>
+        {children}
+      </>
+    );
 
   return (
     <StylesProvider jss={jss}>
