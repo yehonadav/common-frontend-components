@@ -3,7 +3,7 @@ import createStore from 'zustand'
 import { clearDataService } from '@yehonadav/safestorage'
 import { persist } from 'zustand/middleware'
 import { LanguageType } from './types'
-import { languageMap } from './variables'
+import { languageMap, languages } from './variables'
 
 // improve performance by fetching state
 // from dynamically created functions
@@ -14,12 +14,14 @@ const fetchStore: any = {
 
 type State = {
   language: LanguageType;
+  selected: boolean;
+  supportedLanguages: LanguageType[];
 }
 
 // persist options
 const persistOptions = {
   name: "useLanguageStore", // set a unique name
-  whitelist: ["language"],
+  whitelist: ["language", "selected"],
   getStorage: getStorageCall,
 };
 
@@ -28,6 +30,8 @@ clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 const state:State = {
   language: languageMap["eng"],
+  selected: false,
+  supportedLanguages: languages,
 };
 
 const stateCreator = ():State => CreateFetcher(fetchStore, state);
@@ -39,14 +43,29 @@ const useStore = createStore<State>(persist(stateCreator, persistOptions));
 // getters
 const get = useStore.getState;
 const getLanguage = ():LanguageType => get().language;
+const getIsLanguageSelected = ():boolean => get().selected;
+const getSupportedLanguages = ():LanguageType[] => get().supportedLanguages;
 
 // setters
 const set = useStore.setState;
 const setLanguage = (language: LanguageType):void => set({language});
+const setSupportedLanguages = (supportedLanguages:LanguageType[]):void => set({supportedLanguages});
+
+const setDefaultLanguage = (language: LanguageType):void => {
+  const isSelected = getIsLanguageSelected();
+
+  if (!isSelected)
+    set({
+      language,
+      selected: true,
+    });
+};
 
 // hooks
 const useLanguage = ():LanguageType => useStore(fetchStore.language);
 const useRTL = ():boolean => Boolean(useLanguage().rtl);
+const useIsLanguageSelected = ():boolean => useStore(fetchStore.selected);
+const useSupportedLanguages = ():LanguageType[] => useStore(fetchStore.supportedLanguages);
 
 export {
   fetchStore as fetchLanguageStore,
@@ -60,8 +79,14 @@ export {
   set as setLanguageStore,
 
   getLanguage,
+  getSupportedLanguages,
+
   setLanguage,
+  setDefaultLanguage,
+  setSupportedLanguages,
 
   useLanguage,
   useRTL,
+  useIsLanguageSelected,
+  useSupportedLanguages,
 }
