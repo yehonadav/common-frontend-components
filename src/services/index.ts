@@ -5,3 +5,4 @@ export * from "./install";
 export * from "./www";
 export * from "./router";
 export * from "./language";
+export * from "./theme";
