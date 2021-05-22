@@ -8,10 +8,10 @@ export const call_register = (params: Record<string, unknown>) =>
   request.post(`${appConfig.accountUrl}/register`, params);
 
 export const call_login = ({email, password, recaptcha}:{email:string, password:string, recaptcha:string}) =>
-  request.post(`${appConfig.accountUrl}/authenticate`, {email, password, recaptcha});
+  request.post(`${appConfig.accountUrl}/auth/email/recaptcha`, {email, password, recaptcha});
 
 export const call_login_google = ({ token }:{token: string}) =>
-  request.post(`${appConfig.accountUrl}/authenticate/google`, {token});
+  request.post(`${appConfig.accountUrl}/auth/google`, {token});
 
 export const call_refresh = () =>
   request.post(`${appConfig.accountUrl}/refresh-token`, {});
