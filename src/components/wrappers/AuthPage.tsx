@@ -3,11 +3,7 @@ import { getLocation, useIsLogged } from '../../services'
 import { Redirect } from 'react-router-dom'
 import { routes } from '../../variables'
 
-export interface IAuthPage<Props> {
-  component: FC<Props>;
-}
-
-export function AuthPage<Props=any>({ component: Component }:IAuthPage<Props>):FC<Props> {
+export function AuthPage<Props=any>(Component: FC<Props>):typeof Component {
   return (props) => {
     const isLogged = useIsLogged();
 
