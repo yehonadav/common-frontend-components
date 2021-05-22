@@ -17,9 +17,11 @@ export const AccountRoutes:FC = () => {
 
         useEffect(() => {
           if (isLogged !== null) {
-            const redirectHome = { from: { pathname: routes.home } };
             // @ts-ignore
-            const { from } = isLogged ? (getLocation().state || redirectHome) : redirectHome;
+            const { from } = isLogged
+              ? (getLocation().state || { from: { pathname: routes.home } })
+              : { from: { pathname: routes.signup } };
+
             history.push(from);
           }
         }, [isLogged])
