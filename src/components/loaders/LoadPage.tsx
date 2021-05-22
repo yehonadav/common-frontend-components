@@ -1,14 +1,14 @@
 import React, {FC, ReactElement, ReactNode} from "react";
 import CircularProgress, {CircularProgressProps} from "@material-ui/core/CircularProgress/CircularProgress";
 import {LoadDots} from "./LoadDots";
-import { colors } from '../../services'
+import { baseColors } from '../../services'
 
 export const PageLoaderMsg:FC = ({...props}) => {
   if (!props.children)
     return null;
 
   return (
-    <p style={{color: colors.btn.secondaryDark}} {...props}/>
+    <p style={{color: baseColors.btn.secondaryDark}} {...props}/>
   )
 }
 

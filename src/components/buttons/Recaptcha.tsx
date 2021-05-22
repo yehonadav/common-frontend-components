@@ -1,7 +1,7 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import React from "react";
 import { appConfig } from '../../variables'
-import { alertService, colors } from '../../services'
+import { alertService, baseColors } from '../../services'
 
 export interface IRecaptcha {
   setValue: (...args: any) => void;
@@ -28,7 +28,7 @@ export const Recaptcha = ({setValue, error=null, recaptchaRef}:IRecaptcha) => {
           setValue("recaptcha", response)
         }}
       />
-      <p style={{textAlign: "left", marginTop: 8, color: colors.red, display:'block'}}>
+      <p style={{textAlign: "left", marginTop: 8, color: baseColors.red, display:'block'}}>
         {error}
       </p>
     </>

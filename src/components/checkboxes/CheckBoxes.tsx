@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CustomCheckbox, {CheckboxProps} from '@material-ui/core/Checkbox';
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { colors } from '../../services'
+import { baseColors } from '../../services'
 
 export interface CheckboxLabelPrimaryProps extends CheckboxProps {
   checked?: boolean;
@@ -14,10 +14,10 @@ export interface CheckboxLabelPrimaryProps extends CheckboxProps {
 export const CheckboxPrimary = withStyles({
   root: {
     '& .MuiCheckbox-root': {
-      color: colors.grey1,
+      color: baseColors.grey1,
     },
     '&$checked': {
-      color: colors.btn.primary,
+      color: baseColors.btn.primary,
     },
   },
   checked: {},
@@ -38,7 +38,7 @@ export const CheckboxLabelPrimary:FC<CheckboxLabelPrimaryProps> = (
         control={<CheckboxPrimary {...props} />}
         label={label}
       />
-      {error ? <FormHelperText style={{color: colors.red}}>{error}</FormHelperText> : null}
+      {error ? <FormHelperText style={{color: baseColors.red}}>{error}</FormHelperText> : null}
     </>
   );
 }

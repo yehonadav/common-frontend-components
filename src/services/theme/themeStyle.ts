@@ -1,4 +1,4 @@
-import {colors} from './colors'
+import {baseColors} from './baseColors'
 import {fontFamilies} from './fontFamilies'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 
@@ -54,7 +54,7 @@ export const GlobalStyle = {
     width: "100%", // so that pages layout can take all the page
     // minWidth: '100vw', // don't do this
     minHeight: '100vh',
-    backgroundColor: colors.background,
+    backgroundColor: baseColors.background,
     // display: 'flex', // calc footer height, flex puts a small gap at the bottom
     // flexDirection: 'column',
   },
@@ -105,38 +105,38 @@ export const themeStyle:ThemeOptions = {
     type: 'light',
 
     primary: {
-      main: colors.primary,
-      contrastText: colors.contrastText,
+      main: baseColors.primary,
+      contrastText: baseColors.contrastText,
     },
 
     secondary: {
-      main: colors.secondary,
-      contrastText: colors.contrastText,
+      main: baseColors.secondary,
+      contrastText: baseColors.contrastText,
     },
 
     error: {
-      main: colors.error,
-      contrastText: colors.contrastText,
+      main: baseColors.error,
+      contrastText: baseColors.contrastText,
     },
 
     warning: {
-      main: colors.warning,
-      contrastText: colors.contrastText,
+      main: baseColors.warning,
+      contrastText: baseColors.contrastText,
     },
 
     info: {
-      main: colors.info,
-      contrastText: colors.contrastText,
+      main: baseColors.info,
+      contrastText: baseColors.contrastText,
     },
 
     success: {
-      main: colors.success,
-      contrastText: colors.contrastText,
+      main: baseColors.success,
+      contrastText: baseColors.contrastText,
     },
 
     neutral: {
-      main: colors.neutral,
-      contrastText: colors.contrastText,
+      main: baseColors.neutral,
+      contrastText: baseColors.contrastText,
     },
   },
 

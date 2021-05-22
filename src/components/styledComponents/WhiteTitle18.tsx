@@ -1,13 +1,13 @@
 import {FC} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import React from "react";
-import { colors } from '../../services'
+import { baseColors } from '../../services'
 
 export const useWhiteTitle18Styles = makeStyles({
   WhiteTitle18: {
     fontSize: 18,
     fontFamily: "Segoe UI",
-    color: colors.text.title,
+    color: baseColors.text.title,
     fontWeight: 600,
   },
 });

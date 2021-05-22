@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha } from '../../../components'
 import { CheckboxLabelPrimary } from '../../../components'
 import { routes } from '../../../variables'
-import { colors } from '../../theme'
+import { baseColors } from '../../theme'
 import {Link} from "react-router-dom";
 
 export const ownerDefaultValues = {
@@ -95,7 +95,7 @@ const RegisterPage:FC = () => {
           <CheckboxLabelPrimary
             error={errors.acceptTerms?.message}
             inputRef={register}
-            label={<>I accept <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>Terms & Conditions</Link></>}
+            label={<>I accept <Link to={routes.terms} style={{color: baseColors.primary, padding: '0 6px 3px', border: 'none'}}>Terms & Conditions</Link></>}
             name="acceptTerms"
           />
         </Grid>
