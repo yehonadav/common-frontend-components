@@ -1,5 +1,5 @@
-import { hour } from '../variables'
 import { Dateable } from '../types'
+import { hour } from '@yehonadav/timeunit'
 
 export const date = new Date();
 
