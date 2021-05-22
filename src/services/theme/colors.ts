@@ -2,7 +2,7 @@ export const primary = '#5e9fff';
 export const secondaryLight = '#ff369a';
 export const secondary = '#DF197C';
 
-export const baseColors = {
+export const colors = {
   contrastText: '#ffffff',
   primary,
   secondary,

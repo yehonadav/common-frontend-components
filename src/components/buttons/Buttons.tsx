@@ -1,12 +1,12 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { baseColors } from '../../services/theme/baseColors';
+import { colors } from '../../services/theme/colors';
 import { boxShadows } from '../../services/theme/boxShadows';
 
 export const BigRoundSecondaryButton = withStyles({
   root: {
-    background: `transparent linear-gradient(326deg, ${baseColors.btn.secondary} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
+    background: `transparent linear-gradient(326deg, ${colors.btn.secondary} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -29,7 +29,7 @@ export const BigRoundSecondaryButton = withStyles({
 
 export const BigRoundPrimaryButton = withStyles({
   root: {
-    backgroundColor: baseColors.primary,
+    backgroundColor: colors.primary,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -43,7 +43,7 @@ export const BigRoundPrimaryButton = withStyles({
 
     // boxShadow: `0 2px 2px 0 ${style_vars.colors.blue}20, 0 3px 1px -2px ${style_vars.colors.blue}32, 0 1px 5px 0 ${style_vars.colors.blue}19`,
     '&:hover, &:active, &:focus': {
-      backgroundColor: baseColors.btn.primary_focused,
+      backgroundColor: colors.btn.primary_focused,
 
       boxShadow: boxShadows.boxShadowPrimaryBtnFocus,
     },
@@ -52,7 +52,7 @@ export const BigRoundPrimaryButton = withStyles({
 
 export const RoundPrimaryButton = withStyles({
   root: {
-    backgroundColor: baseColors.primary,
+    backgroundColor: colors.primary,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -65,7 +65,7 @@ export const RoundPrimaryButton = withStyles({
     padding: "18px 28px",
 
     '&:hover, &:active, &:focus': {
-      backgroundColor: baseColors.btn.primary_focused,
+      backgroundColor: colors.btn.primary_focused,
       boxShadow: boxShadows.boxShadowPrimaryBtnFocus,
     },
   },
@@ -73,7 +73,7 @@ export const RoundPrimaryButton = withStyles({
 
 export const RoundSecondaryButton = withStyles({
   root: {
-    background: `transparent linear-gradient(326deg, ${baseColors.btn.secondary} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
+    background: `transparent linear-gradient(326deg, ${colors.btn.secondary} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -102,23 +102,23 @@ export const HotelAppbarProfileButton = withStyles({
     fontWeight: 400,
     fontFamily: "Segoe UI",
     letterSpacing: 0,
-    color: baseColors.btn.secondary,
+    color: colors.btn.secondary,
 
     textTransform: 'none',
 
     padding: "12px 20px",
 
     '&:hover, &:active, &:focus': {
-      backgroundColor: `${baseColors.secondary}15`,
+      backgroundColor: `${colors.secondary}15`,
     },
   },
 })(Button);
 
 export const RoundGradientPrimaryButton = withStyles({
   root: {
-    background: `transparent linear-gradient(326deg, ${baseColors.primary} 0%, #8F2A5D 120%) 0% 0% no-repeat padding-box`,
+    background: `transparent linear-gradient(326deg, ${colors.primary} 0%, #8F2A5D 120%) 0% 0% no-repeat padding-box`,
 
-    backgroundColor: baseColors.primary,
+    backgroundColor: colors.primary,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -131,8 +131,8 @@ export const RoundGradientPrimaryButton = withStyles({
     padding: "18px 28px",
 
     '&:hover, &:active, &:focus': {
-      backgroundColor: baseColors.btn.primary_focused,
-      background: `transparent linear-gradient(326deg, ${baseColors.primary} 0%, #b13473 120%) 0% 0% no-repeat padding-box`,
+      backgroundColor: colors.btn.primary_focused,
+      background: `transparent linear-gradient(326deg, ${colors.primary} 0%, #b13473 120%) 0% 0% no-repeat padding-box`,
 
       boxShadow: boxShadows.boxShadowPrimaryBtnFocus,
     },
@@ -147,12 +147,12 @@ export const OutlinedPrimaryButton = withStyles({
     fontWeight: 400,
     fontFamily: "Segoe UI",
     letterSpacing: 0,
-    color: baseColors.primary,
+    color: colors.primary,
     paddingLeft: 25,
     paddingRight: 30,
     textTransform: 'none',
     borderWidth: "medium",
-    borderColor: baseColors.primary,
+    borderColor: colors.primary,
 
     // boxShadow: `0 2px 2px 0 ${style_vars.colors.blue}20, 0 3px 1px -2px ${style_vars.colors.blue}32, 0 1px 5px 0 ${style_vars.colors.blue}19`,
     '&:hover, &:active, &:focus': {
@@ -171,7 +171,7 @@ export const OutlinedPrimaryButton = withStyles({
 
 export const RoundWarningButton = withStyles({
   root: {
-    background: `transparent linear-gradient(326deg, ${baseColors.warning} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
+    background: `transparent linear-gradient(326deg, ${colors.warning} 0%, #8F2A5D 100%) 0% 0% no-repeat padding-box`,
     boxShadow: boxShadows.boxShadowBtn,
     borderRadius: 34,
 
@@ -184,7 +184,7 @@ export const RoundWarningButton = withStyles({
     padding: "18px 28px",
 
     '&:hover, &:active, &:focus': {
-      background: `transparent linear-gradient(326deg, ${baseColors.warning} 0%, #b13473 100%) 0% 0% no-repeat padding-box`,
+      background: `transparent linear-gradient(326deg, ${colors.warning} 0%, #b13473 100%) 0% 0% no-repeat padding-box`,
       boxShadow: boxShadows.boxShadowWarningBtnFocus,
     },
   },

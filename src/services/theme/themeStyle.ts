@@ -1,4 +1,4 @@
-import {baseColors} from './baseColors'
+import {colors} from './colors'
 import {fontFamilies} from './fontFamilies'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 
@@ -15,7 +15,7 @@ export const ScrollbarStyle = {
   // https://css-tricks.com/the-current-state-of-styling-scrollbars/
   // https://stackoverflow.com/questions/53772429/material-ui-how-can-i-style-the-scrollbar-with-css-in-js
   '*::-webkit-scrollbar': {
-    width: '14px',
+    width: '12px',
     // backgroundColor: "#7CC7DF",
   },
   '*::-webkit-scrollbar-track': {
@@ -23,7 +23,7 @@ export const ScrollbarStyle = {
     // '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
   },
   '*::-webkit-scrollbar-thumb': {
-    backgroundColor: "#7CC7DF",
+    backgroundColor: `${colors.primary}aa`,
     // outline: '1px solid slategrey'
   },
 };
@@ -54,7 +54,7 @@ export const GlobalStyle = {
     width: "100%", // so that pages layout can take all the page
     // minWidth: '100vw', // don't do this
     minHeight: '100vh',
-    backgroundColor: baseColors.background,
+    backgroundColor: colors.background,
     // display: 'flex', // calc footer height, flex puts a small gap at the bottom
     // flexDirection: 'column',
   },
@@ -105,38 +105,38 @@ export const themeStyle:ThemeOptions = {
     type: 'light',
 
     primary: {
-      main: baseColors.primary,
-      contrastText: baseColors.contrastText,
+      main: colors.primary,
+      contrastText: colors.contrastText,
     },
 
     secondary: {
-      main: baseColors.secondary,
-      contrastText: baseColors.contrastText,
+      main: colors.secondary,
+      contrastText: colors.contrastText,
     },
 
     error: {
-      main: baseColors.error,
-      contrastText: baseColors.contrastText,
+      main: colors.error,
+      contrastText: colors.contrastText,
     },
 
     warning: {
-      main: baseColors.warning,
-      contrastText: baseColors.contrastText,
+      main: colors.warning,
+      contrastText: colors.contrastText,
     },
 
     info: {
-      main: baseColors.info,
-      contrastText: baseColors.contrastText,
+      main: colors.info,
+      contrastText: colors.contrastText,
     },
 
     success: {
-      main: baseColors.success,
-      contrastText: baseColors.contrastText,
+      main: colors.success,
+      contrastText: colors.contrastText,
     },
 
     neutral: {
-      main: baseColors.neutral,
-      contrastText: baseColors.contrastText,
+      main: colors.neutral,
+      contrastText: colors.contrastText,
     },
   },
 
