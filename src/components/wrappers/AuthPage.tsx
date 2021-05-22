@@ -7,7 +7,7 @@ export interface IAuthPage<Props> {
   component: FC<Props>;
 }
 
-export function AuthPage<Props={}>({ component: Component }:IAuthPage<Props>):FC<Props> {
+export function AuthPage<Props=any>({ component: Component }:IAuthPage<Props>):FC<Props> {
   return (props) => {
     const isLogged = useIsLogged();
 
