@@ -1,4 +1,4 @@
 export * from "./TrackRouteWithGA";
 export * from "./TrackRouteWithPixel";
 export * from "./WithUser";
-export * from "./WithUserOrLoginRedirect";
+export * from "./AuthPage";

@@ -11,6 +11,8 @@ export const routes = {
   redirect_oauth: '/auth/redirect/login/',
 
   account: "/account",
+  invalid_role: "/account/invalid_role",
+  silent_signin: "/account/silent",
   signin: "/account/login",
   new_hotel_owner: "/account/hotel/new",
   signup: "/account/register",

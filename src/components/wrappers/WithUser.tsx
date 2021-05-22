@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { useUser, } from '../../services'
+import { User, useUser } from '../../services'
 
-export function WithUser<Props>(Component:FC<Props>) {
-  return (props:Props) => {
+export function WithUser<Props={}>(Component:FC<Props & {user:User}>):FC<Props> {
+  return (props) => {
     const user = useUser();
 
     if (!user)
