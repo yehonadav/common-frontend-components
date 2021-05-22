@@ -30,7 +30,7 @@ export const refreshToken = () => {
       .then(handleLogin)
       .catch(e => {
         console.error("refresh token failed", safeStringify(e));
-        return e
+        throw e
       })
       .finally(() => {
         refreshShield.request = undefined;
