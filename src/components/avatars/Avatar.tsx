@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { appConfig } from '../../variables';
 import {useAvatarStyles} from '../../assets/jss/avatarStyles'
 import Button, {ButtonProps} from "@material-ui/core/Button";
-
-import { WithUser } from '../wrappers/WithUser'
+import { WithUser } from '../wrappers'
 import { User } from '../../services'
 import { uuid_generator } from '../../utils'
 
