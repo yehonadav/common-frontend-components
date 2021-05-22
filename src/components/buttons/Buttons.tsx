@@ -1,7 +1,8 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { boxShadows, baseColors } from '../../services'
+import { baseColors } from '../../services/theme/baseColors';
+import { boxShadows } from '../../services/theme/boxShadows';
 
 export const BigRoundSecondaryButton = withStyles({
   root: {
