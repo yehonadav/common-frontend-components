@@ -1,5 +1,5 @@
-import makeStyles from '@material-ui/core/styles/makeStyles'
-import { boxShadows } from '../../services'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { boxShadows } from '../../services/theme/boxShadows';
 
 export const useAvatarStyles = makeStyles({
   avatar: {
