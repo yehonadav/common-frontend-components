@@ -7,3 +7,4 @@ export * from "./loaders";
 export * from "./providers";
 export * from "./videos";
 export * from "./wrappers";
+export * from "./styledComponents";
