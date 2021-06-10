@@ -4,6 +4,7 @@ import intlTelInput from 'intl-tel-input';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { setIpinfoCountry, useIpinfoCountry, useIpinfoLoading } from '../../../stores'
 import { ItiContainerType } from '../../../types'
+import './overide.css'
 
 export const phoneErrorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
 export const phoneUtilsScript = 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.min.js';
