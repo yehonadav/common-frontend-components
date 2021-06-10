@@ -75,6 +75,11 @@ export const GlobalStyle = {
     // width: '100%', // comment this so iti plays well with material ui text field
   },
 
+  '.iti__arrow': {
+    marginInlineStart: 6,
+    marginLeft: '0!important',
+  },
+
   '.my-swal': {
     zIndex: 9000,
   },
