@@ -30,7 +30,7 @@
     "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",
     "@types/uuid": "^8.3.0",
-    "@yehonadav/safestorage": "^1.0.9",
+    "@yehonadav/safestorage": "^1.0.10",
     "@yehonadav/safestringify": "^1.0.3",
     "@yehonadav/timeunit": "^1.0.4",
     "autosuggest-highlight": "^3.1.1",
