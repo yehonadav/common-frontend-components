@@ -18,23 +18,26 @@ const persistOptions = {
   getStorage: getStorageCall,
 };
 
-const getInitialState = ():State => {
-  const { value } = persistLocal.tryToGetItem<State>(persistOptions.name)
+const getInitialPrivacyPolicyAccepted = ():boolean => {
+  const { value, error } = persistLocal.tryToGetItem(persistOptions.name)
 
-  if (!value)
-    return {
-      // persistent
-      privacyPolicyAccepted: false,
+  if (!value) {
+    console.error({getInitialPrivacyPolicyAcceptedError: error})
+    return false;
+  }
 
-      // none persistent
-      cookiesEnabled: null,
-    };
-
-  return value;
+  console.info({getInitialPrivacyPolicyAccepted: value.state.privacyPolicyAccepted})
+  return value.state.privacyPolicyAccepted;
 }
 
 // state initial values
-const state: State = getInitialState();
+const state: State = {
+  // persistent
+  privacyPolicyAccepted: getInitialPrivacyPolicyAccepted(),
+
+  // none persistent
+  cookiesEnabled: null,
+};
 
 // improve performance by fetching state
 // from dynamically created functions
