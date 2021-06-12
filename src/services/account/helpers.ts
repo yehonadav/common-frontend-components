@@ -46,9 +46,7 @@ export const _logout:T_logout = async (msg, options) => {
 
   // revoke token
   api.call_revoke_token(authHeader(appConfig.apiUrl||""))
-
-    .catch(e => {alertService.error(e)})
-
+    .catch(alertService.error)
     .finally(() => {
       // clear data
       clearCachedData()

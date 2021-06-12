@@ -1,5 +1,5 @@
 import {useState, useEffect, Dispatch, SetStateAction} from 'react'
-import {setStorageItem, getStorageItem, local} from '../utils/storage'
+import {setStorageItem, getStorageItem, local} from '@yehonadav/safestorage'
 
 
 // uuid is unique, but needs to be consistent with each refresh
