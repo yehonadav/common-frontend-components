@@ -1,4 +1,4 @@
-export type FetchStore<State> = Record<keyof State, (state:State) => any>;
+export type FetchStore<State> = {[K in keyof State]: (state:State) => State[K]};
 
 // help function for zustand state store
 export function CreateFetcher<State> (fetcher: any, state: State):State {
@@ -6,8 +6,6 @@ export function CreateFetcher<State> (fetcher: any, state: State):State {
   Object.keys(state).forEach(key => {fetcher[key] = (state: { [x: string]: any; }) => state[key]});
   return state
 }
-
-
 
 export function createStoreFetchFunctions<State>(state:State):FetchStore<State> {
   const fetchStore = {};
