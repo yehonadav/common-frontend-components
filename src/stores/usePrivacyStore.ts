@@ -61,8 +61,8 @@ const useCheckAreCookiesEnabled = () => {
   }, []);
 };
 
-const useCookiesEnabled = ():null|boolean => useStore(fetchStore.cookiesEnabled);
-const usePrivacyPolicyAccepted = ():boolean => useStore(fetchStore.privacyPolicyAccepted);
+const useCookiesEnabled = () => useStore(fetchStore.cookiesEnabled);
+const usePrivacyPolicyAccepted = () => useStore(fetchStore.privacyPolicyAccepted);
 
 export {
   State as TstatePrivacyStore,
