@@ -4,7 +4,7 @@ import { safeStringify } from '@yehonadav/safestringify'
 export const local = storageFactory(() => localStorage);
 export const session = storageFactory(() => sessionStorage);
 
-export const getStorage = (storage:Storage):Record<string, any> => {
+export const getStorageItems = (storage:Storage):Record<string, any> => {
   const result:Record<string, any> = {};
 
   for (let i = 0, len = storage.length; i < len; ++i ) {
