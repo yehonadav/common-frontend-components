@@ -1,6 +1,7 @@
 import { createStore } from '../../utils/createStore'
 
 const {
+  fetchStore,
   useStore,
   get,
   set,
@@ -12,6 +13,7 @@ const {
 });
 
 export {
+  fetchStore as fetchInstallStore,
   useStore as useInstallStore,
   get as getInstallStore,
   set as setInstallStore,
