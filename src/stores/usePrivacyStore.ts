@@ -22,7 +22,7 @@ const getInitialPrivacyPolicyAccepted = ():boolean => {
   const { value, error } = persistLocal.tryToGetItem(persistOptions.name)
 
   if (!value) {
-    console.error({getInitialPrivacyPolicyAcceptedError: error})
+    console.error({getInitialPrivacyPolicyAcceptedError: error, value})
     return false;
   }
 
