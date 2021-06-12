@@ -1,11 +1,10 @@
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
 import {CreateFetcher} from '../utils';
-import {getStorageCall} from '../utils'
 import {useEffect} from "react";
 import { getSM } from './usePageStore'
 import {useCollapseWidth} from '../hooks';
-import {clearDataService} from "@yehonadav/safestorage";
+import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
 import { NullableBoolean } from '../types'
 
 // improve performance by fetching state

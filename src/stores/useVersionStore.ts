@@ -1,11 +1,10 @@
 import createStore from 'zustand'
 import { CreateFetcher, links } from '../utils'
 import {persist} from 'zustand/middleware'
-import {getStorageCall} from '../utils'
 import {useOnLoad} from '../hooks';
 import {request} from '../api';
 import {appConfig} from '../variables';
-import {clearDataService, clearCachedData} from "@yehonadav/safestorage";
+import { clearDataService, clearCachedData, getStorageCall } from '@yehonadav/safestorage'
 import { alertService, setBackdrop } from '../services'
 import { NullableString } from '../types'
 

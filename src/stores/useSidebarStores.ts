@@ -2,8 +2,7 @@ import produce from 'immer'
 import createStore from 'zustand'
 import {CreateFetcher} from '../utils';
 import {persist} from 'zustand/middleware'
-import {getStorageCall} from '../utils'
-import {clearDataService} from "@yehonadav/safestorage";
+import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
 
 // improve performance by fetching state
 // from dynamically created functions
