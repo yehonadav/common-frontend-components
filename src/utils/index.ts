@@ -16,3 +16,5 @@ export * from "./setAppConfig";
 export * from "./uuid";
 export * from "./tryOrNull";
 export * from "./defaultOnDateChange";
+export * from "./createStore";
+export * from "./createStorePersist";
