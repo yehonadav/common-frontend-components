@@ -1,8 +1,7 @@
-import createStore from 'zustand'
-import {persist} from 'zustand/middleware'
-import {CreateFetcher} from '../utils';
 import React, {FC} from "react";
-import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
+import { getStorageCall } from '@yehonadav/safestorage'
+import { createStorePersist } from '../utils/createStorePersist'
+import { PersistOptions } from '../types'
 
 type TtestAppsStoreOption = {
   label: string;
@@ -21,35 +20,24 @@ type State = {
 const createTestAppsStore = (name:string, apps:TtestAppsStoreOptions, initialState:State) => {
   const appsOptions = Object.values(apps)
 
-  // improve performance by fetching state
-  // from dynamically created functions
-  // functions are created on store creation time
-  const fetchApp: {[key:string]:(state:State) => any} = {
-    // [state[key]]: state => state[state[key]],
-  };
-
-  // create state and update fetch function
-  const stateCreator = ():State => CreateFetcher(fetchApp, initialState);
-
   // persist options
-  const persistOptions = {
+  const persistOptions:PersistOptions<State> = {
     name,
     whitelist: ["selectedApp"],
     getStorage: getStorageCall,
   };
 
-  // data will persist even after logout
-  clearDataService.excludeLocalStorageItem(persistOptions.name);
+  const {
+    fetchStore,
+    useStore,
+    get,
+    set,
+  } = createStorePersist<State>({
+    persistOptions,
+    getDefaultValues: () => initialState,
+    persistAfterClearingStorage: true,
+  });
 
-  // create store
-  // @ts-ignore
-  const useTestAppsStore = createStore(persist(stateCreator, persistOptions));
-
-  // getters
-  const get = useTestAppsStore.getState;
-
-  // setters
-  const set = useTestAppsStore.setState;
   const setSelectedApp = (selectedApp:string):void => set({selectedApp});
 
   // actions
@@ -59,7 +47,7 @@ const createTestAppsStore = (name:string, apps:TtestAppsStoreOptions, initialSta
 
   // hooks
   const useCurrentlyTestedApp = ():TtestAppsStoreOption => {
-    const selectedApp: string = useTestAppsStore(fetchApp.selectedApp);
+    const selectedApp: string = useStore(fetchStore.selectedApp);
 
     if (!apps[selectedApp])
       return NoAppTestAppsStoreOption;
@@ -69,10 +57,9 @@ const createTestAppsStore = (name:string, apps:TtestAppsStoreOptions, initialSta
 
   return {
     appsOptions,
-    fetchApp,
-    stateCreator,
+    fetchApp: fetchStore,
     persistOptions,
-    useTestAppsStore,
+    useTestAppsStore: useStore,
     get,
     set,
     onSelectApp,
@@ -84,6 +71,6 @@ export {
   TtestAppsStoreOption,
   TtestAppsStoreOptions,
   NoAppTestAppsStoreOption,
-  State as TstateTestAppsStore,
+  State as StateTestAppsStore,
   createTestAppsStore,
 }

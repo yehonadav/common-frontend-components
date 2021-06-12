@@ -1,15 +1,7 @@
 import produce from 'immer'
-import createStore from 'zustand'
-import {CreateFetcher} from '../utils';
-import {persist} from 'zustand/middleware'
-import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
-
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: any = {
-  // [state[key]]: state => state[state[key]],
-};
+import { getStorageCall } from '@yehonadav/safestorage'
+import { createStorePersist } from '../utils/createStorePersist'
+import { PersistOptions } from '../types'
 
 // state type
 type State = {
@@ -42,28 +34,24 @@ const state: State = {
   },
 };
 
-// create state and update fetch function
-const stateCreator = () => CreateFetcher(fetchStore, state);
-
 // persist options
-const persistOptions = {
+const persistOptions: PersistOptions<State> = {
   name: "useSidebarStore",
   whitelist: ["expanded"],
   getStorage: getStorageCall,
 };
 
-// data will persist even after logout
-clearDataService.excludeLocalStorageItem(persistOptions.name);
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStorePersist<State>({
+  persistOptions,
+  getDefaultValues: () => state,
+  persistAfterClearingStorage: true,
+});
 
-// create store
-// @ts-ignore
-const useStore = createStore<State>(persist(stateCreator, persistOptions));
-
-// getters
-const get = useStore.getState;
-
-// setters
-const set = useStore.setState;
 const immer = (fn:(s:State)=>void):void => set(produce(fn));
 
 // actions
@@ -98,9 +86,8 @@ const getRouteStore = (route: string) => {
 
 export {
   fetchStore as fetchSidebarStore,
-  State as TstateSidebarStore,
+  State as StateSidebarStore,
   state as stateSidebarStore,
-  stateCreator as stateCreatorSidebarStore,
   persistOptions as persistOptionsSidebarStore,
   useStore as useSidebarStore,
   get as getSidebarStore,

@@ -1,19 +1,10 @@
-import {CreateFetcher} from '../utils'
-import createStore from 'zustand'
-import {persist} from 'zustand/middleware'
 import {useEffect} from "react";
 import {request} from '../api';
 import {appConfig} from '../variables';
-import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
+import { getStorageCall } from '@yehonadav/safestorage'
+import { createStorePersist } from '../utils/createStorePersist'
+import { PersistOptions } from '../types'
 
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: any = {
-  // [state[key]]: state => state[state[key]],
-};
-
-// state types
 // https://ipinfo.io/developers/responses
 type IpinfoType = undefined | {
   ip: string,
@@ -55,7 +46,6 @@ type State = {
   loading: null | boolean,
 }
 
-// state initial values
 const state: State = {
   // persist state
   ipinfo: undefined,
@@ -65,28 +55,24 @@ const state: State = {
   loading: null,
 };
 
-// create state and update fetch function
-const stateCreator = ():State => CreateFetcher(fetchStore, state);
-
-// persist options
-const persistOptions = {
+const persistOptions: PersistOptions<State> = {
   name: "useIpinfoStore",
   whitelist: ["ipinfo", "country"],
   getStorage: getStorageCall,
 };
 
-// data will persist even after logout
-clearDataService.excludeLocalStorageItem(persistOptions.name);
-
-// create store
-// @ts-ignore
-const useStore = createStore<State>(persist(stateCreator, persistOptions));
-
-// getters
-const get = useStore.getState;
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStorePersist<State>({
+  persistOptions,
+  getDefaultValues: () => state,
+  persistAfterClearingStorage: true,
+});
 
 // setters
-const set = useStore.setState;
 const setIpinfoCountry = (iso2:string):void => set({country:iso2.toLowerCase()});
 
 // hooks
@@ -112,8 +98,7 @@ const useLoadIpinfo = ():void => {
 export {
   IpinfoType,
   fetchStore as fetchIpinfoStore,
-  state as ipinfoStoreState,
-  stateCreator as ipinfoStoreStateCreator,
+  state as IpinfoStoreState,
   persistOptions as ipinfoStorePersistOptions,
   useStore as useIpinfoStore,
   get as getIpinfoStore,

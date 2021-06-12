@@ -1,19 +1,11 @@
-import createStore from 'zustand'
-import {CreateFetcher} from '../utils';
 import produce from 'immer'
 import {useEffect} from "react";
 import {useLoadScript} from "@react-google-maps/api"
 import {appConfig} from '../variables'
 import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url'
+import { createStore } from '../utils/createStore'
 
 const libraries:Libraries = ["places"];
-
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore = {
-  // [state[key]]: state => state[state[key]],
-};
 
 // state type
 type State = {
@@ -27,17 +19,14 @@ const state: State = {
   loadError: undefined,
 };
 
-// create state and update fetch function
-const stateCreator = () => CreateFetcher(fetchStore, state);
-
-// create store
-const useStore = createStore<State>(stateCreator);
-
-// getters
-const get = useStore.getState;
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStore<State>({ getDefaultValues: () => state });
 
 // setters
-const set = useStore.setState;
 const setImmer = (fn: any) => set(produce(fn));
 
 // hooks
@@ -60,7 +49,6 @@ const useLoadGoogleMaps = () => {
 export {
   fetchStore as fetchGoogleMapStore,
   state as GoogleMapStoreState,
-  stateCreator as GoogleMapStoreStateCreator,
   useStore as useGoogleMapStore,
   get as getGoogleMapStore,
   set as setGoogleMapStore,

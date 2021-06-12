@@ -1,10 +1,8 @@
-import createStore from 'zustand'
-import { persist } from 'zustand/middleware'
-import { createStoreFetchFunctions } from '../utils'
 import { useEffect } from "react";
 import { isLocalStorageAvailable } from '../utils';
-import { clearDataService, getStorageCall, persistLocal } from '@yehonadav/safestorage'
+import { getStorageCall } from '@yehonadav/safestorage'
 import { PersistOptions } from '../types'
+import { createStorePersist } from '../utils/createStorePersist'
 
 // state type
 type State = {
@@ -26,33 +24,16 @@ const getDefaultValues = ():State => ({
   cookiesEnabled: null,
 });
 
-const getInitialValues = ():State => {
-  const state = getDefaultValues();
-
-  const {value} = persistLocal.tryToGetItem(persistOptions.name);
-
-  if (value)
-    Object.assign(state, value);
-
-  return state;
-}
-
-// state initial values
-const state: State = getInitialValues();
-
-const fetchStore = createStoreFetchFunctions<State>(state)
-
-// data will persist even after logout
-clearDataService.excludeLocalStorageItem(persistOptions.name);
-
-// create store
-const useStore = createStore(persist(() => state, persistOptions));
-
-// getters
-const get = useStore.getState;
-
-// setters
-const set = useStore.setState;
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStorePersist<State>({
+  persistOptions,
+  getDefaultValues,
+  persistAfterClearingStorage: true,
+});
 
 // actions
 const areCookiesEnabled = () => {
@@ -77,8 +58,7 @@ const useCookiesEnabled = () => useStore(fetchStore.cookiesEnabled);
 const usePrivacyPolicyAccepted = () => useStore(fetchStore.privacyPolicyAccepted);
 
 export {
-  State as TstatePrivacyStore,
-  state as statePrivacyStore,
+  State as StatePrivacyStore,
   fetchStore as fetchPrivacyStore,
   persistOptions as persistOptionsPrivacyStore,
   useStore as usePrivacyStore,

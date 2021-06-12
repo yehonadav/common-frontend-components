@@ -1,15 +1,7 @@
-import createStore from "zustand";
-import {CreateFetcher} from '../../utils';
 import produce from "immer";
 import { NullableUser } from "./types";
 import { NullableBoolean } from '../../types'
-
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: any = {
-  // [state[key]]: state => state[state[key]],
-};
+import { createStore } from '../../utils/createStore'
 
 type State = {
   // persistent
@@ -37,14 +29,14 @@ const state:State = {
   loggedOut: false,
 }
 
-// create initial state and update fetchStore
-const stateCreator = () => CreateFetcher(fetchStore, state);
-
-// create store (we recommend to use a unique const naming)
-const useStore = createStore<State>(stateCreator);
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStore<State>({ getDefaultValues: () => state });
 
 // create getters
-const get = useStore.getState;
 const getSignin = (): boolean => get().signin;
 const getUser = (): NullableUser => get().user;
 const getIdle = (): NullableBoolean => get().idle;
@@ -54,7 +46,6 @@ const getUserLoading = (): NullableBoolean => get().loading;
 const getLoggedOut = (): boolean => get().loggedOut;
 
 // create setters
-const set = useStore.setState;
 const setImmer = (fn: any) => set(produce(fn));
 const setUser  = (user: NullableUser) => set({user});
 const setIdle = (idle: boolean) => set({idle});
@@ -66,9 +57,8 @@ const setLoggedOut = (loggedOut: boolean) => set({loggedOut});
 
 export {
   fetchStore as fetchUserStore,
-  State as TstateUserStore,
+  State as StateUserStore,
   state as stateUserStore,
-  stateCreator as stateCreatorUserStore,
   useStore as useUserStore,
 
   get as getUserStore,

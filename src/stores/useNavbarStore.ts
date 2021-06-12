@@ -1,32 +1,9 @@
-import createStore from 'zustand'
-import {persist} from 'zustand/middleware'
-import {CreateFetcher} from '../utils';
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { getSM } from './usePageStore'
-import {useCollapseWidth} from '../hooks';
-import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
-import { NullableBoolean } from '../types'
-
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: {[key:string]:(state:{[key:string]: any}) => any} = {
-  // [state[key]]: state => state[state[key]],
-};
-
-// persist options
-const persistOptions = {
-  name: "useNavbarStore",
-  whitelist: [
-    'sidebar',
-    'sidebarDesktopClicked',
-    'sidebarMobileClicked',
-  ],
-  getStorage: getStorageCall,
-};
-
-// data will persist even after logout
-clearDataService.excludeLocalStorageItem(persistOptions.name);
+import { useCollapseWidth } from '../hooks';
+import { getStorageCall } from '@yehonadav/safestorage'
+import { NullableBoolean, PersistOptions } from '../types'
+import { createStorePersist } from '../utils/createStorePersist'
 
 type State = {
   // persistent
@@ -55,18 +32,27 @@ const state: State = {
   sidebarAnimaStyle: {from:{}},
 };
 
-// create state and update fetch function
-const stateCreator = ():State => CreateFetcher(fetchStore, state);
+const persistOptions: PersistOptions<State> = {
+  name: "useNavbarStore",
+  whitelist: [
+    'sidebar',
+    'sidebarDesktopClicked',
+    'sidebarMobileClicked',
+  ],
+  getStorage: getStorageCall,
+};
 
-// create store
-// @ts-ignore
-const useStore = createStore<State>(persist(stateCreator, persistOptions));
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStorePersist<State>({
+  persistOptions,
+  getDefaultValues: () => state,
+  persistAfterClearingStorage: true,
+});
 
-// getters
-const get = useStore.getState;
-
-// setters
-const set = useStore.setState;
 const setSidebar = (sidebar:boolean) => set({sidebar});
 
 // actions
@@ -116,9 +102,8 @@ const useSidebarAnimate = () => {
 
 export {
   fetchStore as fetchNavbarStore,
-  State as TnavbarStoreState,
+  State as NavbarStoreState,
   state as navbarStoreState,
-  stateCreator as navbarStoreStateCreator,
   persistOptions as navbarStorePersistOptions,
   useStore as useNavbarStore,
   get as getNavbarStore,

@@ -1,20 +1,12 @@
-import createStore from 'zustand'
 import useMediaQuery from '@material-ui/core/useMediaQuery/useMediaQuery'
 import produce from 'immer'
-import { CreateFetcher } from '../utils'
 import { Function, Size } from '../types'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useTheme } from '@material-ui/core'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { appConfig } from '../variables'
-
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: {[key:string]:(state:{[key:string]: any}) => any} = {
-  // [state[key]]: state => state[state[key]],
-};
+import { createStore } from '../utils/createStore'
 
 type State = {
   // screen sizes
@@ -59,10 +51,14 @@ const state:State = {
   theme: null,
 };
 
-const useStore = createStore<State>(() => CreateFetcher(fetchStore, state));
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStore<State>({ getDefaultValues: () => state });
 
 // getters
-const get = useStore.getState;
 const getWidth = (): number => get().width;
 const getHeight = (): number => get().height;
 const getSize = (): Size => get().size;
@@ -77,7 +73,6 @@ const getMobile = ():boolean => get().isMobile;
 const getPageTheme = (): null | Theme => get().theme;
 
 // setters
-const set = useStore.setState;
 const setImmer = (fn:Function):void => set(produce(fn));
 const setPageLoading = (page_loading:boolean):void => set({page_loading});
 const setEnteredPage = (entered_page:boolean):void => set({entered_page});
@@ -144,8 +139,8 @@ const useSizes = ():void => {
 
 export {
   fetchStore as fetchPageStore,
-  State as TPageStoreState,
-  state as PageStoreState,
+  State as PageStoreState,
+  state as pageStoreState,
   useStore as usePageStore,
   get as getPageStore,
   set as setPageStore,

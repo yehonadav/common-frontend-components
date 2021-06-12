@@ -1,52 +1,32 @@
-import createStore from 'zustand'
-import { CreateFetcher, links } from '../utils'
-import {persist} from 'zustand/middleware'
-import {useOnLoad} from '../hooks';
-import {request} from '../api';
-import {appConfig} from '../variables';
-import { clearDataService, clearCachedData, getStorageCall } from '@yehonadav/safestorage'
+import { links } from '../utils'
+import { useOnLoad } from '../hooks';
+import { request } from '../api';
+import { appConfig } from '../variables';
+import { clearCachedData, getStorageCall } from '@yehonadav/safestorage'
 import { alertService, setBackdrop } from '../services'
-import { NullableString } from '../types'
+import { NullableString, PersistOptions } from '../types'
+import { createStorePersist } from '../utils/createStorePersist'
 
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: any = {
-  // [state[key]]: state => state[state[key]],
-};
-
-// state type
 type State = {
   version: NullableString,
 };
 
-// state initial values
-const state: State = {
-  version: null,
-};
-
-// create state and update fetch function
-const stateCreator = () => CreateFetcher(fetchStore, state);
-
-// persist options
-const persistOptions = {
+const persistOptions: PersistOptions<State> = {
   name: "useVersionStore",
   whitelist: ["version"],
   getStorage: getStorageCall,
 };
 
-// data will persist even after logout
-clearDataService.excludeLocalStorageItem(persistOptions.name);
-
-// create store
-// @ts-ignore
-const useStore = createStore<State>(persist(stateCreator, persistOptions));
-
-// getters
-const get = useStore.getState;
-
-// setters
-const set = useStore.setState;
+const {
+  fetchStore,
+  useStore,
+  get,
+  set,
+} = createStorePersist<State>({
+  persistOptions,
+  getDefaultValues: () => ({version: null}),
+  persistAfterClearingStorage: true
+})
 
 // actions
 const getVersion = () => get().version;
@@ -99,9 +79,7 @@ const useUpdateVersion = () => {
 
 export {
   fetchStore as fetchVersionStore,
-  State as TstateVersionStore,
-  state as stateVersionStore,
-  stateCreator as stateCreatorVersionStore,
+  State as StateVersionStore,
   persistOptions as persistOptionsVersionStore,
   useStore as useVersionStore,
   get as getVersionStore,
