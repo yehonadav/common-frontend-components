@@ -1,8 +1,8 @@
 import createStore from 'zustand'
 import {persist} from 'zustand/middleware'
-import {getStorageCall} from '../utils'
 import {CreateFetcher} from '../utils'
 import { safeStringify } from '@yehonadav/safestringify'
+import { getStorageCall } from '@yehonadav/safestorage'
 
 // improve performance by fetching state
 // from dynamically created functions
