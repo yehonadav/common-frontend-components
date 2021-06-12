@@ -3,7 +3,7 @@ import {persist} from 'zustand/middleware'
 import {CreateFetcher} from '../utils';
 import {useEffect} from "react";
 import {isLocalStorageAvailable} from '../utils';
-import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
+import { clearDataService, getStorageCall, persistLocal } from '@yehonadav/safestorage'
 
 // state type
 type State = {
@@ -11,14 +11,30 @@ type State = {
   cookiesEnabled: null|boolean,
 };
 
-// state initial values
-const state: State = {
-  // persistent
-  privacyPolicyAccepted: false,
-
-  // none persistent
-  cookiesEnabled: null,
+// persist options
+const persistOptions = {
+  name: "usePrivacyStore",
+  whitelist: ["privacyPolicyAccepted"],
+  getStorage: getStorageCall,
 };
+
+const getInitialState = ():State => {
+  const { value } = persistLocal.tryToGetItem<State>(persistOptions.name)
+
+  if (!value)
+    return {
+      // persistent
+      privacyPolicyAccepted: false,
+
+      // none persistent
+      cookiesEnabled: null,
+    };
+
+  return value;
+}
+
+// state initial values
+const state: State = getInitialState();
 
 // improve performance by fetching state
 // from dynamically created functions
@@ -29,13 +45,6 @@ const fetchStore: {[key:string]:(state:{[key:string]: any}) => any} = {
 
 // create state and update fetch function
 const stateCreator = () => CreateFetcher(fetchStore, state);
-
-// persist options
-const persistOptions = {
-  name: "usePrivacyStore",
-  whitelist: ["privacyPolicyAccepted"],
-  getStorage: getStorageCall,
-};
 
 // data will persist even after logout
 clearDataService.excludeLocalStorageItem(persistOptions.name);
