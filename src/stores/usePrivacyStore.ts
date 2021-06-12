@@ -3,7 +3,7 @@ import {persist} from 'zustand/middleware'
 import {CreateFetcher} from '../utils';
 import {useEffect} from "react";
 import {isLocalStorageAvailable} from '../utils';
-import { clearDataService, getStorageCall, persistLocal } from '@yehonadav/safestorage'
+import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
 
 // state type
 type State = {
@@ -18,22 +18,10 @@ const persistOptions = {
   getStorage: getStorageCall,
 };
 
-const getInitialPrivacyPolicyAccepted = ():boolean => {
-  const { value, error } = persistLocal.tryToGetItem(persistOptions.name)
-
-  if (!value) {
-    console.error({getInitialPrivacyPolicyAcceptedError: error, value})
-    return false;
-  }
-
-  console.info({getInitialPrivacyPolicyAccepted: value.state.privacyPolicyAccepted})
-  return value.state.privacyPolicyAccepted;
-}
-
 // state initial values
 const state: State = {
   // persistent
-  privacyPolicyAccepted: getInitialPrivacyPolicyAccepted(),
+  privacyPolicyAccepted: false,
 
   // none persistent
   cookiesEnabled: null,
