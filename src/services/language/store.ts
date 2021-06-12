@@ -1,6 +1,6 @@
-import { CreateFetcher, getStorageCall } from '../../utils'
+import { CreateFetcher } from '../../utils'
 import createStore from 'zustand'
-import { clearDataService } from '@yehonadav/safestorage'
+import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
 import { persist } from 'zustand/middleware'
 import { LanguageType } from './types'
 import { languageMap, languages } from './variables'
