@@ -8,13 +8,18 @@ export const getStorageItems = (storage:Storage):Record<string, any> => {
   const result:Record<string, any> = {};
 
   for (let i = 0, len = storage.length; i < len; ++i ) {
-    const k = storage.key(i);
+    try {
+      const k = storage.key(i);
 
-    if (k === null)
-      continue;
+      if (k === null)
+        continue;
 
-    const value = storage.getItem(k);
-    result[k] = value ? JSON.parse(value) : value;
+      const value = storage.getItem(k);
+      result[k] = value ? JSON.parse(value) : value;
+    }
+    catch (e) {
+      console.error({getStorageItemsError: e});
+    }
   }
 
   return result
