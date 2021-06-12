@@ -92,3 +92,9 @@ export type DateTimeInputType = DateTimePickerProps & {
   initialvalue?: Date;
   onDateChange?: onDateChangeType;
 };
+
+export type PersistOptions<S> = {
+  name: string,
+  whitelist: [keyof S],
+  getStorage: () => Storage,
+};

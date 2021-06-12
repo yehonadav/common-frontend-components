@@ -1,21 +1,15 @@
 import createStore from 'zustand'
-import {persist} from 'zustand/middleware'
-import {CreateFetcher} from '../utils';
-import {useEffect} from "react";
-import {isLocalStorageAvailable} from '../utils';
+import { persist } from 'zustand/middleware'
+import { createStoreFetchFunctions } from '../utils'
+import { useEffect } from "react";
+import { isLocalStorageAvailable } from '../utils';
 import { clearDataService, getStorageCall } from '@yehonadav/safestorage'
+import { PersistOptions } from '../types'
 
 // state type
 type State = {
   privacyPolicyAccepted: boolean,
   cookiesEnabled: null|boolean,
-};
-
-// persist options
-const persistOptions = {
-  name: "usePrivacyStore",
-  whitelist: ["privacyPolicyAccepted"],
-  getStorage: getStorageCall,
 };
 
 // state initial values
@@ -27,22 +21,20 @@ const state: State = {
   cookiesEnabled: null,
 };
 
-// improve performance by fetching state
-// from dynamically created functions
-// functions are created on store creation time
-const fetchStore: {[key:string]:(state:{[key:string]: any}) => any} = {
-  // [state[key]]: state => state[state[key]],
-};
+const fetchStore = createStoreFetchFunctions<State>(state)
 
-// create state and update fetch function
-const stateCreator = () => CreateFetcher(fetchStore, state);
+// persist options
+const persistOptions:PersistOptions<State> = {
+  name: "usePrivacyStore",
+  whitelist: ["privacyPolicyAccepted"],
+  getStorage: getStorageCall,
+};
 
 // data will persist even after logout
 clearDataService.excludeLocalStorageItem(persistOptions.name);
 
 // create store
-// @ts-ignore
-const useStore = createStore(persist(stateCreator, persistOptions));
+const useStore = createStore(persist(() => state, persistOptions));
 
 // getters
 const get = useStore.getState;
@@ -76,7 +68,6 @@ export {
   State as TstatePrivacyStore,
   state as statePrivacyStore,
   fetchStore as fetchPrivacyStore,
-  stateCreator as stateCreatorPrivacyStore,
   persistOptions as persistOptionsPrivacyStore,
   useStore as usePrivacyStore,
   get as getPrivacyStore,
