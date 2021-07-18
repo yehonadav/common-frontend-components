@@ -15,7 +15,7 @@ export function addDays(date:Date, days:number) {
 
 export function addHours(date:Date, hours:number) {
   const result = new Date(date);
-  result.setTime(date.getTime() + hours * hour);
+  result.setTime(result.getTime() + hours * hour);
   return result;
 }
 
