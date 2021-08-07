@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { accountRoutes } from '../accountRoutes'
-import { ForgotPasswordPage, ResetPasswordPage, SignInPage, VerifyEmailPage } from '../views'
-import { UpdateProfilePage } from '../views'
-import { InvalidRolePage } from '../views/InvalidRolePage'
 import { ISilentSignInPageWrapper, SilentSignInPage, SilentSignInPageWrapper } from '../views/SilentSignInPage'
+import { ForgotPasswordPage } from '../views/ForgotPasswordPage'
+import { ResetPasswordPage } from '../views/ResetPasswordPage'
+import { SignInPage } from '../views/SignInPage'
+import { VerifyEmailPage } from '../views/VerifyEmailPage'
+import { UpdateProfilePage } from '../views/UpdateProfilePage'
+import { InvalidRolePage } from '../views/InvalidRolePage'
 import { SignUpPage } from '../views/SignUpPage'
 
 export interface IAccountRoutes {
