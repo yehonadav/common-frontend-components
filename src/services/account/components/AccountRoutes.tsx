@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { accountRoutes } from '../accountRoutes'
-import { ForgotPasswordPage, RegisterPage, ResetPasswordPage, SignInPage, VerifyEmailPage } from '../views'
+import { ForgotPasswordPage, ResetPasswordPage, SignInPage, VerifyEmailPage } from '../views'
 import { UpdateProfilePage } from '../views'
 import { InvalidRolePage } from '../views/InvalidRolePage'
 import { ISilentSignInPageWrapper, SilentSignInPage, SilentSignInPageWrapper } from '../views/SilentSignInPage'
+import { SignUpPage } from '../views/SignUpPage'
 
 export interface IAccountRoutes {
   invalidRolePage?: FC;
@@ -24,7 +25,7 @@ export const AccountRoutes:FC<IAccountRoutes> = (
     silentSignInPage=SilentSignInPage,
     silentSignInPageWrapper=SilentSignInPageWrapper,
     signinPage=SignInPage,
-    signupPage=RegisterPage,
+    signupPage=SignUpPage,
     verifyEmailPage=VerifyEmailPage,
     forgotPasswordPage=ForgotPasswordPage,
     resetPasswordPage=ResetPasswordPage,

@@ -24,7 +24,7 @@ export const ownerDefaultValues = {
   recaptcha: undefined,
 };
 
-const RegisterPage:FC = () => {
+const SignUpPage:FC = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const { register, handleSubmit, errors, setValue } = useForm({
@@ -126,4 +126,4 @@ const RegisterPage:FC = () => {
   )
 }
 
-export { RegisterPage };
+export { SignUpPage };
