@@ -65,7 +65,7 @@ export const SignInPage:FC = () => {
   const classes = usePageLayoutStyles();
 
   return (
-    <Grid container component={'form'} className={classes.form} style={{padding: 20}} justify={"center"} onSubmit={onSubmit} spacing={3}>
+    <Grid container component={'form'} className={classes.form} style={{textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
       <Grid container justify={"center"}>
         <Grid container spacing={3} style={{maxWidth: 650}}>
 
@@ -90,7 +90,10 @@ export const SignInPage:FC = () => {
         </BigRoundSecondaryButton>
       </Grid>
 
-      <Link to={accountRoutes.signup} className={classes.cancel}>Don't have an account ?<br/>Sign Up</Link>
+      <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
+        Don't have an account ?<br/>
+        Sign Up
+      </Link>
 
     </Grid>
   )
