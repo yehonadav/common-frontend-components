@@ -23,8 +23,6 @@ export const usePageLayoutStyles = makeStyles({
   form: {
     maxWidth: 780,
     padding: 20,
-    margin: "auto",
-    textAlign: "center",
 
     "& p": {
       width: "100%",

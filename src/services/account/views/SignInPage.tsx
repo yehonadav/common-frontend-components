@@ -13,7 +13,31 @@ import { accountRoutes } from '../accountRoutes'
 import {Link} from "react-router-dom";
 import { routes } from '../../../variables'
 
-export const SignInPage:FC = () => {
+export type SignInPageText = {
+  failedToGetRecaptchaResponse: string;
+  forgotPassword: string;
+  dontHaveAnAccount: string;
+  signUp: string;
+  signIn: string;
+  emailLabel: string;
+  passwordLabel: string;
+}
+
+const signInPageDefaultText:SignInPageText = {
+  failedToGetRecaptchaResponse: "failed to get re-captcha response",
+  forgotPassword: "Forgot password",
+  dontHaveAnAccount: "Don't have an account ?",
+  signUp: "Sign Up",
+  signIn: "Sign In",
+  emailLabel: "email",
+  passwordLabel: "password",
+}
+
+export interface ISignInPage {
+  text?: SignInPageText;
+}
+
+export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
   const history = useHistory();
 
   const [isSubmitting, setSubmitting] = useState(false);
@@ -37,7 +61,7 @@ export const SignInPage:FC = () => {
     const el = document.getElementById("recaptcha");
 
     if (!el)
-      return alertService.error("failed to get re-captcha response");
+      return alertService.error(text.failedToGetRecaptchaResponse);
 
     // @ts-ignore
     data.recaptcha = el.value;
@@ -70,12 +94,16 @@ export const SignInPage:FC = () => {
         <Grid container spacing={3} style={{maxWidth: 650}}>
 
           <Grid item xs={12}>
-            <EmailInput error={errors.email?.message} inputRef={register} fullWidth/>
+            <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
           </Grid>
 
           <Grid item xs={12}>
-            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth/>
-            <div style={{display:"flex", marginTop:5}}><Link to={accountRoutes.forgot_password}>Forgot password</Link></div>
+            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
+            <div style={{display:"flex", marginTop:5}}>
+              <Link to={accountRoutes.forgot_password}>
+                {text.forgotPassword}
+              </Link>
+            </div>
           </Grid>
 
           <Grid item xs={12}>
@@ -86,13 +114,13 @@ export const SignInPage:FC = () => {
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
         <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={"Sign In"}/>
+          <BtnLoad loading={isSubmitting} text={text.signIn}/>
         </BigRoundSecondaryButton>
       </Grid>
 
       <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
-        Don't have an account ?<br/>
-        Sign Up
+        {text.dontHaveAnAccount}<br/>
+        {text.signUp}
       </Link>
 
     </Grid>
