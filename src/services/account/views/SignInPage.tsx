@@ -21,6 +21,7 @@ export type SignInPageText = {
   signIn: string;
   emailLabel: string;
   passwordLabel: string;
+  pleaseWait: string;
 }
 
 const signInPageDefaultText:SignInPageText = {
@@ -31,6 +32,7 @@ const signInPageDefaultText:SignInPageText = {
   signIn: "Sign In",
   emailLabel: "email",
   passwordLabel: "password",
+  pleaseWait: 'Please wait',
 }
 
 export interface ISignInPage {
@@ -114,7 +116,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
         <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={text.signIn}/>
+          <BtnLoad loading={isSubmitting} text={text.signIn} loadText={text.pleaseWait}/>
         </BigRoundSecondaryButton>
       </Grid>
 

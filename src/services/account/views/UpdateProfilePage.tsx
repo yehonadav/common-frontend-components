@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react'
 import {ReactElement} from "react";
 import Grid from "@material-ui/core/Grid";
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles';
 import { ChangeProfilePasswordForm } from '../components/forms/ChangeProfilePasswordForm';
 import { Avatar, GenericFileCrop, RoundPrimaryButton, TonImage } from '../../../components';
-import { UpdateProfileDetailsForm } from '../components/forms/UpdateProfileDetailsForm';
+import {
+  UpdateProfileDetailsForm,
+  updateProfileDetailsFormText,
+  UpdateProfileDetailsFormText
+} from '../components/forms/UpdateProfileDetailsForm'
 import { image_height, image_width } from '../../../variables';
 import { setUser } from '../useStore';
 import { alertService } from '../../alert';
@@ -13,19 +17,35 @@ import { seconds } from '@yehonadav/timeunit';
 import { useUser } from '../hooks';
 import { links } from '../../../utils';
 
-export const GoBack = (): ReactElement => {
+export type UpdateProfilePageText = {
+  goBack: string;
+  updateSuccessful: string;
+  updateProfileDetailsFormText: UpdateProfileDetailsFormText;
+}
+
+const updateProfilePageText:UpdateProfilePageText = {
+  goBack: 'Go Back',
+  updateSuccessful: 'Update successful',
+  updateProfileDetailsFormText,
+}
+
+export interface IUpdateProfilePage {
+  text?: UpdateProfilePageText;
+}
+
+export const GoBack:FC<IUpdateProfilePage> = ({text}) => {
   const classes = usePageLayoutStyles();
 
   return (
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
       <RoundPrimaryButton onClick={links.goBackOrHome}>
-        Go Back
+        {text.goBack}
       </RoundPrimaryButton>
     </Grid>
   )
 }
 
-export const UpdateProfilePhoto = (): ReactElement|null => {
+export const UpdateProfilePhoto = ({text}:IUpdateProfilePage): ReactElement|null => {
   const classes = usePageLayoutStyles();
   const user = useUser();
 
@@ -39,7 +59,7 @@ export const UpdateProfilePhoto = (): ReactElement|null => {
 
     accountService.update_avatar(user.id, file)
       .then(() => {
-        alertService.success('Update successful', { timeout: 3 * seconds});
+        alertService.success(text.updateSuccessful, { timeout: 3 * seconds});
         imageSrc && setUser({...user, avatar: imageSrc, avatar_hd: imageSrc});
       })
       .catch(error => {
@@ -65,15 +85,15 @@ export const UpdateProfilePhoto = (): ReactElement|null => {
   )
 }
 
-export const UpdateProfilePage = ():ReactElement => {
+export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePageText}) => {
   const classes = usePageLayoutStyles();
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <UpdateProfilePhoto/>
-        <UpdateProfileDetailsForm/>
-        <ChangeProfilePasswordForm/>
-        <GoBack/>
+        <UpdateProfilePhoto text={text}/>
+        <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
+        <ChangeProfilePasswordForm text={text}/>
+        <GoBack text={text}/>
       </div>
     </div>
   )

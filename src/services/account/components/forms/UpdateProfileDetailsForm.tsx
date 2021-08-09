@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import React, {ReactElement, useState} from "react";
+import React, { FC, useState } from 'react'
 import Grid from "@material-ui/core/Grid";
 import { createUpdateProfileValidationSchema, getNumber } from '../../../../validations'
 import { useContainer } from '../../../../hooks'
@@ -18,7 +18,35 @@ import { accountService } from '../../service'
 import { useMobile } from '../../../../stores'
 import { second } from '@yehonadav/timeunit'
 
-export const UpdateProfileDetailsForm = ():ReactElement => {
+export type UpdateProfileDetailsFormText = {
+  updateSuccessful: string;
+  firstNameLabel: string;
+  lastNameLabel: string;
+  phoneLabel: string;
+  emailLabel: string;
+  confirmEmail: string;
+  newsletterLabel: string;
+  updateProfile: string;
+  pleaseWait: string;
+}
+
+export const updateProfileDetailsFormText:UpdateProfileDetailsFormText = {
+  updateSuccessful: 'Update successful',
+  firstNameLabel: 'Name',
+  lastNameLabel: 'Surname',
+  phoneLabel: 'Phone number',
+  emailLabel: 'Email',
+  confirmEmail: 'Confirm email',
+  newsletterLabel: 'Receive newsletter',
+  updateProfile: 'Update Profile',
+  pleaseWait: 'Please wait',
+}
+
+export interface IUpdateProfileDetailsForm {
+  text?: UpdateProfileDetailsFormText;
+}
+
+export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=updateProfileDetailsFormText}) => {
   const isMobile = useMobile();
 
   const classes = usePageLayoutStyles();
@@ -51,7 +79,7 @@ export const UpdateProfileDetailsForm = ():ReactElement => {
 
     accountService.update(user.id, data)
       .then(() => {
-        alertService.success('Update successful', { timeout: 3 * second });
+        alertService.success(text.updateSuccessful, { timeout: 3 * second });
       })
       .catch(error => alertService.error(error))
       .finally(() => setSubmitting(false));
@@ -63,9 +91,9 @@ export const UpdateProfileDetailsForm = ():ReactElement => {
       <Grid item xs={12}>
         <FullNameInput
           //@ts-ignore
-          firstNameProps={{error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
+          firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
           //@ts-ignore
-          lastNameProps={{error: errors.lastName?.message, inputRef: register, fullWidth: true}}
+          lastNameProps={{label: text.lastNameLabel, error: errors.lastName?.message, inputRef: register, fullWidth: true}}
           item2Props={{style:{flexGrow: 1}}}
         />
       </Grid>
@@ -73,18 +101,18 @@ export const UpdateProfileDetailsForm = ():ReactElement => {
       <Grid item xs={12}>
         <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
           {/*@ts-ignore*/}
-          <PhoneInput label={"Phone number"} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
+          <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
         </PhoneIti>
       </Grid>
 
       <Grid item xs={12}>
         {/*@ts-ignore*/}
-        <EmailInput error={errors.email?.message} inputRef={register} fullWidth/>
+        <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
       </Grid>
 
       <Grid item xs={12}>
         {/*@ts-ignore*/}
-        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={"Confirm email"} name={"confirmEmail"}/>
+        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>
       </Grid>
 
       <Grid item xs={12}>
@@ -92,7 +120,7 @@ export const UpdateProfileDetailsForm = ():ReactElement => {
           <CheckboxLabelPrimary
             error={errors.newsletter?.message}
             inputRef={register}
-            label="Receive newsletter"
+            label={text.newsletterLabel}
             name="newsletter"
           />
         </Grid>
@@ -100,7 +128,7 @@ export const UpdateProfileDetailsForm = ():ReactElement => {
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
         <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={"Update Profile"}/>
+          <BtnLoad loading={isSubmitting} text={text.updateProfile} loadText={text.pleaseWait}/>
         </BigRoundSecondaryButton>
       </Grid>
     </Grid>

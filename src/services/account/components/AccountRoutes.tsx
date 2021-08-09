@@ -4,7 +4,7 @@ import { accountRoutes } from '../accountRoutes'
 import { ISilentSignInPageWrapper, SilentSignInPage, SilentSignInPageWrapper } from '../views/SilentSignInPage'
 import { ForgotPasswordPage } from '../views/ForgotPasswordPage'
 import { ResetPasswordPage } from '../views/ResetPasswordPage'
-import { ISignInPage, SignInPage } from '../views/SignInPage'
+import { SignInPage } from '../views/SignInPage'
 import { VerifyEmailPage } from '../views/VerifyEmailPage'
 import { UpdateProfilePage } from '../views/UpdateProfilePage'
 import { InvalidRolePage } from '../views/InvalidRolePage'
@@ -14,7 +14,7 @@ export interface IAccountRoutes {
   invalidRolePage?: FC;
   silentSignInPage?: FC;
   silentSignInPageWrapper?: (props:ISilentSignInPageWrapper) => FC;
-  signinPage?: FC<ISignInPage>;
+  signinPage?: FC;
   signupPage?: FC;
   verifyEmailPage?: FC;
   forgotPasswordPage?: FC;

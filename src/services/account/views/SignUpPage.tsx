@@ -24,7 +24,43 @@ export const ownerDefaultValues = {
   recaptcha: undefined,
 };
 
-const SignUpPage:FC = () => {
+export type SignUpPageText = {
+  failedToGetRecaptchaResponse: string;
+  registerSuccessMsg: string;
+  alreadyHaveAnAccount: string;
+  signUp: string;
+  signIn: string;
+  emailLabel: string;
+  confirmEmailLabel: string;
+  passwordLabel: string;
+  confirmPassword: string;
+  iAccept: string;
+  terms: string;
+  newsletterLabel: string;
+  pleaseWait: string;
+}
+
+const signUpPageDefaultText:SignUpPageText = {
+  failedToGetRecaptchaResponse: "failed to get re-captcha response",
+  registerSuccessMsg: 'Registration successful, please check your email for verification instructions',
+  alreadyHaveAnAccount: "Already have an account ?",
+  signUp: "Sign Up",
+  signIn: "Sign In",
+  emailLabel: "email",
+  confirmEmailLabel: "Confirm email",
+  passwordLabel: "password",
+  confirmPassword: "Confirm password",
+  iAccept: "I accept",
+  terms: "Terms & Conditions",
+  newsletterLabel: "Receive newsletter",
+  pleaseWait: 'Please wait',
+}
+
+export interface ISignUpPage {
+  text?: SignUpPageText;
+}
+
+const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const { register, handleSubmit, errors, setValue } = useForm({
@@ -41,14 +77,14 @@ const SignUpPage:FC = () => {
     const el = document.getElementById("recaptcha");
 
     if (!el)
-      return alertService.error("failed to get re-captcha response");
+      return alertService.error(text.failedToGetRecaptchaResponse);
 
     // @ts-ignore
     data.recaptcha = el.value;
 
     call_register(data)
       .then(() => {
-        alertService.success('Registration successful, please check your email for verification instructions');
+        alertService.success(text.registerSuccessMsg);
         accountLinks.go_to_signin();
       })
       .catch(error => {
@@ -75,19 +111,19 @@ const SignUpPage:FC = () => {
       <div style={{width:"100%", height: 30}}/>
 
       <Grid item xs={12}>
-        <EmailInput error={errors.email?.message} inputRef={register} fullWidth/>
+        <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
       </Grid>
 
       <Grid item xs={12}>
-        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={"Confirm email"} name={"confirmEmail"}/>
+        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmailLabel} name={"confirmEmail"}/>
       </Grid>
 
       <Grid item xs={12}>
-        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth/>
+        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
       </Grid>
 
       <Grid item xs={12}>
-        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={"Confirm password"} name={"confirmPassword"}/>
+        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
       </Grid>
 
       <Grid item xs={12}>
@@ -95,7 +131,7 @@ const SignUpPage:FC = () => {
           <CheckboxLabelPrimary
             error={errors.acceptTerms?.message}
             inputRef={register}
-            label={<>I accept <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>Terms & Conditions</Link></>}
+            label={<>{text.iAccept} <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</Link></>}
             name="acceptTerms"
           />
         </Grid>
@@ -104,7 +140,7 @@ const SignUpPage:FC = () => {
           <CheckboxLabelPrimary
             error={errors.newsletter?.message}
             inputRef={register}
-            label="Receive newsletter"
+            label={text.newsletterLabel}
             name="newsletter"
           />
         </Grid>
@@ -116,13 +152,13 @@ const SignUpPage:FC = () => {
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
         <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={"Sign Up"}/>
+          <BtnLoad loading={isSubmitting} text={text.signUp} loadText={text.pleaseWait}/>
         </BigRoundSecondaryButton>
       </Grid>
 
       <Link to={routes.signin} className={classes.cancel} style={{textAlign: 'center'}}>
-        Already have an account ?<br/>
-        Sign In
+        {text.alreadyHaveAnAccount}<br/>
+        {text.signIn}
       </Link>
 
     </Grid>
