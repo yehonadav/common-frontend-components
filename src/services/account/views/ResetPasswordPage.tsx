@@ -16,6 +16,56 @@ import { AlignCenter } from '../../../components/styledComponents/AlignCenter'
 import { accountRoutes } from '../accountRoutes'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 
+export type ResetPasswordPageText = {
+  title: string;
+
+  resetPasswordContentText: {
+    resetPasswordFormText: {
+      onSuccess: string;
+      passwordLabel: string;
+      confirmPasswordLabel: string;
+      send: string;
+      pleaseWait: string;
+    };
+
+    invalid: string;
+    forgotPasswordLink: string;
+    afterLink: string;
+    validating: string;
+    missing: string;
+    unknown: string;
+  }
+
+  cancel: string;
+}
+
+const resetPasswordPageText:ResetPasswordPageText = {
+  title: 'Reset Password',
+
+  resetPasswordContentText: {
+    resetPasswordFormText: {
+      onSuccess: 'Password reset successful, you can now login',
+      passwordLabel: 'Password',
+      confirmPasswordLabel: 'Confirm password',
+      send: 'Send',
+      pleaseWait: 'Please wait'
+    },
+
+    invalid: 'Token validation failed, if the token has expired you can get a new one at the',
+    forgotPasswordLink: 'forgot password',
+    afterLink: 'page.',
+    validating: 'Validating token',
+    missing: 'Token is missing',
+    unknown: 'Invalid token status',
+  },
+
+  cancel: 'Cancel',
+}
+
+export interface IResetPasswordPage {
+  text?: ResetPasswordPageText;
+}
+
 export const useOnResetPasswordLoad = (
   setToken: Dispatch<SetStateAction<string|null>>,
   setTokenStatus: Dispatch<SetStateAction<string>>,
@@ -40,7 +90,12 @@ export const useOnResetPasswordLoad = (
   }, []);
 }
 
-export const ResetPasswordForm:FC<{token:string}> = ({token}) => {
+export interface IResetPasswordForm {
+  token: string;
+  text?: ResetPasswordPageText['resetPasswordContentText']['resetPasswordFormText'];
+}
+
+export const ResetPasswordForm:FC<IResetPasswordForm> = ({token, text=resetPasswordPageText.resetPasswordContentText.resetPasswordFormText}) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const { register, handleSubmit, errors } = useForm({
@@ -54,7 +109,7 @@ export const ResetPasswordForm:FC<{token:string}> = ({token}) => {
     setSubmitting(true);
     call_resetPassword({ token, password, confirmPassword })
       .then(() => {
-        alertService.success('Password reset successful, you can now login');
+        alertService.success(text.onSuccess);
         accountLinks.go_to_signin();
       })
       .catch(error => {
@@ -68,44 +123,50 @@ export const ResetPasswordForm:FC<{token:string}> = ({token}) => {
   return (
     <Grid container component={'form'} onSubmit={onSubmit} spacing={3}>
       <Grid item xs={12}>
-        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth required/>
+        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth required label={text.passwordLabel}/>
       </Grid>
 
       <Grid item xs={12}>
-        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth required label={"Confirm password"} name={"confirmPassword"}/>
+        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth required label={text.confirmPasswordLabel} name={"confirmPassword"}/>
       </Grid>
 
       <Grid container justify={"center"} style={{paddingTop: 60, width: "100%"}}>
         <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={"Send"}/>
+          <BtnLoad loading={isSubmitting} text={text.send} loadText={text.pleaseWait}/>
         </BigRoundSecondaryButton>
       </Grid>
     </Grid>
   );
 }
 
-const ResetPasswordContent:FC<{tokenStatus:string, token:string|null}> = ({tokenStatus, token}) => {
+interface IResetPasswordContent {
+  tokenStatus: string;
+  token: string|null;
+  text?: ResetPasswordPageText['resetPasswordContentText'];
+}
+
+const ResetPasswordContent:FC<IResetPasswordContent> = ({tokenStatus, token, text=resetPasswordPageText.resetPasswordContentText}) => {
   if (tokenStatus === TokenStatus.Valid && token)
-    return <ResetPasswordForm token={token}/>;
+    return <ResetPasswordForm token={token} text={text.resetPasswordFormText}/>;
 
   return (
     <Grid item xs={12}>
       {(()=>{
         switch (tokenStatus) {
           case TokenStatus.Invalid:
-            return <AlignCenter>Token validation failed, if the token has expired you can get a new one at the <Link to={accountRoutes.forgot_password}>forgot password</Link> page.</AlignCenter>;
+            return <AlignCenter>{text.invalid} <Link to={accountRoutes.forgot_password}>{text.forgotPasswordLink}</Link> {text.afterLink}</AlignCenter>;
           case TokenStatus.Validating:
-            return <PageLoadingContent msg={"Validating token"} />;
+            return <PageLoadingContent msg={text.validating} />;
           case TokenStatus.Missing:
-            return <AlignCenter>Token is missing</AlignCenter>;
+            return <AlignCenter>{text.missing}</AlignCenter>;
         }
-        return <AlignCenter>Invalid token status</AlignCenter>;
+        return <AlignCenter>{text.unknown}</AlignCenter>;
       })()}
     </Grid>
   )
 }
 
-const ResetPasswordPage:FC = () => {
+const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) => {
   const [token, setToken] = useState<string|null>(null);
   const [tokenStatus, setTokenStatus] = useState(TokenStatus.Validating);
 
@@ -116,12 +177,14 @@ const ResetPasswordPage:FC = () => {
   return (
     <Grid container className={classes.form} justify={"center"} >
       <div className={classes.formTitle}>
-        Reset Password
+        {text.title}
       </div>
 
-      <ResetPasswordContent tokenStatus={tokenStatus} token={token}/>
+      <ResetPasswordContent tokenStatus={tokenStatus} token={token} text={text.resetPasswordContentText}/>
 
-      <Link to={accountRoutes.signin} className={classes.cancel}>Cancel</Link>
+      <Link to={accountRoutes.signin} className={classes.cancel}>
+        {text.cancel}
+      </Link>
     </Grid>
   )
 }

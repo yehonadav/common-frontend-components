@@ -2,7 +2,11 @@ import React, { FC } from 'react'
 import {ReactElement} from "react";
 import Grid from "@material-ui/core/Grid";
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles';
-import { ChangeProfilePasswordForm } from '../components/forms/ChangeProfilePasswordForm';
+import {
+  ChangeProfilePasswordForm,
+  changeProfilePasswordFormText,
+  ChangeProfilePasswordFormText
+} from '../components/forms/ChangeProfilePasswordForm'
 import { Avatar, GenericFileCrop, RoundPrimaryButton, TonImage } from '../../../components';
 import {
   UpdateProfileDetailsForm,
@@ -19,33 +23,35 @@ import { links } from '../../../utils';
 
 export type UpdateProfilePageText = {
   goBack: string;
-  updateSuccessful: string;
+  updateImgSuccessful: string;
   updateProfileDetailsFormText: UpdateProfileDetailsFormText;
+  changeProfilePasswordFormText: ChangeProfilePasswordFormText;
 }
 
 const updateProfilePageText:UpdateProfilePageText = {
   goBack: 'Go Back',
-  updateSuccessful: 'Update successful',
+  updateImgSuccessful: 'Update successful',
   updateProfileDetailsFormText,
+  changeProfilePasswordFormText,
 }
 
 export interface IUpdateProfilePage {
   text?: UpdateProfilePageText;
 }
 
-export const GoBack:FC<IUpdateProfilePage> = ({text}) => {
+export const GoBack:FC<{text:UpdateProfilePageText['goBack']}> = ({text}) => {
   const classes = usePageLayoutStyles();
 
   return (
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
       <RoundPrimaryButton onClick={links.goBackOrHome}>
-        {text.goBack}
+        {text}
       </RoundPrimaryButton>
     </Grid>
   )
 }
 
-export const UpdateProfilePhoto = ({text}:IUpdateProfilePage): ReactElement|null => {
+export const UpdateProfilePhoto = ({text}:{text:UpdateProfilePageText['updateImgSuccessful']}): ReactElement|null => {
   const classes = usePageLayoutStyles();
   const user = useUser();
 
@@ -59,7 +65,7 @@ export const UpdateProfilePhoto = ({text}:IUpdateProfilePage): ReactElement|null
 
     accountService.update_avatar(user.id, file)
       .then(() => {
-        alertService.success(text.updateSuccessful, { timeout: 3 * seconds});
+        alertService.success(text, { timeout: 3 * seconds});
         imageSrc && setUser({...user, avatar: imageSrc, avatar_hd: imageSrc});
       })
       .catch(error => {
@@ -90,10 +96,10 @@ export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePage
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <UpdateProfilePhoto text={text}/>
+        <UpdateProfilePhoto text={text.updateImgSuccessful}/>
         <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
-        <ChangeProfilePasswordForm text={text}/>
-        <GoBack text={text}/>
+        <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
+        <GoBack text={text.goBack}/>
       </div>
     </div>
   )

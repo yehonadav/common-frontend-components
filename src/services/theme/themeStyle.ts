@@ -35,6 +35,7 @@ export const GlobalStyle = {
     WebkitFontSmoothing: 'auto',
     overflowX: 'hidden',
     overflowY: 'hidden', // try to fix popover
+    scrollBehavior: 'smooth',
   },
 
   body: {

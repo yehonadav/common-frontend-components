@@ -1,7 +1,7 @@
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import React, {ReactElement, useState} from "react";
+import React, { FC, useState } from 'react'
 import Grid from "@material-ui/core/Grid";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { BigRoundPrimaryButton, BtnLoad, PasswordInput } from '../../../../components'
 import { usePageLayoutStyles } from '../../../../assets/jss/pageLayoutStyles'
 import { useUser } from '../../hooks'
@@ -10,7 +10,27 @@ import { accountService } from '../../service'
 import { alertService } from '../../../alert'
 import { seconds } from '@yehonadav/timeunit'
 
-export const ChangeProfilePasswordForm = ():ReactElement => {
+export type ChangeProfilePasswordFormText = {
+  updateSuccessful: string;
+  passwordLabel: string;
+  confirmPassword: string;
+  changePassword: string;
+  pleaseWait: string;
+}
+
+export const changeProfilePasswordFormText:ChangeProfilePasswordFormText = {
+  updateSuccessful: 'Password Changed!',
+  passwordLabel: 'Password',
+  confirmPassword: 'Confirm password',
+  changePassword: 'Change Password',
+  pleaseWait: 'Please wait',
+}
+
+export interface IChangeProfilePasswordForm {
+  text?: ChangeProfilePasswordFormText;
+}
+
+export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=changeProfilePasswordFormText}) => {
   const classes = usePageLayoutStyles();
   const user = useUser();
 
@@ -32,7 +52,7 @@ export const ChangeProfilePasswordForm = ():ReactElement => {
 
     accountService.update(user.id, fields)
       .then(() => {
-        alertService.success('Password Changed!', { timeout: 3 * seconds });
+        alertService.success(text.updateSuccessful, { timeout: 3 * seconds });
       })
       .catch(error => alertService.error(error))
       .finally(() => setSubmitting(false));
@@ -43,17 +63,17 @@ export const ChangeProfilePasswordForm = ():ReactElement => {
 
       <Grid item xs={12}>
         {/*@ts-ignore*/}
-        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth/>
+        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth lebel={text.passwordLabel}/>
       </Grid>
 
       <Grid item xs={12}>
         {/*@ts-ignore*/}
-        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={"Confirm password"} name={"confirmPassword"}/>
+        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
       </Grid>
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
         <BigRoundPrimaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={"Change Password"}/>
+          <BtnLoad loading={isSubmitting} text={text.changePassword} loadText={text.pleaseWait}/>
         </BigRoundPrimaryButton>
       </Grid>
     </Grid>
