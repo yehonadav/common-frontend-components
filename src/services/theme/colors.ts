@@ -1,8 +1,55 @@
+export type Colors = {
+  contrastText: string;
+  primary: string;
+  secondary: string;
+  secondaryLight: string;
+  error: string;
+  warning: string;
+  info: string;
+  success: string;
+  neutral: string;
+  default: string;
+  background: string;
+  blue: string;
+  rose: string;
+  red: string;
+  border: string;
+  transparent: string;
+  grey1: string;
+  btn: {
+    red: string;
+    red_focused: string;
+    green: string;
+    green_focused: string;
+    blue_focused: string;
+    secondaryDark: string;
+    secondary: string;
+    secondary_focused: string;
+    primary: string;
+    primary_focused: string;
+    primary_light: string;
+  },
+  text: {
+    primary: string;
+    small_text: string;
+    header2_text: string;
+    post_card: string;
+    learn_more: string;
+    promote: string;
+    disabled: string;
+    title: string;
+  },
+  bg: {
+    blue: string;
+    light_blue: string;
+  }
+}
+
 export const primary = '#5e9fff';
 export const secondaryLight = '#ff369a';
 export const secondary = '#DF197C';
 
-export const colors = {
+export const colors:Colors = {
   contrastText: '#ffffff',
   primary,
   secondary,

@@ -1,7 +1,21 @@
 import {colors} from "./colors";
 import { fade, Theme } from '@material-ui/core/styles';
 
-export const boxShadows = {
+export type BoxShadows = {
+  boxShadowBtn: string;
+  boxShadowSecondaryBtnFocus: string;
+  boxShadowWarningBtnFocus: string;
+  boxShadowPrimaryBtnFocus: string;
+  boxShadowCustomChip: string;
+  boxShadowNewChatButton: string;
+  boxShadowMenu: string;
+  boxShadowPrimary: string;
+  boxShadowSelectPopper: string;
+  boxShadowSelectInput: (theme:Theme) => string;
+  boxShadowCookies: string;
+};
+
+export const boxShadows:BoxShadows = {
   boxShadowBtn: "0px 3px 6px #00000029",
   boxShadowSecondaryBtnFocus: `0 14px 26px -12px #fe1c8d77, 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px #fe1c8d30`,
   boxShadowWarningBtnFocus: `0 14px 26px -12px ${colors.warning}77, 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px ${colors.warning}30`,

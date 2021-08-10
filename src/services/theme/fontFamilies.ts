@@ -1,4 +1,10 @@
-export const fontFamilies = {
+export type FontFamilies = {
+  typography: string;
+  paragraph: string;
+  code: string;
+}
+
+export const fontFamilies:FontFamilies = {
   typography: [
     '-apple-system',
     'BlinkMacSystemFont',
