@@ -1,8 +1,6 @@
 import React, { FC, useMemo } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { colors } from '../../services/theme/colors';
-import { boxShadows } from '../../services/theme/boxShadows';
 import { ButtonProps } from '@material-ui/core/Button/Button'
 import { useThemeStyle } from '../../services'
 
