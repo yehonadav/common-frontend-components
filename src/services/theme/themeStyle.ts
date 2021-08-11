@@ -23,7 +23,7 @@ export const ScrollbarStyle = {
     // backgroundColor: "#7CC7DF",
   },
   '*::-webkit-scrollbar-track': {
-    backgroundColor: "#E1EBFB",
+    backgroundColor: colors.scrollbarTrack,
     // '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
   },
   '*::-webkit-scrollbar-thumb': {

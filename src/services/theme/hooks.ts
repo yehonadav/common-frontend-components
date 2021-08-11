@@ -32,6 +32,7 @@ export const useThemeResponsive = () => {
 
     if (theme.overrides?.MuiCssBaseline?.['@global']) {
       ScrollbarStyle['*::-webkit-scrollbar-thumb'].backgroundColor = `${theme.colors.primary}aa`;
+      ScrollbarStyle['*::-webkit-scrollbar-track'].backgroundColor = theme.colors.scrollbarTrack;
       // style scrollbar for desktop
       // @ts-ignore
       theme.overrides.MuiCssBaseline['@global'] = [true, null].includes(isMobile) ? GlobalStyle : {...ScrollbarStyle, ...GlobalStyle};

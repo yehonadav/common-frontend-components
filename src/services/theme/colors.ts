@@ -16,6 +16,7 @@ export type Colors = {
   border: string;
   transparent: string;
   grey1: string;
+  scrollbarTrack: string;
   btn: {
     red: string;
     red_focused: string;
@@ -70,6 +71,8 @@ export const colors:Colors = {
   transparent: 'transparent',
 
   grey1: "#9C99A5",
+
+  scrollbarTrack: "#E1EBFB",
 
   btn: {
     red: 'rgb(207, 79, 79)',
