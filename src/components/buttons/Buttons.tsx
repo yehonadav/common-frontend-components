@@ -22,7 +22,7 @@ export const BigRoundSecondaryButton:FC<ButtonProps> = (props) => {
 
       // boxShadow: `0 2px 2px 0 ${style_vars.colors.blue}20, 0 3px 1px -2px ${style_vars.colors.blue}32, 0 1px 5px 0 ${style_vars.colors.blue}19`,
       '&:hover, &:active, &:focus': {
-        background: "transparent linear-gradient(326deg, #fe1c8d 0%, #b13473 100%) 0% 0% no-repeat padding-box",
+        background: `transparent linear-gradient(326deg, ${theme.colors.btn.gradient1} 0%, ${theme.colors.btn.gradient2} 100%) 0% 0% no-repeat padding-box`,
 
         boxShadow: theme.boxShadows.boxShadowSecondaryBtnFocus,
       },

@@ -29,6 +29,8 @@ export type Colors = {
     primary: string;
     primary_focused: string;
     primary_light: string;
+    gradient1: string;
+    gradient2: string;
   },
   text: {
     primary: string;
@@ -86,6 +88,8 @@ export const colors:Colors = {
     primary,
     primary_focused: "#5c92cb",
     primary_light: "#7fb8ff",
+    gradient1: "#fe1c8d",
+    gradient2: "#b13473",
   },
 
   text: {
