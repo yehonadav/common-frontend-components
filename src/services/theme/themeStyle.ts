@@ -4,6 +4,7 @@ import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { borders, Borders } from './borders'
 import { boxShadows, BoxShadows } from './boxShadows'
 import { fonts, Fonts } from './fonts'
+import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {
@@ -114,6 +115,7 @@ export interface IThemeStyle extends ThemeOptions {
   colors: Colors;
   fontFamilies: FontFamilies;
   fonts: Fonts;
+  palette: PaletteOptions;
 }
 
 export const themeStyle:IThemeStyle = {
