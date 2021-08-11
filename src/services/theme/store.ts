@@ -1,23 +1,16 @@
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
-import { themeStyle } from './themeStyle'
+import { IThemeStyle, themeStyle } from './themeStyle'
 import { Theme } from '@material-ui/core/styles'
 import { createTheme } from './helpers'
 import { createStore } from '../../utils/createStore'
-import { borders, Borders } from './borders'
-import { boxShadows, BoxShadows } from './boxShadows'
 
 type State = {
-  themeStyle: ThemeOptions;
+  themeStyle: IThemeStyle;
   theme: Theme;
-  borders: Borders;
-  boxShadows: BoxShadows;
 }
 
 const state:State = {
   themeStyle,
   theme: createTheme(themeStyle),
-  borders,
-  boxShadows,
 };
 
 const {
@@ -28,12 +21,12 @@ const {
 } = createStore<State>({ getDefaultValues: () => state });
 
 // getters
-const getThemeStyle = ():ThemeOptions => get().themeStyle;
+const getThemeStyle = ():IThemeStyle => get().themeStyle;
 const getTheme = ():Theme => get().theme;
 
 // setters
-const setTheme = (themeStyle: ThemeOptions):void => {
-  // deep copy
+const setTheme = (themeStyle: IThemeStyle):void => {
+  // deep copy -> might be an issue with ThemeOptions: typography?: TypographyOptions | ((palette: Palette) => TypographyOptions);
   const theme = JSON.parse(JSON.stringify(themeStyle));
 
   set({

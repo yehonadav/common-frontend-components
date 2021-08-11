@@ -1,13 +1,12 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useMobile } from '../../stores'
 import { useEffect } from 'react'
-import { GlobalStyle, ScrollbarStyle } from './themeStyle'
+import { GlobalStyle, IThemeStyle, ScrollbarStyle } from './themeStyle'
 import { fetchThemeStore, getThemeStyle, setTheme, useThemeStore } from './store'
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { Theme } from '@material-ui/core/styles'
 import { useRTL } from '../language'
 
-export const useThemeStyle = ():ThemeOptions => useThemeStore(fetchThemeStore.themeStyle);
+export const useThemeStyle = ():IThemeStyle => useThemeStore(fetchThemeStore.themeStyle);
 export const useCustomTheme = ():Theme => useThemeStore(fetchThemeStore.theme);
 
 export const useThemeDarkMode = () => {
@@ -32,6 +31,7 @@ export const useThemeResponsive = () => {
     const theme = getThemeStyle();
 
     if (theme.overrides?.MuiCssBaseline?.['@global']) {
+      ScrollbarStyle['*::-webkit-scrollbar-thumb'].backgroundColor = `${theme.colors.primary}aa`;
       // style scrollbar for desktop
       // @ts-ignore
       theme.overrides.MuiCssBaseline['@global'] = [true, null].includes(isMobile) ? GlobalStyle : {...ScrollbarStyle, ...GlobalStyle};

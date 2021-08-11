@@ -1,6 +1,9 @@
-import {colors} from './colors'
-import {fontFamilies} from './fontFamilies'
+import { Colors, colors } from './colors'
+import { FontFamilies, fontFamilies } from './fontFamilies'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+import { borders, Borders } from './borders'
+import { boxShadows, BoxShadows } from './boxShadows'
+import { fonts, Fonts } from './fonts'
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {
@@ -105,7 +108,15 @@ export const GlobalStyle = {
   },
 };
 
-export const themeStyle:ThemeOptions = {
+export interface IThemeStyle extends ThemeOptions {
+  borders: Borders;
+  boxShadows: BoxShadows;
+  colors: Colors;
+  fontFamilies: FontFamilies;
+  fonts: Fonts;
+}
+
+export const themeStyle:IThemeStyle = {
   // https://material-ui.com/customization/palette/
   palette: {
     type: 'light',
@@ -158,4 +169,10 @@ export const themeStyle:ThemeOptions = {
       '@global': GlobalStyle,
     },
   },
+
+  borders,
+  boxShadows,
+  colors,
+  fontFamilies,
+  fonts,
 };
