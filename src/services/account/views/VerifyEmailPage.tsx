@@ -15,7 +15,7 @@ import { accountService } from '../service'
 import {history} from "../../../utils";
 import { verifyEmailPageTransition } from '../transitions'
 
-const { Fade, Slide } = verifyEmailPageTransition;
+const { Fade } = verifyEmailPageTransition;
 
 export type VerifyEmailPageText = {
   verifyEmail: string;
