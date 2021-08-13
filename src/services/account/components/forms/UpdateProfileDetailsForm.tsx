@@ -93,7 +93,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
 
       <Grid item xs={12}>
 
-        <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={600} transitionProps={{timeout:800}}>
             <FullNameInput
               //@ts-ignore
@@ -107,7 +107,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={700} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={700} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={700} transitionProps={{timeout:800}}>
             <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
               {/*@ts-ignore*/}
@@ -118,7 +118,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={800} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
@@ -127,7 +127,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={900} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={900} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={900} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>

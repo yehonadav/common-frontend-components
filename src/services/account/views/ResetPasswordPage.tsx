@@ -126,7 +126,7 @@ export const ResetPasswordForm:FC<IResetPasswordForm> = ({token, text=resetPassw
   return (
     <Grid container component={'form'} onSubmit={onSubmit} spacing={3}>
       <Grid item xs={12}>
-        <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={600} transitionProps={{timeout:800}}>
             <PasswordInput error={errors.password?.message} inputRef={register} fullWidth required label={text.passwordLabel}/>
           </Fade>
@@ -134,7 +134,7 @@ export const ResetPasswordForm:FC<IResetPasswordForm> = ({token, text=resetPassw
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={800} transitionProps={{timeout:800}}>
             <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth required label={text.confirmPasswordLabel} name={"confirmPassword"}/>
           </Fade>
@@ -196,7 +196,7 @@ const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) 
 
         <ResetPasswordContent tokenStatus={tokenStatus} token={token} text={text.resetPasswordContentText}/>
 
-        <Fade delay={1600} transitionProps={{timeout:800}}>
+        <Fade delay={1600} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
           <Link to={accountRoutes.signin} className={classes.cancel}>
             {text.cancel}
           </Link>

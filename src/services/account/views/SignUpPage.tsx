@@ -115,7 +115,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         <div style={{width:"100%", height: 30}}/>
 
         <Grid item xs={12}>
-          <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={600} transitionProps={{timeout:800}}>
               <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
             </Fade>
@@ -123,7 +123,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={700} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Slide delay={700} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={700} transitionProps={{timeout:800}}>
               <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmailLabel} name={"confirmEmail"}/>
             </Fade>
@@ -131,7 +131,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={800} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
             </Fade>
@@ -139,7 +139,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={900} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Slide delay={900} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={900} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
             </Fade>
@@ -184,7 +184,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
           </Fade>
         </Grid>
 
-        <Fade delay={1800} transitionProps={{timeout:800}}>
+        <Fade delay={1800} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
           <Link to={routes.signin} className={classes.cancel} style={{textAlign: 'center'}}>
             {text.alreadyHaveAnAccount}<br/>
             {text.signIn}

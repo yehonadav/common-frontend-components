@@ -100,7 +100,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
           <Grid container spacing={3} style={{maxWidth: 650}}>
 
             <Grid item xs={12}>
-              <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+              <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
                 <Fade delay={600} transitionProps={{timeout:800}}>
                   <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
                 </Fade>
@@ -108,7 +108,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
             </Grid>
 
             <Grid item xs={12}>
-              <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+              <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
                 <Fade delay={800} transitionProps={{timeout:800}}>
                   <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
                   <div style={{display:"flex", marginTop:5}}>
@@ -136,7 +136,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
           </Fade>
         </Grid>
 
-        <Fade delay={1600} transitionProps={{timeout:800}}>
+        <Fade delay={1600} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
           <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
             {text.dontHaveAnAccount}<br/>
             {text.signUp}

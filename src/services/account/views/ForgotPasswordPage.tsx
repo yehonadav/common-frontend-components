@@ -66,7 +66,7 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
           {text.title}
         </div>
 
-        <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={600} transitionProps={{timeout:800}}>
             <EmailInput error={errors.email?.message} inputRef={register} label={text.emailLabel}/>
           </Fade>
@@ -80,7 +80,7 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
           </Fade>
         </Grid>
 
-        <Fade delay={1500} transitionProps={{timeout:800}}>
+        <Fade delay={1500} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
           <Link to={accountRoutes.signin} className={classes.cancel}>{text.cancel}</Link>
         </Fade>
       </Grid>
