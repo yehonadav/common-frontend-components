@@ -5,8 +5,8 @@ import Collapse, { CollapseProps } from '@material-ui/core/Collapse';
 import Grow, { GrowProps } from '@material-ui/core/Grow';
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom';
 import {Transition} from './Transition';
-import { sleep } from 'common-frontend-components';
 import { TransitionProps } from '@material-ui/core/transitions/transition';
+import { sleep } from '../../utils'
 
 type TransitionAction = {
   delay: TransitionProps['timeout'];
