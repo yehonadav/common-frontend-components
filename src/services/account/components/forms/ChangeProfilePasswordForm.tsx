@@ -9,6 +9,9 @@ import { updatePasswordValidationSchema } from '../../../../validations'
 import { accountService } from '../../service'
 import { alertService } from '../../../alert'
 import { seconds } from '@yehonadav/timeunit'
+import { updateProfilePageTransition } from '../../transitions'
+
+const { Fade, Slide } = updateProfilePageTransition;
 
 export type ChangeProfilePasswordFormText = {
   updateSuccessful: string;
