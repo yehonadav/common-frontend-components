@@ -17,6 +17,7 @@ import { alertService } from '../../../alert'
 import { accountService } from '../../service'
 import { useMobile } from '../../../../stores'
 import { second } from '@yehonadav/timeunit'
+import { updateProfilePageTransition } from '../../transitions'
 
 export type UpdateProfileDetailsFormText = {
   updateSuccessful: string;
@@ -85,51 +86,74 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       .finally(() => setSubmitting(false));
   });
 
+  const { Fade, Slide } = updateProfilePageTransition;
+
   return (
     <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
 
       <Grid item xs={12}>
-        <FullNameInput
-          //@ts-ignore
-          firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
-          //@ts-ignore
-          lastNameProps={{label: text.lastNameLabel, error: errors.lastName?.message, inputRef: register, fullWidth: true}}
-          item2Props={{style:{flexGrow: 1}}}
-        />
+
+        <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={600} transitionProps={{timeout:800}}>
+            <FullNameInput
+              //@ts-ignore
+              firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
+              //@ts-ignore
+              lastNameProps={{label: text.lastNameLabel, error: errors.lastName?.message, inputRef: register, fullWidth: true}}
+              item2Props={{style:{flexGrow: 1}}}
+            />
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid item xs={12}>
-        <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
-          {/*@ts-ignore*/}
-          <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
-        </PhoneIti>
+        <Slide delay={700} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={700} transitionProps={{timeout:800}}>
+            <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
+              {/*@ts-ignore*/}
+              <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
+            </PhoneIti>
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid item xs={12}>
-        {/*@ts-ignore*/}
-        <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+        <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={800} transitionProps={{timeout:800}}>
+            {/*@ts-ignore*/}
+            <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid item xs={12}>
-        {/*@ts-ignore*/}
-        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>
+        <Slide delay={900} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={900} transitionProps={{timeout:800}}>
+            {/*@ts-ignore*/}
+            <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid item xs={12}>
         <Grid container style={{marginTop: 10, paddingLeft: 2, paddingRight: 2}}>
-          <CheckboxLabelPrimary
-            error={errors.newsletter?.message}
-            inputRef={register}
-            label={text.newsletterLabel}
-            name="newsletter"
-          />
+          <Fade delay={1000} transitionProps={{timeout:800}}>
+            <CheckboxLabelPrimary
+              error={errors.newsletter?.message}
+              inputRef={register}
+              label={text.newsletterLabel}
+              name="newsletter"
+            />
+          </Fade>
         </Grid>
       </Grid>
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-        <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={text.updateProfile} loadText={text.pleaseWait}/>
-        </BigRoundSecondaryButton>
+        <Fade delay={1200} transitionProps={{timeout:800}}>
+          <BigRoundSecondaryButton type={"submit"}>
+            <BtnLoad loading={isSubmitting} text={text.updateProfile} loadText={text.pleaseWait}/>
+          </BigRoundSecondaryButton>
+        </Fade>
       </Grid>
     </Grid>
   )

@@ -12,6 +12,9 @@ import { CheckboxLabelPrimary } from '../../../components'
 import { routes } from '../../../variables'
 import { colors } from '../../theme'
 import {Link} from "react-router-dom";
+import { signUpPageTransition } from '../transitions'
+
+const { Slide, Fade } = signUpPageTransition;
 
 export const ownerDefaultValues = {
   phone: '',
@@ -106,62 +109,90 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
   const classes = usePageLayoutStyles();
 
   return (
-    <Grid container component={'form'} className={classes.form} style={{maxWidth: 600, textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
+    <Fade transitionProps={{timeout:800}}>
+      <Grid container component={'form'} className={classes.form} style={{maxWidth: 600, textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
 
-      <div style={{width:"100%", height: 30}}/>
+        <div style={{width:"100%", height: 30}}/>
 
-      <Grid item xs={12}>
-        <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
-      </Grid>
-
-      <Grid item xs={12}>
-        <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmailLabel} name={"confirmEmail"}/>
-      </Grid>
-
-      <Grid item xs={12}>
-        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
-      </Grid>
-
-      <Grid item xs={12}>
-        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Grid container style={{paddingLeft: 2, paddingRight: 2}}>
-          <CheckboxLabelPrimary
-            error={errors.acceptTerms?.message}
-            inputRef={register}
-            label={<>{text.iAccept} <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</Link></>}
-            name="acceptTerms"
-          />
+        <Grid item xs={12}>
+          <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={600} transitionProps={{timeout:800}}>
+              <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+            </Fade>
+          </Slide>
         </Grid>
 
-        <Grid container style={{marginTop: 10, paddingLeft: 2, paddingRight: 2}}>
-          <CheckboxLabelPrimary
-            error={errors.newsletter?.message}
-            inputRef={register}
-            label={text.newsletterLabel}
-            name="newsletter"
-          />
+        <Grid item xs={12}>
+          <Slide delay={700} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={700} transitionProps={{timeout:800}}>
+              <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmailLabel} name={"confirmEmail"}/>
+            </Fade>
+          </Slide>
         </Grid>
+
+        <Grid item xs={12}>
+          <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={800} transitionProps={{timeout:800}}>
+              <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
+            </Fade>
+          </Slide>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Slide delay={900} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={900} transitionProps={{timeout:800}}>
+              <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
+            </Fade>
+          </Slide>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Grid container style={{paddingLeft: 2, paddingRight: 2}}>
+            <Fade delay={1000} transitionProps={{timeout:800}}>
+              <CheckboxLabelPrimary
+                error={errors.acceptTerms?.message}
+                inputRef={register}
+                label={<>{text.iAccept} <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</Link></>}
+                name="acceptTerms"
+              />
+            </Fade>
+          </Grid>
+
+          <Grid container style={{marginTop: 10, paddingLeft: 2, paddingRight: 2}}>
+            <Fade delay={1100} transitionProps={{timeout:800}}>
+            <CheckboxLabelPrimary
+              error={errors.newsletter?.message}
+              inputRef={register}
+              label={text.newsletterLabel}
+              name="newsletter"
+            />
+            </Fade>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Fade delay={1200} transitionProps={{timeout:800}}>
+            <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
+          </Fade>
+        </Grid>
+
+        <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
+          <Fade delay={1400} transitionProps={{timeout:800}}>
+            <BigRoundSecondaryButton type={"submit"}>
+              <BtnLoad loading={isSubmitting} text={text.signUp} loadText={text.pleaseWait}/>
+            </BigRoundSecondaryButton>
+          </Fade>
+        </Grid>
+
+        <Fade delay={1800} transitionProps={{timeout:800}}>
+          <Link to={routes.signin} className={classes.cancel} style={{textAlign: 'center'}}>
+            {text.alreadyHaveAnAccount}<br/>
+            {text.signIn}
+          </Link>
+        </Fade>
+
       </Grid>
-
-      <Grid item xs={12}>
-        <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
-      </Grid>
-
-      <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-        <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={text.signUp} loadText={text.pleaseWait}/>
-        </BigRoundSecondaryButton>
-      </Grid>
-
-      <Link to={routes.signin} className={classes.cancel} style={{textAlign: 'center'}}>
-        {text.alreadyHaveAnAccount}<br/>
-        {text.signIn}
-      </Link>
-
-    </Grid>
+    </Fade>
   )
 }
 

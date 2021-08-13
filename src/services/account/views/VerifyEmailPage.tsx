@@ -13,6 +13,9 @@ import { alertService } from '../../alert'
 import { call_verifyEmail } from '../api'
 import { accountService } from '../service'
 import {history} from "../../../utils";
+import { verifyEmailPageTransition } from '../transitions'
+
+const { Fade, Slide } = verifyEmailPageTransition;
 
 export type VerifyEmailPageText = {
   verifyEmail: string;
@@ -126,15 +129,17 @@ const VerifyEmailPage:FC<IVerifyEmailPage> = ({text=verifyEmailPageText}) => {
   useOnVerifyEmailLoad(setTokenStatus, text.onSuccessMsg);
 
   return (
-    <Grid container className={classes.form} justify={"center"} >
-      <div className={classes.formTitle}>
-        {text.verifyEmail}
-      </div>
-
-      <VerifyEmailContent tokenStatus={tokenStatus}/>
-
-      <Link to={accountRoutes.signin} className={classes.cancel}>{text.signIn}</Link>
-    </Grid>
+    <Fade transitionProps={{timeout:800}}>
+      <Grid container className={classes.form} justify={"center"} >
+        <div className={classes.formTitle}>
+          {text.verifyEmail}
+        </div>
+        <Fade delay={600} transitionProps={{timeout:800}}>
+          <VerifyEmailContent tokenStatus={tokenStatus}/>
+        </Fade>
+        <Link to={accountRoutes.signin} className={classes.cancel}>{text.signIn}</Link>
+      </Grid>
+    </Fade>
   )
 }
 

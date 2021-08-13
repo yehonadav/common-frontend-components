@@ -20,6 +20,9 @@ import { accountService } from '../service';
 import { seconds } from '@yehonadav/timeunit';
 import { useUser } from '../hooks';
 import { links } from '../../../utils';
+import { updateProfilePageTransition } from '../transitions'
+
+const { Fade, Slide } = updateProfilePageTransition;
 
 export type UpdateProfilePageText = {
   goBack: string;
@@ -44,9 +47,13 @@ export const GoBack:FC<{text:UpdateProfilePageText['goBack']}> = ({text}) => {
 
   return (
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
-      <RoundPrimaryButton onClick={links.goBackOrHome}>
-        {text}
-      </RoundPrimaryButton>
+      <Slide delay={1400} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+        <Fade delay={1400} transitionProps={{timeout:800}}>
+          <RoundPrimaryButton onClick={links.goBackOrHome}>
+            {text}
+          </RoundPrimaryButton>
+        </Fade>
+      </Slide>
     </Grid>
   )
 }
@@ -94,13 +101,19 @@ export const UpdateProfilePhoto = ({text}:{text:UpdateProfilePageText['updateImg
 export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePageText}) => {
   const classes = usePageLayoutStyles();
   return (
-    <div className={classes.root}>
-      <div className={classes.content}>
-        <UpdateProfilePhoto text={text.updateImgSuccessful}/>
-        <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
-        <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
-        <GoBack text={text.goBack}/>
+    <Fade transitionProps={{timeout:800}}>
+      <div className={classes.root}>
+        <div className={classes.content}>
+          <Slide delay={100} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={100} transitionProps={{timeout:800}}>
+              <UpdateProfilePhoto text={text.updateImgSuccessful}/>
+            </Fade>
+          </Slide>
+          <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
+          <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
+          <GoBack text={text.goBack}/>
+        </div>
       </div>
-    </div>
+    </Fade>
   )
 }

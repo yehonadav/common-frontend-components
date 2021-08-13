@@ -1,6 +1,8 @@
-import {DependencyList, useEffect} from "react";
+import { DependencyList, useEffect, useMemo } from 'react'
 import {AsyncFunction} from "../types";
+import { createAsyncBuffer } from '../utils/runAsyncInOrder'
 
 export const useAsync = (asyncCall: AsyncFunction, deps?: DependencyList): void => {
-  useEffect(()=>{asyncCall()}, deps);
+  const runAsyncInOrder = useMemo(()=>createAsyncBuffer(),[]);
+  useEffect(()=>{runAsyncInOrder(asyncCall)}, deps);
 };

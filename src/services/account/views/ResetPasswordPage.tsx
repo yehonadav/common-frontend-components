@@ -15,6 +15,9 @@ import { BigRoundSecondaryButton, BtnLoad, PageLoadingContent, PasswordInput } f
 import { AlignCenter } from '../../../components/styledComponents/AlignCenter'
 import { accountRoutes } from '../accountRoutes'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
+import { resetPasswordPageTransition } from '../transitions'
+
+const { Slide, Fade } = resetPasswordPageTransition;
 
 export type ResetPasswordPageText = {
   title: string;
@@ -123,17 +126,27 @@ export const ResetPasswordForm:FC<IResetPasswordForm> = ({token, text=resetPassw
   return (
     <Grid container component={'form'} onSubmit={onSubmit} spacing={3}>
       <Grid item xs={12}>
-        <PasswordInput error={errors.password?.message} inputRef={register} fullWidth required label={text.passwordLabel}/>
+        <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={600} transitionProps={{timeout:800}}>
+            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth required label={text.passwordLabel}/>
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid item xs={12}>
-        <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth required label={text.confirmPasswordLabel} name={"confirmPassword"}/>
+        <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={800} transitionProps={{timeout:800}}>
+            <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth required label={text.confirmPasswordLabel} name={"confirmPassword"}/>
+          </Fade>
+        </Slide>
       </Grid>
 
       <Grid container justify={"center"} style={{paddingTop: 60, width: "100%"}}>
-        <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={text.send} loadText={text.pleaseWait}/>
-        </BigRoundSecondaryButton>
+        <Fade delay={1200} transitionProps={{timeout:800}}>
+          <BigRoundSecondaryButton type={"submit"}>
+            <BtnLoad loading={isSubmitting} text={text.send} loadText={text.pleaseWait}/>
+          </BigRoundSecondaryButton>
+        </Fade>
       </Grid>
     </Grid>
   );
@@ -175,17 +188,21 @@ const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) 
   useOnResetPasswordLoad(setToken, setTokenStatus)
 
   return (
-    <Grid container className={classes.form} justify={"center"} >
-      <div className={classes.formTitle}>
-        {text.title}
-      </div>
+    <Fade transitionProps={{timeout:800}}>
+      <Grid container className={classes.form} justify={"center"} >
+        <div className={classes.formTitle}>
+          {text.title}
+        </div>
 
-      <ResetPasswordContent tokenStatus={tokenStatus} token={token} text={text.resetPasswordContentText}/>
+        <ResetPasswordContent tokenStatus={tokenStatus} token={token} text={text.resetPasswordContentText}/>
 
-      <Link to={accountRoutes.signin} className={classes.cancel}>
-        {text.cancel}
-      </Link>
-    </Grid>
+        <Fade delay={1600} transitionProps={{timeout:800}}>
+          <Link to={accountRoutes.signin} className={classes.cancel}>
+            {text.cancel}
+          </Link>
+        </Fade>
+      </Grid>
+    </Fade>
   )
 }
 

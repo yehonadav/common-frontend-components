@@ -12,6 +12,9 @@ import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha 
 import { accountRoutes } from '../accountRoutes'
 import {Link} from "react-router-dom";
 import { routes } from '../../../variables'
+import { signInPageTransition } from '../transitions'
+
+const { Slide, Fade } = signInPageTransition;
 
 export type SignInPageText = {
   failedToGetRecaptchaResponse: string;
@@ -91,40 +94,56 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
   const classes = usePageLayoutStyles();
 
   return (
-    <Grid container component={'form'} className={classes.form} style={{textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
-      <Grid container justify={"center"}>
-        <Grid container spacing={3} style={{maxWidth: 650}}>
+    <Fade transitionProps={{timeout:800}}>
+      <Grid container component={'form'} className={classes.form} style={{textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
+        <Grid container justify={"center"}>
+          <Grid container spacing={3} style={{maxWidth: 650}}>
 
-          <Grid item xs={12}>
-            <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
-          </Grid>
+            <Grid item xs={12}>
+              <Slide delay={600} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+                <Fade delay={600} transitionProps={{timeout:800}}>
+                  <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+                </Fade>
+              </Slide>
+            </Grid>
 
-          <Grid item xs={12}>
-            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
-            <div style={{display:"flex", marginTop:5}}>
-              <Link to={accountRoutes.forgot_password}>
-                {text.forgotPassword}
-              </Link>
-            </div>
-          </Grid>
+            <Grid item xs={12}>
+              <Slide delay={800} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+                <Fade delay={800} transitionProps={{timeout:800}}>
+                  <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
+                  <div style={{display:"flex", marginTop:5}}>
+                    <Link to={accountRoutes.forgot_password}>
+                      {text.forgotPassword}
+                    </Link>
+                  </div>
+                </Fade>
+              </Slide>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
+            <Grid item xs={12}>
+              <Fade delay={1000} transitionProps={{timeout:800}}>
+                <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
+              </Fade>
+            </Grid>
           </Grid>
         </Grid>
+
+        <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
+          <Fade delay={1200} transitionProps={{timeout:800}}>
+            <BigRoundSecondaryButton type={"submit"}>
+              <BtnLoad loading={isSubmitting} text={text.signIn} loadText={text.pleaseWait}/>
+            </BigRoundSecondaryButton>
+          </Fade>
+        </Grid>
+
+        <Fade delay={1600} transitionProps={{timeout:800}}>
+          <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
+            {text.dontHaveAnAccount}<br/>
+            {text.signUp}
+          </Link>
+        </Fade>
+
       </Grid>
-
-      <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-        <BigRoundSecondaryButton type={"submit"}>
-          <BtnLoad loading={isSubmitting} text={text.signIn} loadText={text.pleaseWait}/>
-        </BigRoundSecondaryButton>
-      </Grid>
-
-      <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
-        {text.dontHaveAnAccount}<br/>
-        {text.signUp}
-      </Link>
-
-    </Grid>
+    </Fade>
   )
 }
