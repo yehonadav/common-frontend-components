@@ -112,10 +112,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
 
   return (
     <Fade transitionProps={{timeout:800}}>
-      <Grid container component={'form'} className={classes.form} style={{maxWidth: 600, textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
-
-        <div style={{width:"100%", height: 30}}/>
-
+      <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
         <Grid item xs={12}>
           <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={100} transitionProps={{timeout:800}}>

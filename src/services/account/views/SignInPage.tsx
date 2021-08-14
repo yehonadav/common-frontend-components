@@ -99,37 +99,32 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
 
   return (
     <Fade transitionProps={{timeout:800}}>
-      <Grid container component={'form'} className={classes.form} style={{textAlign: 'start'}} justify={"center"} onSubmit={onSubmit} spacing={3}>
-        <Grid container justify={"center"}>
-          <Grid container spacing={3} style={{maxWidth: 650}}>
+      <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
+        <Grid item xs={12}>
+          <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={600} transitionProps={{timeout:800}}>
+              <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+            </Fade>
+          </Slide>
+        </Grid>
 
-            <Grid item xs={12}>
-              <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-                <Fade delay={600} transitionProps={{timeout:800}}>
-                  <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
-                </Fade>
-              </Slide>
-            </Grid>
+        <Grid item xs={12}>
+          <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={800} transitionProps={{timeout:800}}>
+              <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
+              <div style={{display:"flex", marginTop:5}}>
+                <ForgotPasswordTextHelper onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_forgot_password)}}>
+                  {text.forgotPassword}
+                </ForgotPasswordTextHelper>
+              </div>
+            </Fade>
+          </Slide>
+        </Grid>
 
-            <Grid item xs={12}>
-              <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-                <Fade delay={800} transitionProps={{timeout:800}}>
-                  <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
-                  <div style={{display:"flex", marginTop:5}}>
-                    <ForgotPasswordTextHelper onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_forgot_password)}}>
-                      {text.forgotPassword}
-                    </ForgotPasswordTextHelper>
-                  </div>
-                </Fade>
-              </Slide>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Fade delay={1000} transitionProps={{timeout:800}}>
-                <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
-              </Fade>
-            </Grid>
-          </Grid>
+        <Grid item xs={12}>
+          <Fade delay={1000} transitionProps={{timeout:800}}>
+            <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
+          </Fade>
         </Grid>
 
         <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
