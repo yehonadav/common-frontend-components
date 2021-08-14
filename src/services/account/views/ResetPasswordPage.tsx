@@ -192,7 +192,7 @@ const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) 
   useOnResetPasswordLoad(setToken, setTokenStatus)
 
   return (
-    <Fade transitionProps={{timeout:800}}>
+    <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container className={classes.form} justify={"center"} >
         <div className={classes.formTitle}>
           {text.title}

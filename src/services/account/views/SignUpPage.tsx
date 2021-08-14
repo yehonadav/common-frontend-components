@@ -111,7 +111,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
   const classes = usePageLayoutStyles();
 
   return (
-    <Fade transitionProps={{timeout:800}}>
+    <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
         <Grid item xs={12}>
           <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>

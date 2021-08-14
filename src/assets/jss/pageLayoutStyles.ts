@@ -21,14 +21,16 @@ export const usePageLayoutStyles = makeStyles({
   },
 
   form: {
-    maxWidth: 500,
-    padding: 20,
-
     "& p": {
       width: "100%",
       font: "normal normal normal 18px/24px Segoe UI",
       color: "#303B4B",
     },
+  },
+
+  formContainer: {
+    maxWidth: 500,
+    padding: 20,
     paddingBottom: 50,
   },
 

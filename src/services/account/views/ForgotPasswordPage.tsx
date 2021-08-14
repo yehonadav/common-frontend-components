@@ -59,7 +59,7 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
   const { Slide, Fade } = forgotPasswordPageTransition;
 
   return (
-    <Fade transitionProps={{timeout:800}}>
+    <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={handleSubmit(onSubmit)}>
 
         <div className={classes.formTitle}>
