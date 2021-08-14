@@ -34,7 +34,6 @@ export const createUseTransitionActionHandler = (transition: Transition) => {
     ref.setOpen = setOpen;
     ref.appear = appear;
     ref.setAppear = setAppear;
-    ref.setOpen = setOpen;
     ref.transition = transition;
     ref.action.delay = delay;
 
