@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { Link } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +6,6 @@ import { forgotPasswordValivationSchema } from '../../../validations'
 import { call_forgotPassword } from '../api'
 import { alertService } from '../../alert'
 import { accountLinks } from '../accountLinks'
-import { accountRoutes } from '../accountRoutes'
 import { EmailInput } from '../../../components/inputs'
 import { BigRoundSecondaryButton } from '../../../components/buttons'
 import { BtnLoad } from '../../../components'
@@ -39,6 +37,8 @@ export interface IForgotPasswordPage {
 export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordPageText}) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
+  forgotPasswordPageTransition.useSetOnLoad();
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(forgotPasswordValivationSchema)
   });
@@ -66,22 +66,27 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
           {text.title}
         </div>
 
-        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={600} transitionProps={{timeout:800}}>
+        <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={100} transitionProps={{timeout:800}}>
             <EmailInput error={errors.email?.message} inputRef={register} label={text.emailLabel}/>
           </Fade>
         </Slide>
 
         <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 60}}>
-          <Fade delay={1000} transitionProps={{timeout:800}}>
+          <Fade delay={500} transitionProps={{timeout:800}}>
             <BigRoundSecondaryButton type={"submit"}>
               <BtnLoad loading={isSubmitting} text={text.send} loadText={text.pleaseWait}/>
             </BigRoundSecondaryButton>
           </Fade>
         </Grid>
 
-        <Fade delay={1500} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
-          <Link to={accountRoutes.signin} className={classes.cancel}>{text.cancel}</Link>
+        <Fade delay={1000} transitionProps={{timeout:800}}>
+          <div
+            onClick={()=>forgotPasswordPageTransition.exit(500).then(accountLinks.go_to_signin)}
+            className={classes.cancel}
+          >
+            {text.cancel}
+          </div>
         </Fade>
       </Grid>
     </Fade>

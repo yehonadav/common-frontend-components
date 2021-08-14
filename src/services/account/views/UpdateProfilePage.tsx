@@ -49,7 +49,7 @@ export const GoBack:FC<{text:UpdateProfilePageText['goBack']}> = ({text}) => {
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
       <Slide delay={1400} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
         <Fade delay={1400} transitionProps={{timeout:800}}>
-          <RoundPrimaryButton onClick={links.goBackOrHome}>
+          <RoundPrimaryButton onClick={()=>{updateProfilePageTransition.exit(500).then(links.goBackOrHome)}}>
             {text}
           </RoundPrimaryButton>
         </Fade>
@@ -100,6 +100,7 @@ export const UpdateProfilePhoto = ({text}:{text:UpdateProfilePageText['updateImg
 
 export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePageText}) => {
   const classes = usePageLayoutStyles();
+  updateProfilePageTransition.useSetOnLoad();
   return (
     <Fade transitionProps={{timeout:800}}>
       <div className={classes.root}>

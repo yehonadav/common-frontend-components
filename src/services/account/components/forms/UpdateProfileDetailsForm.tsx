@@ -93,8 +93,8 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
 
       <Grid item xs={12}>
 
-        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={600} transitionProps={{timeout:800}}>
+        <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={100} transitionProps={{timeout:800}}>
             <FullNameInput
               //@ts-ignore
               firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
@@ -107,8 +107,8 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={700} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={700} transitionProps={{timeout:800}}>
+        <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={100} transitionProps={{timeout:800}}>
             <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
               {/*@ts-ignore*/}
               <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
@@ -118,8 +118,8 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={800} transitionProps={{timeout:800}}>
+        <Slide delay={300} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={300} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
           </Fade>
@@ -127,8 +127,8 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={900} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={900} transitionProps={{timeout:800}}>
+        <Slide delay={400} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={400} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>
           </Fade>
@@ -137,7 +137,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
 
       <Grid item xs={12}>
         <Grid container style={{marginTop: 10, paddingLeft: 2, paddingRight: 2}}>
-          <Fade delay={1000} transitionProps={{timeout:800}}>
+          <Fade delay={5000} transitionProps={{timeout:800}}>
             <CheckboxLabelPrimary
               error={errors.newsletter?.message}
               inputRef={register}
@@ -149,7 +149,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
       </Grid>
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-        <Fade delay={1200} transitionProps={{timeout:800}}>
+        <Fade delay={700} transitionProps={{timeout:800}}>
           <BigRoundSecondaryButton type={"submit"}>
             <BtnLoad loading={isSubmitting} text={text.updateProfile} loadText={text.pleaseWait}/>
           </BigRoundSecondaryButton>

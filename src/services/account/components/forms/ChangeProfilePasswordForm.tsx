@@ -65,8 +65,8 @@ export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=c
     <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
 
       <Grid item xs={12}>
-        <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={600} transitionProps={{timeout:800}}>
+        <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={100} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <PasswordInput error={errors.password?.message} inputRef={register} fullWidth lebel={text.passwordLabel}/>
           </Fade>
@@ -74,8 +74,8 @@ export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=c
       </Grid>
 
       <Grid item xs={12}>
-        <Slide delay={700} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-          <Fade delay={700} transitionProps={{timeout:800}}>
+        <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+          <Fade delay={100} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
             <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
           </Fade>
@@ -83,7 +83,7 @@ export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=c
       </Grid>
 
       <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-        <Fade delay={900} transitionProps={{timeout:800}}>
+        <Fade delay={400} transitionProps={{timeout:800}}>
           <BigRoundPrimaryButton type={"submit"}>
             <BtnLoad loading={isSubmitting} text={text.changePassword} loadText={text.pleaseWait}/>
           </BigRoundPrimaryButton>

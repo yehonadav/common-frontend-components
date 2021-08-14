@@ -55,6 +55,10 @@ export const usePageLayoutStyles = makeStyles({
 
   cancel: {
     marginTop: 30,
+    textAlign: 'center',
+    fontSize: '1rem',
+    textDecoration: 'underline',
+    color: 'blue',
+    cursor: 'pointer',
   },
-
 });

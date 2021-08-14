@@ -9,10 +9,10 @@ import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import Grid from '@material-ui/core/Grid'
 import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha } from '../../../components'
 import { CheckboxLabelPrimary } from '../../../components'
-import { routes } from '../../../variables'
 import { colors } from '../../theme'
-import {Link} from "react-router-dom";
 import { signUpPageTransition } from '../transitions'
+import { LinkInText } from '../components/LinkInText'
+import { links } from '../../../utils'
 
 const { Slide, Fade } = signUpPageTransition;
 
@@ -66,6 +66,8 @@ export interface ISignUpPage {
 const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
+  signUpPageTransition.useSetOnLoad();
+
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(signupValidationSchema),
     defaultValues: ownerDefaultValues,
@@ -88,7 +90,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
     call_register(data)
       .then(() => {
         alertService.success(text.registerSuccessMsg);
-        accountLinks.go_to_signin();
+        signUpPageTransition.exit(500).then(accountLinks.go_to_signin)
       })
       .catch(error => {
         alertService.error(error);
@@ -115,32 +117,32 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         <div style={{width:"100%", height: 30}}/>
 
         <Grid item xs={12}>
-          <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={600} transitionProps={{timeout:800}}>
+          <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={100} transitionProps={{timeout:800}}>
               <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
             </Fade>
           </Slide>
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={700} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={700} transitionProps={{timeout:800}}>
+          <Slide delay={200} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={200} transitionProps={{timeout:800}}>
               <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmailLabel} name={"confirmEmail"}/>
             </Fade>
           </Slide>
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={800} transitionProps={{timeout:800}}>
+          <Slide delay={300} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={300} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
             </Fade>
           </Slide>
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={900} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={900} transitionProps={{timeout:800}}>
+          <Slide delay={400} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={400} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.confirmPassword?.message} inputRef={register} fullWidth label={text.confirmPassword} name={"confirmPassword"}/>
             </Fade>
           </Slide>
@@ -148,18 +150,18 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
 
         <Grid item xs={12}>
           <Grid container style={{paddingLeft: 2, paddingRight: 2}}>
-            <Fade delay={1000} transitionProps={{timeout:800}}>
+            <Fade delay={500} transitionProps={{timeout:800}}>
               <CheckboxLabelPrimary
                 error={errors.acceptTerms?.message}
                 inputRef={register}
-                label={<>{text.iAccept} <Link to={routes.terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</Link></>}
+                label={<>{text.iAccept} <LinkInText onClick={()=>{signUpPageTransition.exit(500).then(links.go_to_terms)}} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</LinkInText></>}
                 name="acceptTerms"
               />
             </Fade>
           </Grid>
 
           <Grid container style={{marginTop: 10, paddingLeft: 2, paddingRight: 2}}>
-            <Fade delay={1100} transitionProps={{timeout:800}}>
+            <Fade delay={600} transitionProps={{timeout:800}}>
             <CheckboxLabelPrimary
               error={errors.newsletter?.message}
               inputRef={register}
@@ -171,26 +173,25 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Fade delay={1200} transitionProps={{timeout:800}}>
+          <Fade delay={700} transitionProps={{timeout:800}}>
             <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
           </Fade>
         </Grid>
 
         <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-          <Fade delay={1400} transitionProps={{timeout:800}}>
+          <Fade delay={900} transitionProps={{timeout:800}}>
             <BigRoundSecondaryButton type={"submit"}>
               <BtnLoad loading={isSubmitting} text={text.signUp} loadText={text.pleaseWait}/>
             </BigRoundSecondaryButton>
           </Fade>
         </Grid>
 
-        <Fade delay={1800} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
-          <Link to={routes.signin} className={classes.cancel} style={{textAlign: 'center'}}>
+        <Fade delay={1300} transitionProps={{timeout:800}}>
+          <div onClick={()=>{signUpPageTransition.exit(500).then(accountLinks.go_to_signin)}} className={classes.cancel}>
             {text.alreadyHaveAnAccount}<br/>
             {text.signIn}
-          </Link>
+          </div>
         </Fade>
-
       </Grid>
     </Fade>
   )

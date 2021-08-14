@@ -9,10 +9,10 @@ import { getLocation } from '../../router'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import Grid from '@material-ui/core/Grid'
 import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha } from '../../../components'
-import { accountRoutes } from '../accountRoutes'
-import {Link} from "react-router-dom";
 import { routes } from '../../../variables'
 import { signInPageTransition } from '../transitions'
+import { accountLinks } from '../accountLinks'
+import { ForgotPasswordTextHelper } from '../components/ForgotPasswordTextHelper'
 
 const { Slide, Fade } = signInPageTransition;
 
@@ -42,8 +42,16 @@ export interface ISignInPage {
   text?: SignInPageText;
 }
 
+const defaultValues = {
+  email: '',
+  password: '',
+  recaptcha: undefined,
+};
+
 export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
   const history = useHistory();
+
+  signInPageTransition.useSetOnLoad();
 
   const [isSubmitting, setSubmitting] = useState(false);
 
@@ -51,11 +59,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
 
   const { register, handleSubmit, errors, setValue } = useForm({
     resolver: yupResolver(loginValidationSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      recaptcha: undefined,
-    },
+    defaultValues,
   });
 
   const onSubmit = handleSubmit((fields: any) => {
@@ -112,9 +116,9 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
                 <Fade delay={800} transitionProps={{timeout:800}}>
                   <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
                   <div style={{display:"flex", marginTop:5}}>
-                    <Link to={accountRoutes.forgot_password}>
+                    <ForgotPasswordTextHelper onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_forgot_password)}}>
                       {text.forgotPassword}
-                    </Link>
+                    </ForgotPasswordTextHelper>
                   </div>
                 </Fade>
               </Slide>
@@ -136,11 +140,11 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
           </Fade>
         </Grid>
 
-        <Fade delay={1600} transitionProps={{timeout:800}} divProps={{className: classes.cancel}}>
-          <Link to={accountRoutes.signup} className={classes.cancel} style={{textAlign: 'center'}}>
+        <Fade delay={1600} transitionProps={{timeout:800}}>
+          <div onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_signup)}} className={classes.cancel}>
             {text.dontHaveAnAccount}<br/>
             {text.signUp}
-          </Link>
+          </div>
         </Fade>
 
       </Grid>
