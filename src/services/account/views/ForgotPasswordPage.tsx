@@ -11,6 +11,7 @@ import { BigRoundSecondaryButton } from '../../../components/buttons'
 import { BtnLoad } from '../../../components'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import { forgotPasswordPageTransition } from '../transitions'
+import { useThemeStyle } from '../../theme'
 
 export type ForgotPasswordPageText = {
   onSuccessMsg: string;
@@ -57,12 +58,13 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
   const classes = usePageLayoutStyles();
 
   const { Slide, Fade } = forgotPasswordPageTransition;
+  const theme = useThemeStyle();
 
   return (
     <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={handleSubmit(onSubmit)}>
 
-        <div className={classes.formTitle}>
+        <div className={classes.formTitle} style={{color: theme.colors.primary}}>
           {text.title}
         </div>
 
