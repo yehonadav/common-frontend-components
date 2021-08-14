@@ -7,6 +7,7 @@ const useStyles = makeStyles({
     textDecoration: 'underline',
     color: 'blue',
     cursor: 'pointer',
+    display: 'inline-block',
   }
 })
 
