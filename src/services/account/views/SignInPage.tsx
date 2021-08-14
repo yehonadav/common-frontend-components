@@ -101,16 +101,16 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
     <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container component={'form'} className={classes.form} justify={"center"} onSubmit={onSubmit} spacing={3}>
         <Grid item xs={12}>
-          <Slide delay={600} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={600} transitionProps={{timeout:800}}>
+          <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={100} transitionProps={{timeout:800}}>
               <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
             </Fade>
           </Slide>
         </Grid>
 
         <Grid item xs={12}>
-          <Slide delay={800} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
-            <Fade delay={800} transitionProps={{timeout:800}}>
+          <Slide delay={200} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
+            <Fade delay={200} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
               <div style={{display:"flex", marginTop:5}}>
                 <ForgotPasswordTextHelper onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_forgot_password)}}>
@@ -122,20 +122,20 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Fade delay={1000} transitionProps={{timeout:800}}>
+          <Fade delay={300} transitionProps={{timeout:800}}>
             <Recaptcha setValue={setValue} error={errors.recaptcha?.message} recaptchaRef={recaptchaRef}/>
           </Fade>
         </Grid>
 
         <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
-          <Fade delay={1200} transitionProps={{timeout:800}}>
+          <Fade delay={500} transitionProps={{timeout:800}}>
             <BigRoundSecondaryButton type={"submit"}>
               <BtnLoad loading={isSubmitting} text={text.signIn} loadText={text.pleaseWait}/>
             </BigRoundSecondaryButton>
           </Fade>
         </Grid>
 
-        <Fade delay={1600} transitionProps={{timeout:800}}>
+        <Fade delay={800} transitionProps={{timeout:800}}>
           <div onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_signup)}} className={classes.cancel}>
             {text.dontHaveAnAccount}<br/>
             {text.signUp}
