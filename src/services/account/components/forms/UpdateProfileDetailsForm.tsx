@@ -97,9 +97,9 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
           <Fade delay={100} transitionProps={{timeout:800}}>
             <FullNameInput
               //@ts-ignore
-              firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, fullWidth: !!isMobile, style:{minWidth:250}}}
+              firstNameProps={{label: text.firstNameLabel, error: errors.firstName?.message, inputRef: register, style:{minWidth:250}}}
               //@ts-ignore
-              lastNameProps={{label: text.lastNameLabel, error: errors.lastName?.message, inputRef: register, fullWidth: true}}
+              lastNameProps={{label: text.lastNameLabel, error: errors.lastName?.message, inputRef: register}}
               item2Props={{style:{flexGrow: 1}}}
             />
           </Fade>
@@ -111,7 +111,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
           <Fade delay={100} transitionProps={{timeout:800}}>
             <PhoneIti id={"phone"} container={phone_container} initialValue={user?.phone || ""}>
               {/*@ts-ignore*/}
-              <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} fullWidth inputRef={register}/>
+              <PhoneInput label={text.phoneLabel} error={errors.phone?.message} id={"phone"} inputRef={register}/>
             </PhoneIti>
           </Fade>
         </Slide>
@@ -121,7 +121,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
         <Slide delay={300} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={300} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
-            <EmailInput error={errors.email?.message} inputRef={register} fullWidth label={text.emailLabel}/>
+            <EmailInput error={errors.email?.message} inputRef={register} label={text.emailLabel}/>
           </Fade>
         </Slide>
       </Grid>
@@ -130,7 +130,7 @@ export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=upd
         <Slide delay={400} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={400} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
-            <EmailInput error={errors.confirmEmail?.message} inputRef={register} fullWidth label={text.confirmEmail} name={"confirmEmail"}/>
+            <EmailInput error={errors.confirmEmail?.message} inputRef={register} label={text.confirmEmail} name={"confirmEmail"}/>
           </Fade>
         </Slide>
       </Grid>
