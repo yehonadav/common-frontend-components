@@ -117,13 +117,13 @@ export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePage
           <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
         </Grid>
 
-        <div style={{width:'100%', margin: 40}}/>
+        <div style={{width:'100%', margin: 20}}/>
 
         <Grid item xs={12}>
           <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
         </Grid>
 
-        <div style={{width:'100%', margin: 60}}/>
+        <div style={{width:'100%', margin: 15}}/>
 
         <Grid item xs={12}>
           <GoBack text={text.goBack}/>
