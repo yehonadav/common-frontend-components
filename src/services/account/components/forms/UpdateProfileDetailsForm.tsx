@@ -48,8 +48,6 @@ export interface IUpdateProfileDetailsForm {
 }
 
 export const UpdateProfileDetailsForm:FC<IUpdateProfileDetailsForm> = ({text=updateProfileDetailsFormText}) => {
-  const isMobile = useMobile();
-
   const classes = usePageLayoutStyles();
   const user = useUser();
 
