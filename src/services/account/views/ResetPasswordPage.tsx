@@ -9,12 +9,12 @@ import { call_resetPassword, call_validateResetToken } from '../api'
 import { TokenStatus } from '../variables'
 import { resetPasswordValidationSchema } from '../../../validations'
 import { alertService } from '../../alert'
-import { accountLinks } from '../accountLinks'
 import { BigRoundSecondaryButton, BtnLoad, PageLoadingContent, PasswordInput } from '../../../components'
 import { AlignCenter } from '../../../components/styledComponents/AlignCenter'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import { resetPasswordPageTransition } from '../transitions'
 import { LinkInText } from '../components/LinkInText'
+import { accountPageTransitions } from '../accountRoutes'
 
 const { Slide, Fade } = resetPasswordPageTransition;
 
@@ -112,7 +112,7 @@ export const ResetPasswordForm:FC<IResetPasswordForm> = ({token, text=resetPassw
     call_resetPassword({ token, password, confirmPassword })
       .then(() => {
         alertService.success(text.onSuccess);
-        resetPasswordPageTransition.exit(500).then(accountLinks.go_to_signin)
+        accountPageTransitions.signin();
       })
       .catch(error => {
         alertService.error(error);
@@ -157,9 +157,6 @@ interface IResetPasswordContent {
   text?: ResetPasswordPageText['resetPasswordContentText'];
 }
 
-const handleForgotPasswordClick = () => resetPasswordPageTransition.exit(500)
-  .then(accountLinks.go_to_forgot_password);
-
 const ResetPasswordContent:FC<IResetPasswordContent> = ({tokenStatus, token, text=resetPasswordPageText.resetPasswordContentText}) => {
   if (tokenStatus === TokenStatus.Valid && token)
     return <ResetPasswordForm token={token} text={text.resetPasswordFormText}/>;
@@ -169,7 +166,7 @@ const ResetPasswordContent:FC<IResetPasswordContent> = ({tokenStatus, token, tex
       {(()=>{
         switch (tokenStatus) {
           case TokenStatus.Invalid:
-            return <AlignCenter>{text.invalid} <LinkInText onClick={handleForgotPasswordClick}>{text.forgotPasswordLink}</LinkInText> {text.afterLink}</AlignCenter>;
+            return <AlignCenter>{text.invalid} <LinkInText onClick={accountPageTransitions.forgot_password}>{text.forgotPasswordLink}</LinkInText> {text.afterLink}</AlignCenter>;
           case TokenStatus.Validating:
             return <PageLoadingContent msg={text.validating} />;
           case TokenStatus.Missing:
@@ -202,7 +199,7 @@ const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) 
 
         <Fade delay={1100} transitionProps={{timeout:800}}>
           <div
-            onClick={()=>resetPasswordPageTransition.exit(500).then(accountLinks.go_to_signin)}
+            onClick={accountPageTransitions.signin}
             className={classes.cancel}
           >
             {text.cancel}

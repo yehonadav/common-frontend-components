@@ -1,5 +1,5 @@
 import { NullableUser, User } from './types'
-import { fetchUserStore, setIdle, setUserStore, useUserStore } from './useStore'
+import { fetchUserStore, setIdle, setUserStore, useUserStore } from './stores/userStore'
 import { idle } from '../../utils'
 import { useOnLoad } from '../../hooks'
 import { _logout } from './helpers'

@@ -5,13 +5,13 @@ import Grid from "@material-ui/core/Grid";
 import { forgotPasswordValivationSchema } from '../../../validations'
 import { call_forgotPassword } from '../api'
 import { alertService } from '../../alert'
-import { accountLinks } from '../accountLinks'
 import { EmailInput } from '../../../components/inputs'
 import { BigRoundSecondaryButton } from '../../../components/buttons'
 import { BtnLoad } from '../../../components'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import { forgotPasswordPageTransition } from '../transitions'
 import { useThemeStyle } from '../../theme'
+import { accountPageTransitions } from '../accountRoutes'
 
 export type ForgotPasswordPageText = {
   onSuccessMsg: string;
@@ -49,7 +49,7 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
     call_forgotPassword(email)
       .then(() => {
         alertService.success(text.onSuccessMsg);
-        accountLinks.go_to_signin();
+        accountPageTransitions.signin();
       })
       .catch(error => alertService.error(error))
       .finally(() => setSubmitting(false));
@@ -84,7 +84,7 @@ export const ForgotPasswordPage:FC<IForgotPasswordPage> = ({text=forgotPasswordP
 
         <Fade delay={1000} transitionProps={{timeout:800}}>
           <div
-            onClick={()=>forgotPasswordPageTransition.exit(500).then(accountLinks.go_to_signin)}
+            onClick={accountPageTransitions.signin}
             className={classes.cancel}
           >
             {text.cancel}

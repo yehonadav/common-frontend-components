@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signupValidationSchema } from '../../../validations'
 import { alertService } from '../../alert'
 import { call_register } from '../api'
-import { accountLinks } from '../accountLinks'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import Grid from '@material-ui/core/Grid'
 import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha } from '../../../components'
@@ -12,7 +11,8 @@ import { CheckboxLabelPrimary } from '../../../components'
 import { colors } from '../../theme'
 import { signUpPageTransition } from '../transitions'
 import { LinkInText } from '../components/LinkInText'
-import { links } from '../../../utils'
+import { pageTransitions } from '../../../utils'
+import { accountPageTransitions } from '../accountRoutes'
 
 const { Slide, Fade } = signUpPageTransition;
 
@@ -90,7 +90,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
     call_register(data)
       .then(() => {
         alertService.success(text.registerSuccessMsg);
-        signUpPageTransition.exit(500).then(accountLinks.go_to_signin)
+        accountPageTransitions.signin();
       })
       .catch(error => {
         alertService.error(error);
@@ -151,7 +151,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
               <CheckboxLabelPrimary
                 error={errors.acceptTerms?.message}
                 inputRef={register}
-                label={<>{text.iAccept} <LinkInText onClick={()=>{signUpPageTransition.exit(500).then(links.go_to_terms)}} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</LinkInText></>}
+                label={<>{text.iAccept} <LinkInText onClick={pageTransitions.go_to_terms} style={{color: colors.primary, padding: '0 6px 3px', border: 'none'}}>{text.terms}</LinkInText></>}
                 name="acceptTerms"
               />
             </Fade>
@@ -184,7 +184,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
         </Grid>
 
         <Fade delay={1300} transitionProps={{timeout:800}}>
-          <div onClick={()=>{signUpPageTransition.exit(500).then(accountLinks.go_to_signin)}} className={classes.cancel}>
+          <div onClick={accountPageTransitions.signin} className={classes.cancel}>
             {text.alreadyHaveAnAccount}<br/>
             {text.signIn}
           </div>

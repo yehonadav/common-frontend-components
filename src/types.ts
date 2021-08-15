@@ -98,3 +98,11 @@ export type PersistOptions<S> = {
   whitelist: Array<keyof S>,
   getStorage: () => Storage,
 };
+
+export type Links<Routes> = {
+  [Property in keyof Routes]: () => void;
+}
+
+export type PageTransitions<Links> = {
+  [Property in keyof Links]: (delay?:number|any) => void;
+}

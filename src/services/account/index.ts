@@ -7,7 +7,7 @@ export * from "./helpers";
 export * from "./hooks";
 export * from "./service";
 export * from "./types";
-export * from "./useStore";
+export * from "./stores";
 export * from "./variables";
 export * from './views';
 export * from './transitions';

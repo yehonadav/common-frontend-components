@@ -1,7 +1,7 @@
 import produce from "immer";
-import { NullableUser } from "./types";
-import { NullableBoolean } from '../../types'
-import { createStore } from '../../utils/createStore'
+import { NullableUser } from "../types";
+import { NullableBoolean } from '../../../types'
+import { createStore } from '../../../utils/createStore'
 
 type State = {
   // persistent

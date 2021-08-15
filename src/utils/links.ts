@@ -1,5 +1,6 @@
 import { routes } from '../variables'
 import { history } from './history'
+import { createPageTransitions } from './createPageTransitions'
 
 export const links = {
   //////////////////////////////
@@ -36,30 +37,6 @@ export const links = {
 
   go_to_contact: (): void =>
     history.push(routes.contact),
-
-  ///////////////////////////
-  // generic account links //
-  ///////////////////////////
-
-  go_to_signin: (): void =>
-    history.push(routes.signin),
-
-  go_to_signup: (): void =>
-    history.push(routes.signup),
-
-  go_to_verify_email: (): void =>
-    history.push(routes.verify_email),
-
-  go_to_forgot_password: (): void =>
-    history.push(routes.forgot_password),
-
-  go_to_reset_password: (): void =>
-    history.push(routes.reset_password),
-
-  go_to_profile: (): void =>
-    history.push(routes.profile),
-
-  go_to_update_profile: (): void =>
-    history.push(routes.update_profile),
-
 };
+
+export const pageTransitions = createPageTransitions<typeof links>(links);

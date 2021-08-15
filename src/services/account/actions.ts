@@ -1,6 +1,6 @@
 import {links} from '../../utils';
 import {_logout, handleLogin} from './helpers'
-import {getUser, setUserStore, setSignin, setUser} from './useStore'
+import {getUser, setUserStore, setSignin, setUser} from './stores/userStore'
 import * as api from './api'
 import {User} from "./types";
 import { refreshShield } from './variables'

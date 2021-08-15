@@ -11,8 +11,8 @@ import Grid from '@material-ui/core/Grid'
 import { BigRoundSecondaryButton, BtnLoad, EmailInput, PasswordInput, Recaptcha } from '../../../components'
 import { routes } from '../../../variables'
 import { signInPageTransition } from '../transitions'
-import { accountLinks } from '../accountLinks'
 import { ForgotPasswordTextHelper } from '../components/ForgotPasswordTextHelper'
+import { accountPageTransitions } from '../accountRoutes'
 
 const { Slide, Fade } = signInPageTransition;
 
@@ -113,7 +113,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
             <Fade delay={200} transitionProps={{timeout:800}}>
               <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
               <div style={{display:"flex", marginTop:5}}>
-                <ForgotPasswordTextHelper onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_forgot_password)}}>
+                <ForgotPasswordTextHelper onClick={accountPageTransitions.forgot_password}>
                   {text.forgotPassword}
                 </ForgotPasswordTextHelper>
               </div>
@@ -136,7 +136,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
         </Grid>
 
         <Fade delay={800} transitionProps={{timeout:800}}>
-          <div onClick={()=>{signInPageTransition.exit(500).then(accountLinks.go_to_signup)}} className={classes.cancel}>
+          <div onClick={accountPageTransitions.signup} className={classes.cancel}>
             {text.dontHaveAnAccount}<br/>
             {text.signUp}
           </div>

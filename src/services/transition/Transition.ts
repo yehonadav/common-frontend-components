@@ -12,8 +12,20 @@ import { getTimeoutNumber } from "./getTimeoutNumber";
 import { useAsync, useOnLoad } from '../../hooks'
 import { createStore, sleep } from '../../utils'
 import { requestStatus } from '../../variables'
+import { pageRegisteredTransitions } from './pageRegisteredTransitions'
 
 type State = { in: boolean };
+
+type InitialLoad = {
+  open?: boolean;
+  pageRegister?: boolean;
+
+};
+
+const defaultInitialLoad:InitialLoad = {
+  open: true,
+  pageRegister: true,
+};
 
 const createTransitionStore = () => createStore<State>({ getDefaultValues: () => ({in: true})});
 
@@ -28,7 +40,7 @@ export class Transition {
   public useIn: () => boolean;
   public useSwitchDelay: (open: boolean, delay: TransitionProps["timeout"]) => boolean;
   public useConnect: (state: boolean) => void;
-  public useSetOnLoad: (open?: boolean) => void;
+  public useSetOnLoad: (options?: InitialLoad) => void;
   public useStatus: (status: requestStatus) => requestStatus;
   public Fade: FC<IFadeTransition>;
   public Slide: FC<ISlideTransition>;
@@ -74,9 +86,11 @@ export class Transition {
       },[state])
     };
 
-    this.useSetOnLoad = (open=true) => {
+    this.useSetOnLoad = ({ open = true, pageRegister = true }=defaultInitialLoad) => {
       useOnLoad(() => {
         set({in: open});
+        if (pageRegister)
+          pageRegisteredTransitions.items.push(this);
       })
     };
 

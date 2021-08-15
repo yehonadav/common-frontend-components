@@ -18,3 +18,4 @@ export * from "./tryOrNull";
 export * from "./defaultOnDateChange";
 export * from "./createStore";
 export * from "./createStorePersist";
+export { createLinks } from './createLinks'

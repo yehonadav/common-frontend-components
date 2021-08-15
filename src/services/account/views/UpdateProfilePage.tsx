@@ -14,12 +14,12 @@ import {
   UpdateProfileDetailsFormText
 } from '../components/forms/UpdateProfileDetailsForm'
 import { image_height, image_width } from '../../../variables';
-import { setUser } from '../useStore';
+import { setUser } from '../stores/userStore';
 import { alertService } from '../../alert';
 import { accountService } from '../service';
 import { seconds } from '@yehonadav/timeunit';
 import { useUser } from '../hooks';
-import { links } from '../../../utils';
+import { pageTransitions } from '../../../utils'
 import { updateProfilePageTransition } from '../transitions'
 
 const { Fade, Slide } = updateProfilePageTransition;
@@ -49,7 +49,7 @@ export const GoBack:FC<{text:UpdateProfilePageText['goBack']}> = ({text}) => {
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
       <Slide delay={1400} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
         <Fade delay={1400} transitionProps={{timeout:800}}>
-          <RoundPrimaryButton onClick={()=>{updateProfilePageTransition.exit(500).then(links.goBackOrHome)}}>
+          <RoundPrimaryButton onClick={pageTransitions.goBackOrHome}>
             {text}
           </RoundPrimaryButton>
         </Fade>

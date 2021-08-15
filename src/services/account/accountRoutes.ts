@@ -1,3 +1,6 @@
+import { createLinks } from '../../utils'
+import { createPageTransitions } from '../../utils/createPageTransitions'
+
 export const accountRoutes = {
   redirect_oauth: '/auth/redirect/login/',
 
@@ -13,3 +16,6 @@ export const accountRoutes = {
   profile: "/profile",
   update_profile: "/profile/update",
 }
+
+export const accountLinks = createLinks<typeof accountRoutes>(accountRoutes);
+export const accountPageTransitions = createPageTransitions<typeof accountLinks>(accountLinks);

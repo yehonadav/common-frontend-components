@@ -1,4 +1,4 @@
-import {getUser, setUserStore} from './useStore'
+import {getUser, setUserStore} from './stores/userStore'
 import {refreshToken} from './actions'
 import * as api from './api'
 import { alertService } from "../alert/service"
