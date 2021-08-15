@@ -1,9 +1,9 @@
-import {links} from '../../utils';
 import {_logout, handleLogin} from './helpers'
 import {getUser, setUserStore, setSignin, setUser} from './stores/userStore'
 import * as api from './api'
 import {User} from "./types";
 import { refreshShield } from './variables'
+import { accountPageTransitions } from './accountRoutes'
 
 export const signInOpen = () => setSignin(true);
 
@@ -48,7 +48,7 @@ export const logout_if_logged = ():void => {
 export const logout = ():void => {
   _logout();
   // redirect to login page
-  links.go_to_signin();
+  accountPageTransitions.signin();
 };
 
 export const update = (id: string, params: Record<string, unknown>):Promise<any> =>
