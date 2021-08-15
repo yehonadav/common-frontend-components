@@ -111,7 +111,9 @@ export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePage
             </Fade>
           </Slide>
           <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
+          <div style={{width:'100%', margin: 20}}/>
           <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
+          <div style={{width:'100%', margin: 20}}/>
           <GoBack text={text.goBack}/>
         </div>
       </div>

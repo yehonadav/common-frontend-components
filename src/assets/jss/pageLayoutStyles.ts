@@ -7,7 +7,7 @@ export const usePageLayoutStyles = makeStyles({
     width: "100%",
     minHeight: 900,
     height: "100%",
-    background: "transparent linear-gradient(180deg, #a1dff2b0 30%, #ffffff 100%) 0% 0% no-repeat padding-box",
+    // background: "transparent linear-gradient(180deg, #a1dff2b0 30%, #ffffff 100%) 0% 0% no-repeat padding-box",
   },
 
   content: {
