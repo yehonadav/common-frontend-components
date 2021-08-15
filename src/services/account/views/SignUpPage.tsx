@@ -13,6 +13,7 @@ import { signUpPageTransition } from '../transitions'
 import { LinkInText } from '../components/LinkInText'
 import { pageTransitions } from '../../../utils'
 import { accountPageTransitions } from '../accountRoutes'
+import { setRegisteredOnce } from '../stores'
 
 const { Slide, Fade } = signUpPageTransition;
 
@@ -90,6 +91,7 @@ const SignUpPage:FC<ISignUpPage> = ({text=signUpPageDefaultText}) => {
     call_register(data)
       .then(() => {
         alertService.success(text.registerSuccessMsg);
+        setRegisteredOnce(true);
         accountPageTransitions.signin();
       })
       .catch(error => {

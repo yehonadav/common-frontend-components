@@ -3,6 +3,8 @@ import { useIsLogged } from '../hooks'
 import { getLocation } from '../../router'
 import { routes } from '../../../variables'
 import { history } from '../../../utils'
+import { accountRoutes } from '../accountRoutes'
+import { getRegisteredOnce } from '../stores'
 
 export const SilentSignInPage:FC = () => {
   return (
@@ -22,7 +24,7 @@ export const SilentSignInPageWrapper = ({silentSignInPage: SilentSignInPage}:ISi
       // @ts-ignore
       const { from } = isLogged
         ? (getLocation().state || { from: { pathname: routes.home } })
-        : { from: { pathname: routes.signup } };
+        : { from: { pathname: getRegisteredOnce() ? accountRoutes.signin : accountRoutes.signup } };
 
       history.push(from);
     }
