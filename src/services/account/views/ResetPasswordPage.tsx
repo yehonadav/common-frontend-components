@@ -15,6 +15,7 @@ import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import { resetPasswordPageTransition } from '../transitions'
 import { LinkInText } from '../components/LinkInText'
 import { accountPageTransitions } from '../accountRoutes'
+import { useThemeStyle } from '../../theme'
 
 const { Slide, Fade } = resetPasswordPageTransition;
 
@@ -187,11 +188,12 @@ const ResetPasswordPage:FC<IResetPasswordPage> = ({text=resetPasswordPageText}) 
   const classes = usePageLayoutStyles();
 
   useOnResetPasswordLoad(setToken, setTokenStatus)
+  const theme = useThemeStyle();
 
   return (
     <Fade transitionProps={{timeout:800}} divProps={{className:classes.formContainer}}>
       <Grid container className={classes.form} justify={"center"} >
-        <div className={classes.formTitle}>
+        <div className={classes.formTitle} style={{color: theme.colors.primary}}>
           {text.title}
         </div>
 

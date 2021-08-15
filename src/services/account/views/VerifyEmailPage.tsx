@@ -13,6 +13,7 @@ import { call_verifyEmail } from '../api'
 import { accountService } from '../service'
 import {history} from "../../../utils";
 import { verifyEmailPageTransition } from '../transitions'
+import { useThemeStyle } from '../../theme'
 
 const { Fade } = verifyEmailPageTransition;
 
@@ -127,14 +128,16 @@ const VerifyEmailPage:FC<IVerifyEmailPage> = ({text=verifyEmailPageText}) => {
 
   useOnVerifyEmailLoad(setTokenStatus, text.onSuccessMsg);
 
+  const theme = useThemeStyle();
+
   return (
     <Fade transitionProps={{timeout:800}}>
       <Grid container className={classes.form} justify={"center"} >
-        <div className={classes.formTitle}>
+        <div className={classes.formTitle} style={{color: theme.colors.primary}}>
           {text.verifyEmail}
         </div>
         <Fade delay={600} transitionProps={{timeout:800}}>
-          <VerifyEmailContent tokenStatus={tokenStatus}/>
+          <VerifyEmailContent tokenStatus={tokenStatus} text={text.verifyEmailContentText}/>
         </Fade>
         <Link to={accountRoutes.signin} className={classes.cancel}>{text.signIn}</Link>
       </Grid>
