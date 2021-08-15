@@ -2,12 +2,11 @@ import React, {useState, useEffect, FC, Dispatch, SetStateAction} from 'react';
 import { Link } from "react-router-dom";
 import queryString from 'query-string';
 import Grid from "@material-ui/core/Grid";
-import { accountRoutes } from '../accountRoutes'
+import { accountPageTransitions, accountRoutes } from '../accountRoutes'
 import { usePageLayoutStyles } from '../../../assets/jss/pageLayoutStyles'
 import { AlignCenter } from '../../../components/styledComponents/AlignCenter'
 import { PageLoadingContent } from '../../../components'
 import { TokenStatus } from '../variables'
-import { accountLinks } from '../accountLinks'
 import { minute } from "@yehonadav/timeunit";
 import { alertService } from '../../alert'
 import { call_verifyEmail } from '../api'
@@ -77,7 +76,7 @@ export const useOnVerifyEmailLoad = (
         call_verifyEmail(preventTokenLossOnReRender.token)
           .then(() => {
             alertService.success(onSuccessMsg, { timeout: minute });
-            accountLinks.go_to_signin();
+            accountPageTransitions.signin();
             setTokenStatus(TokenStatus.Valid);
           })
           .catch(() => {
