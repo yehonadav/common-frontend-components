@@ -68,7 +68,7 @@ export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=c
         <Slide delay={100} transitionProps={{direction:"right", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
           <Fade delay={100} transitionProps={{timeout:800}}>
             {/*@ts-ignore*/}
-            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth lebel={text.passwordLabel}/>
+            <PasswordInput error={errors.password?.message} inputRef={register} fullWidth label={text.passwordLabel}/>
           </Fade>
         </Slide>
       </Grid>
@@ -82,7 +82,7 @@ export const ChangeProfilePasswordForm:FC<IChangeProfilePasswordForm> = ({text=c
         </Slide>
       </Grid>
 
-      <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 30}}>
+      <Grid container justify={"center"} className={classes.actions} style={{paddingTop: 40}}>
         <Fade delay={400} transitionProps={{timeout:800}}>
           <BigRoundPrimaryButton type={"submit"}>
             <BtnLoad loading={isSubmitting} text={text.changePassword} loadText={text.pleaseWait}/>

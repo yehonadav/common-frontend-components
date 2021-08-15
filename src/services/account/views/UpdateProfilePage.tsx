@@ -7,7 +7,7 @@ import {
   changeProfilePasswordFormText,
   ChangeProfilePasswordFormText
 } from '../components/forms/ChangeProfilePasswordForm'
-import { Avatar, GenericFileCrop, RoundPrimaryButton, TonImage } from '../../../components';
+import { Avatar, GenericFileCrop, TonImage } from '../../../components';
 import {
   UpdateProfileDetailsForm,
   updateProfileDetailsFormText,
@@ -21,6 +21,7 @@ import { seconds } from '@yehonadav/timeunit';
 import { useUser } from '../hooks';
 import { pageTransitions } from '../../../utils'
 import { updateProfilePageTransition } from '../transitions'
+import Button from '@material-ui/core/Button'
 
 const { Fade, Slide } = updateProfilePageTransition;
 
@@ -49,9 +50,9 @@ export const GoBack:FC<{text:UpdateProfilePageText['goBack']}> = ({text}) => {
     <Grid container className={classes.form} justify={"flex-end"} spacing={3} style={{padding: 40, paddingBottom: 100, paddingTop: 0}}>
       <Slide delay={1400} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
         <Fade delay={1400} transitionProps={{timeout:800}}>
-          <RoundPrimaryButton onClick={pageTransitions.goBackOrHome}>
+          <Button onClick={pageTransitions.goBackOrHome} color={'primary'}>
             {text}
-          </RoundPrimaryButton>
+          </Button>
         </Fade>
       </Slide>
     </Grid>
@@ -103,20 +104,31 @@ export const UpdateProfilePage:FC<IUpdateProfilePage> = ({text=updateProfilePage
   updateProfilePageTransition.useSetOnLoad();
   return (
     <Fade transitionProps={{timeout:800}}>
-      <div className={classes.root}>
-        <div className={classes.content}>
+      <Grid container className={classes.form} justify={"center"} spacing={3}>
+        <Grid item xs={12}>
           <Slide delay={100} transitionProps={{direction:"left", timeout:800, mountOnEnter:true, unmountOnExit:true}}>
             <Fade delay={100} transitionProps={{timeout:800}}>
               <UpdateProfilePhoto text={text.updateImgSuccessful}/>
             </Fade>
           </Slide>
+        </Grid>
+
+        <Grid item xs={12}>
           <UpdateProfileDetailsForm text={text.updateProfileDetailsFormText}/>
-          <div style={{width:'100%', margin: 20}}/>
+        </Grid>
+
+        <div style={{width:'100%', margin: 40}}/>
+
+        <Grid item xs={12}>
           <ChangeProfilePasswordForm text={text.changeProfilePasswordFormText}/>
-          <div style={{width:'100%', margin: 20}}/>
+        </Grid>
+
+        <div style={{width:'100%', margin: 60}}/>
+
+        <Grid item xs={12}>
           <GoBack text={text.goBack}/>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Fade>
   )
 }
