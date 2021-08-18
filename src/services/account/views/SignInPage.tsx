@@ -13,6 +13,7 @@ import { routes } from '../../../variables'
 import { signInPageTransition } from '../transitions'
 import { ForgotPasswordTextHelper } from '../components/ForgotPasswordTextHelper'
 import { accountPageTransitions } from '../accountRoutes'
+import { setRegisteredOnce } from '../stores'
 
 const { Slide, Fade } = signInPageTransition;
 
@@ -80,6 +81,7 @@ export const SignInPage:FC<ISignInPage> = ({text=signInPageDefaultText}) => {
         // @ts-ignore
         const { from } = getLocation().state || { from: { pathname: routes.home } };
         history.push(from);
+        setRegisteredOnce(true);
       })
       .catch(error => {
         alertService.error(error);
