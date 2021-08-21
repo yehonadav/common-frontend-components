@@ -94,6 +94,7 @@ export const createSidebarStore = ({ name, state=defaultState }:ICreateSidebarSt
   const setOpen = (open:boolean):void => set({open});
   const setOpenTrue = ():void => setOpen(true);
   const setOpenFalse = ():void => setOpen(false);
+  const toggleOpen = ():void => setOpen(!getOpen());
   const useOpen = ():boolean => useStore(fetchStore.open);
 
   return {
@@ -107,6 +108,7 @@ export const createSidebarStore = ({ name, state=defaultState }:ICreateSidebarSt
     setOpen,
     setOpenTrue,
     setOpenFalse,
+    toggleOpen,
     useOpen,
   }
 }
