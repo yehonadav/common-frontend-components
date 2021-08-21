@@ -10,9 +10,11 @@ import {
 import { TransitionProps } from '@material-ui/core/transitions/transition';
 import { getTimeoutNumber } from "./getTimeoutNumber";
 import { useAsync, useOnLoad } from '../../hooks'
-import { createStore, sleep } from '../../utils'
+import { createStore, createStorePersist, sleep } from '../../utils'
 import { requestStatus } from '../../variables'
 import { pageRegisteredTransitions } from './pageRegisteredTransitions'
+import { PersistOptions } from '../../types'
+import { getStorageCall } from '@yehonadav/safestorage'
 
 type State = { in: boolean };
 
@@ -27,10 +29,35 @@ const defaultInitialLoad:InitialLoad = {
   pageRegister: true,
 };
 
-const createTransitionStore = () => createStore<State>({ getDefaultValues: () => ({in: true})});
+type ITransition = {
+  initialValue?: boolean;
+  persist?: {
+    name: string;
+    persistAfterClearingStorage: boolean;
+  }
+}
+
+const createTransitionStore = (props?:ITransition) => {
+  const initialValue = props?.initialValue === undefined ? true : props.initialValue;
+
+  if (props?.persist === undefined)
+    return createStore<State>({ getDefaultValues: () => ({in: initialValue})});
+
+  const persistOptions: PersistOptions<State> = {
+    name: props.persist.name,
+    whitelist: ["in"],
+    getStorage: getStorageCall,
+  };
+
+  return createStorePersist<State>({
+    persistOptions,
+    getDefaultValues: () => ({in: initialValue}),
+    persistAfterClearingStorage: props.persist.persistAfterClearingStorage,
+  });
+}
 
 export class Transition {
-  public store: ReturnType<typeof createTransitionStore>;
+  private readonly store: ReturnType<typeof createTransitionStore>;
   public getIn: () => boolean;
   public setIn: () => void;
   public setOut: () => void;
@@ -49,8 +76,9 @@ export class Transition {
   public Zoom: FC<IZoomTransition>;
   public RenderDelay: FC<IRenderDelayTransition>;
 
-  constructor() {
-    this.store = createTransitionStore();
+  constructor(props:ITransition) {
+    this.store = createTransitionStore(props);
+
     const { useStore, get, set, fetchStore } = this.store;
 
     this.getIn = () => get().in;
