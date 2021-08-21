@@ -76,7 +76,7 @@ export class Transition {
   public Zoom: FC<IZoomTransition>;
   public RenderDelay: FC<IRenderDelayTransition>;
 
-  constructor(props:ITransition) {
+  constructor(props?:ITransition) {
     this.store = createTransitionStore(props);
 
     const { useStore, get, set, fetchStore } = this.store;
