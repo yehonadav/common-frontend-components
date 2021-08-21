@@ -3,22 +3,23 @@ import { getStorageCall } from '@yehonadav/safestorage'
 import { createStorePersist } from '../utils/createStorePersist'
 import { PersistOptions } from '../types'
 
-// state type
-type State = {
-  expanded: {[x: string]: boolean},
+type SidebarState = {
+  open: boolean;
+  expanded: {[x: string]: boolean};
   routes: {
     [x: string]: {
-      expanded: boolean,
-      open: () => void,
-      close: () => void,
-      toggle: () => void,
-    }
-  },
+      expanded: boolean;
+      open: () => void;
+      close: () => void;
+      toggle: () => void;
+    };
+  };
 };
 
 // state initial values
-const state: State = {
+const defaultState: SidebarState = {
   // persistent
+  open: false,
   expanded: {
     // [route]: bool
   },
@@ -34,64 +35,78 @@ const state: State = {
   },
 };
 
-// persist options
-const persistOptions: PersistOptions<State> = {
-  name: "useSidebarStore",
-  whitelist: ["expanded"],
-  getStorage: getStorageCall,
-};
+export interface ICreateSidebarStore {
+  state?: SidebarState;
+  name: string;
+}
 
-const {
-  fetchStore,
-  useStore,
-  get,
-  set,
-} = createStorePersist<State>({
-  persistOptions,
-  getDefaultValues: () => state,
-  persistAfterClearingStorage: true,
-});
+export const createSidebarStore = ({ name, state=defaultState }:ICreateSidebarStore) => {
+  const persistOptions: PersistOptions<SidebarState> = {
+    name,
+    whitelist: ['expanded', 'open'],
+    getStorage: getStorageCall,
+  };
 
-const immer = (fn:(s:State)=>void):void => set(produce(fn));
+  const {
+    fetchStore,
+    useStore,
+    get,
+    set,
+  } = createStorePersist<SidebarState>({
+    persistOptions,
+    getDefaultValues: () => state,
+    persistAfterClearingStorage: true,
+  });
 
-// actions
-const getRouteStore = (route: string) => {
-  const state = get();
+  const immer = (fn:(s:SidebarState)=>void):void => set(produce(fn));
 
-  if (state.expanded[route] === undefined || state.routes[route] === undefined) {
-    const route_store = {
-      expanded: state.expanded[route] === undefined ? false : state.expanded[route],
-      open: () => immer((s:State) => {
-        s.expanded[route] = true;
-        s.routes[route].expanded = s.expanded[route];
-      }),
-      close: () => immer((s:State) => {
-        s.expanded[route] = false;
-        s.routes[route].expanded = s.expanded[route];
-      }),
-      toggle: () => immer((s:State) => {
-        s.expanded[route] = !s.expanded[route];
-        s.routes[route].expanded = s.expanded[route];
-      }),
-    };
-    immer((s:State) => {
-      if (s.expanded[route] === undefined)
-        s.expanded[route] = route_store.expanded;
-      s.routes[route] = route_store
-    });
-    return route_store;
+  // actions
+  const getRouteStore = (route: string) => {
+    const state = get();
+
+    if (state.expanded[route] === undefined || state.routes[route] === undefined) {
+      const route_store = {
+        expanded: state.expanded[route] === undefined ? false : state.expanded[route],
+        open: () => immer((s:SidebarState) => {
+          s.expanded[route] = true;
+          s.routes[route].expanded = s.expanded[route];
+        }),
+        close: () => immer((s:SidebarState) => {
+          s.expanded[route] = false;
+          s.routes[route].expanded = s.expanded[route];
+        }),
+        toggle: () => immer((s:SidebarState) => {
+          s.expanded[route] = !s.expanded[route];
+          s.routes[route].expanded = s.expanded[route];
+        }),
+      };
+      immer((s:SidebarState) => {
+        if (s.expanded[route] === undefined)
+          s.expanded[route] = route_store.expanded;
+        s.routes[route] = route_store
+      });
+      return route_store;
+    }
+    return state.routes[route];
+  };
+
+  const getOpen = ():boolean => get().open;
+  const setOpen = (open:boolean):void => set({open});
+  const setOpenTrue = ():void => setOpen(true);
+  const setOpenFalse = ():void => setOpen(false);
+  const useOpen = ():boolean => useStore(fetchStore.open);
+
+  return {
+    fetchStore,
+    useStore,
+    get,
+    set,
+    immer,
+    getRouteStore,
+    getOpen,
+    setOpen,
+    setOpenTrue,
+    setOpenFalse,
+    useOpen,
   }
-  return state.routes[route];
-};
-
-export {
-  fetchStore as fetchSidebarStore,
-  State as StateSidebarStore,
-  state as stateSidebarStore,
-  persistOptions as persistOptionsSidebarStore,
-  useStore as useSidebarStore,
-  get as getSidebarStore,
-  set as setSidebarStore,
-  immer as setImmerSidebarStore,
-  getRouteStore,
 }
