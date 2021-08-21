@@ -110,3 +110,5 @@ export const createSidebarStore = ({ name, state=defaultState }:ICreateSidebarSt
     useOpen,
   }
 }
+
+export const sidebarStore = createSidebarStore({ name: 'common-frontend-components/services/sidebar'});
