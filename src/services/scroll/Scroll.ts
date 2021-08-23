@@ -257,7 +257,7 @@ export type Position = {
   y: number;
 }
 
-export type Direction = 'left' | 'right' | 'up' | 'down' | 'none';
+type Direction = 'left' | 'right' | 'up' | 'down' | 'none';
 
 const isScrollUp = (direction:Direction):boolean => direction === 'up';
 const isScrollTop = (position:Position):boolean => position.y === 0;
