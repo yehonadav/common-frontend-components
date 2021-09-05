@@ -5,16 +5,17 @@ import {deleteWarningPopup, IDeletePopup} from '../popups';
 import {setBackdrop} from "../services/backdrop/useStore";
 import {deleteSuccessPopup} from '../popups';
 
-export type UseAsyncDeleteAction = IAsyncButton & IDeletePopup;
-
-export type UseAsyncDeleteActionHandler = UseAsyncDeleteAction & {
-  isSubmitting: boolean;
-  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+export type UseAsyncDeleteAction = IAsyncButton & IDeletePopup & {
   warningPopupOptions?: Partial<IDeletePopup>;
   successPopupOptions?: Partial<IDeletePopup>;
 };
 
-const asyncDeleteActionClick = (
+export type UseAsyncDeleteActionHandler = UseAsyncDeleteAction & {
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+};
+
+const creatOnClickDeleteAsyncHandler = (
   {
     onClick,
     isSubmitting,
@@ -49,15 +50,25 @@ const asyncDeleteActionClick = (
     })
 }
 
-export const useAsyncDeleteAction = ({onClick, name, value}:UseAsyncDeleteAction):TuseAsyncActionResult => {
+export const useAsyncDeleteAction = (
+  {
+    onClick,
+    name,
+    value,
+    warningPopupOptions={},
+    successPopupOptions={},
+  }:UseAsyncDeleteAction):TuseAsyncActionResult =>
+{
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleClick = asyncDeleteActionClick({
+  const handleClick = creatOnClickDeleteAsyncHandler({
     onClick,
     isSubmitting,
     setIsSubmitting,
     name,
     value,
+    warningPopupOptions,
+    successPopupOptions,
   });
 
   return {
