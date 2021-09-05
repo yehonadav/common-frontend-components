@@ -1,6 +1,6 @@
 import {IAsyncButton} from "../interfaces";
 import {Dispatch, SetStateAction, useState} from "react";
-import {TuseAsyncActionResult} from "./useAsyncAction";
+import {UseAsyncActionResult} from "./useAsyncAction";
 import {deleteWarningPopup, IDeletePopup} from '../popups';
 import {setBackdrop} from "../services/backdrop/useStore";
 import {deleteSuccessPopup} from '../popups';
@@ -57,7 +57,7 @@ export const useAsyncDeleteAction = (
     value,
     warningPopupOptions={},
     successPopupOptions={},
-  }:UseAsyncDeleteAction):TuseAsyncActionResult =>
+  }:UseAsyncDeleteAction):UseAsyncActionResult =>
 {
   const [isSubmitting, setIsSubmitting] = useState(false);
 

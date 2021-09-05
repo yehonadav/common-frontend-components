@@ -2,13 +2,13 @@ import {Dispatch, SetStateAction, useState} from "react";
 import {IAsyncButton} from "../interfaces";
 import {BaseFunctionType} from "../types";
 
-export type TuseAsyncActionResult = {
+export type UseAsyncActionResult = {
   handleClick: BaseFunctionType;
   isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>
 }
 
-export const useAsyncAction = ({onClick}:IAsyncButton):TuseAsyncActionResult => {
+export const useAsyncAction = ({onClick}:IAsyncButton):UseAsyncActionResult => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return {
