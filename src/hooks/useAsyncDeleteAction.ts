@@ -1,33 +1,46 @@
 import {IAsyncButton} from "../interfaces";
 import {Dispatch, SetStateAction, useState} from "react";
 import {TuseAsyncActionResult} from "./useAsyncAction";
-import {deleteWarningPopup, IdeletePopup} from '../popups';
+import {deleteWarningPopup, IDeletePopup} from '../popups';
 import {setBackdrop} from "../services/backdrop/useStore";
 import {deleteSuccessPopup} from '../popups';
 
-export type TuseAsyncDeleteAction = IAsyncButton & IdeletePopup;
+export type UseAsyncDeleteAction = IAsyncButton & IDeletePopup;
 
-export type TuseAsyncDeleteActionHandler = TuseAsyncDeleteAction & {
+export type UseAsyncDeleteActionHandler = UseAsyncDeleteAction & {
   isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+  warningPopupOptions?: Partial<IDeletePopup>;
+  successPopupOptions?: Partial<IDeletePopup>;
 };
 
-const asyncDeleteActionClick = ({onClick, isSubmitting, setIsSubmitting, ...options}:TuseAsyncDeleteActionHandler) => () => {
+const asyncDeleteActionClick = (
+  {
+    onClick,
+    isSubmitting,
+    setIsSubmitting,
+    warningPopupOptions={},
+    successPopupOptions={},
+    name,
+    value,
+  }:UseAsyncDeleteActionHandler) => () =>
+{
+  warningPopupOptions.name = name;
+  warningPopupOptions.value = value;
+  successPopupOptions.name = name;
+  successPopupOptions.value = value;
+
   if (isSubmitting)
     return;
 
-  deleteWarningPopup(options)
-
+  deleteWarningPopup(warningPopupOptions as IDeletePopup)
     .then((result) => {
-
       if (result.isConfirmed) {
-
         setBackdrop(true);
         setIsSubmitting(true);
 
         onClick()
-          .then(() => { deleteSuccessPopup(options) })
-
+          .then(() => { deleteSuccessPopup(successPopupOptions as IDeletePopup) })
           .finally(() => {
             setBackdrop(false);
             setIsSubmitting(false);
@@ -36,7 +49,7 @@ const asyncDeleteActionClick = ({onClick, isSubmitting, setIsSubmitting, ...opti
     })
 }
 
-export const useAsyncDeleteAction = ({onClick, name, value}:TuseAsyncDeleteAction):TuseAsyncActionResult => {
+export const useAsyncDeleteAction = ({onClick, name, value}:UseAsyncDeleteAction):TuseAsyncActionResult => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = asyncDeleteActionClick({

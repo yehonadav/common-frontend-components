@@ -1,11 +1,11 @@
 import Swal, {SweetAlertOptions, SweetAlertResult} from "sweetalert2";
 
-export interface IdeletePopup extends SweetAlertOptions {
+export interface IDeletePopup extends SweetAlertOptions {
   name: string;
   value: string;
 }
 
-export const deleteWarningPopup = ({name, value, ...options}:IdeletePopup): Promise<SweetAlertResult> => {
+export const deleteWarningPopup = ({name, value, ...options}:IDeletePopup): Promise<SweetAlertResult> => {
   return (
     Swal.fire({
       title: 'Are you sure?',
