@@ -102,14 +102,14 @@ export type PersistOptions<S> = {
 export type LinkOptions = Record<string, string>;
 
 export type Links<Routes> = {
-  [Property in keyof Routes]: (replace?: LinkOptions) => void;
+  [Property in keyof Routes]: (replace?: LinkOptions|any) => void;
 }
 
 export interface PageTransitionsOptions {
-  delay?: number|any;
+  delay?: number;
   replace?: LinkOptions;
 }
 
 export type PageTransitions<Links> = {
-  [Property in keyof Links]: (options?: PageTransitionsOptions) => void;
+  [Property in keyof Links]: (options?: PageTransitionsOptions|any) => void;
 }
