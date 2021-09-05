@@ -20,5 +20,8 @@ export interface ISpacer extends React.DetailedHTMLProps<React.HTMLAttributes<HT
   fullWidth?: boolean
 }
 
-export const Spacer:FC<ISpacer> = ({size=10, component:Component='div', fullWidth=false, ...props}) =>
-  <Component className={useSpacerStyles({size, fullWidth}).Spacer} {...props}/>;
+export const Spacer:FC<ISpacer> = ({size=10, component='div', fullWidth=false, ...props}) => {
+  const Component = component as keyof JSX.IntrinsicElements;
+  // @ts-ignore
+  return <Component className={useSpacerStyles({ size, fullWidth }).Spacer} {...props} />;
+}
