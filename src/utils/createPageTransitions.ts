@@ -13,7 +13,7 @@ export const createPageTransitions = <Links>(links: Links): PageTransitions<Link
       pageRegisteredTransitions.items = [];
       let delay = 500;
       let replace;
-      if (options && !options.target) {
+      if (options) {
         delay = typeof options.delay === 'number' && options.delay;
         replace = options.replace;
       }
