@@ -20,4 +20,4 @@ export * from "./createStore";
 export * from "./createStorePersist";
 export { createLinks } from './createLinks';
 export { createPageTransitions } from './createPageTransitions';
-export { useUrlQuery, getUrlQuery, Query, GetQuery } from './urlQuery';
+export { useUrlQuery, getUrlQuery, Query, GetQuery, useUrlQueryOnLoad } from './urlQuery';
