@@ -18,5 +18,6 @@ export * from "./tryOrNull";
 export * from "./defaultOnDateChange";
 export * from "./createStore";
 export * from "./createStorePersist";
-export { createLinks } from './createLinks'
-export { createPageTransitions } from './createPageTransitions'
+export { createLinks } from './createLinks';
+export { createPageTransitions } from './createPageTransitions';
+export { useUrlQuery, getUrlQuery, Query, GetQuery } from './urlQuery';
