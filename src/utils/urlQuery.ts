@@ -1,6 +1,6 @@
 import { getLocation } from '../services/router/useRouterStore'
 import { useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export type Query = Record<string, string>;
 
@@ -31,4 +31,8 @@ export const useUrlQuery:GetQuery = <T extends Query>(defaultValues?:Partial<T>)
   },[search, defaultValues]);
 
   return query;
+}
+
+export const useUrlQueryOnLoad:GetQuery = <T extends Query>(defaultValues?:Partial<T>) => {
+  return useMemo(()=>getUrlQuery(defaultValues),[]);
 }
