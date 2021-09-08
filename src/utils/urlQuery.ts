@@ -6,9 +6,17 @@ export type Query = Record<string, string>;
 
 export type GetQuery = <T extends Query>(defaultValues?:Partial<T>) => Partial<T> & Query;
 
+class QueryParams {
+  static params: URLSearchParams;
+
+  params = null;
+}
+
 export const getUrlQueryOnLoad = <T extends Query>(defaultValues:T):T => {
-  const search = location.search;
-  const params = new URLSearchParams(search);
+  if (QueryParams.params === null)
+    QueryParams.params = new URLSearchParams(location.search);
+
+  const params = QueryParams.params;
   const query: any = {};
 
   for (const k in defaultValues) {
