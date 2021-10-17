@@ -3,6 +3,7 @@ import {AccountMenuItem} from "./AccountMenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import SvgIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import React from "react";
 
 interface ISimpleMenuItem {
   onClick: () => void;

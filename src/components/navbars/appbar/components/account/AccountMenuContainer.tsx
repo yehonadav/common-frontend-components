@@ -1,5 +1,6 @@
 import {withStyles} from "@material-ui/core/styles";
 import Menu, {MenuProps} from "@material-ui/core/Menu";
+import React from "react";
 
 export const AccountMenuContainer = withStyles({
   paper: {
