@@ -10,6 +10,7 @@ import {useAppbarStyles} from "../useAppbarStyles";
 import { sidebarStore } from '../../../../stores/useSidebarStores'
 import { sleep } from '../../../../utils/sleep'
 import { WithUser } from '../../../wrappers/WithUser'
+import React from 'react';
 
 const useHamburger = () => {
   const sidebar = sidebarStore.useOpen();
