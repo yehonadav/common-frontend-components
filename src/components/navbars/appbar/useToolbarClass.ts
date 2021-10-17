@@ -1,6 +1,7 @@
 import {useAppbarStyles} from "./useAppbarStyles";
 import {useState} from "react";
-import {sleep, useAsync} from "common-frontend-components";
+import { useAsync } from '../../../hooks/useAsync'
+import { sleep } from '../../../utils/sleep'
 
 const getToolbarClass = (classes: ReturnType<typeof useAppbarStyles>, isScrolledToTop: boolean, isScrollingUp: boolean):string =>
   [classes.toolBar, !isScrolledToTop && isScrollingUp ? classes.toolBarOnScroll : classes.toolBarOnTop].join(' ');
