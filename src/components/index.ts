@@ -8,3 +8,4 @@ export * from "./providers";
 export * from "./videos";
 export * from "./wrappers";
 export * from "./styledComponents";
+export * from './navbars';
