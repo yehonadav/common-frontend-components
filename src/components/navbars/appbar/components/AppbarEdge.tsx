@@ -1,5 +1,6 @@
+import React from "react";
 import {FC} from "react";
-import {useWidth} from "common-frontend-components";
+import { useWidth } from '../../../../stores/usePageStore'
 
 export const AppbarEdge:FC = () => {
   const width = useWidth();

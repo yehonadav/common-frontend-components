@@ -1,6 +1,6 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import Slide from "@material-ui/core/Slide";
-import {Scroll} from "common-frontend-components";
+import { Scroll } from '../../../services'
 
 interface Props {
   scroller: Scroll;

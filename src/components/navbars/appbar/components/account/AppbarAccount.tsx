@@ -1,5 +1,4 @@
-import {FC, useState} from "react";
-import {DivType, WithUser} from "common-frontend-components";
+import React, {FC, useState} from "react";
 import IconButton, {IconButtonTypeMap} from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {MenuProps} from '@material-ui/core/Menu';
@@ -7,6 +6,8 @@ import {OverrideProps} from "@material-ui/core/OverridableComponent";
 import {ExtendButtonBaseTypeMap} from "@material-ui/core";
 import {AccountMenu} from "./AccountMenu";
 import {useAppbarStyles} from "../../useAppbarStyles";
+import { WithUser } from '../../../../wrappers/WithUser';
+import { DivType } from '../../../../../types'
 
 export interface IAppbarAccount {
   containerProps?: DivType;

@@ -1,12 +1,12 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {MenuProps} from "@material-ui/core/Menu";
 import {AccountMenuContainer} from "./AccountMenuContainer";
 import {SimpleMenuItem} from "./SimpleMenuItem";
 import FaceIcon from "@material-ui/icons/Face";
-import {accountPageTransitions, accountService} from "common-frontend-components";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { accountPageTransitions, accountService } from '../../../../../services/account';
 
 export const AccountMenu: FC<MenuProps> = ({onClose, ...props}) => {
   const handleClick = (fn: () => void) => () => {

@@ -2,12 +2,14 @@ import {useState} from 'react'
 import IconButton, {IconButtonTypeMap} from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import CloseIcon from '@material-ui/icons/Close';
-import {sleep, sidebarStore, WithUser} from "common-frontend-components";
 import Fade from "@material-ui/core/Fade";
 import {OverridableComponent, OverrideProps} from "@material-ui/core/OverridableComponent";
 import {SvgIconTypeMap} from "@material-ui/core/SvgIcon/SvgIcon";
 import {ExtendButtonBaseTypeMap} from "@material-ui/core";
 import {useAppbarStyles} from "../useAppbarStyles";
+import { sidebarStore } from '../../../../stores/useSidebarStores'
+import { sleep } from '../../../../utils/sleep'
+import { WithUser } from '../../../wrappers/WithUser'
 
 const useHamburger = () => {
   const sidebar = sidebarStore.useOpen();
