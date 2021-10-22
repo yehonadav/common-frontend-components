@@ -6,7 +6,6 @@ import {clearCachedData} from "@yehonadav/safestorage";
 import {IAlertOptionals} from '../alert';
 import {User} from "./types";
 import { setBackdrop } from '../backdrop'
-import { appConfig } from '../../variables'
 import { authHeader } from '../../api/headers'
 
 // function holder
@@ -45,7 +44,7 @@ export const _logout:T_logout = async (msg, options) => {
   setBackdrop(true);
 
   // revoke token
-  api.call_revoke_token(authHeader(appConfig.apiUrl||""))
+  api.call_revoke_token(authHeader())
     .catch(alertService.error)
     .finally(() => {
       // clear data

@@ -4,32 +4,32 @@ import { handleApiSuccess, handleApiError } from "./helpers";
 import { headersJson, authHeader } from './headers'
 
 function get(url: string, config: AxiosRequestConfig={}):Promise<any> {
-  return authCall(() => req.get(url, {...config, headers: authHeader(url)}))()
+  return authCall(() => req.get(url, {...config, headers: authHeader()}))()
     .then(handleApiSuccess).catch(handleApiError);
 }
 
 function post(url: string, body?: any, config: AxiosRequestConfig={}):Promise<any> {
   return authCall(() => req.post(url, body, {...config,
-    headers: { ...headersJson, ...authHeader(url) },
+    headers: { ...headersJson, ...authHeader() },
     withCredentials: true,
   }))().then(handleApiSuccess).catch(handleApiError);
 }
 
 function put(url: string, body?: any, config: AxiosRequestConfig={}):Promise<any> {
   return authCall(() => req.put(url, body, {...config,
-    headers: { ...headersJson, ...authHeader(url) },
+    headers: { ...headersJson, ...authHeader() },
   }))().then(handleApiSuccess).catch(handleApiError);
 }
 
 function patch(url: string, body?: any, config: AxiosRequestConfig={}):Promise<any> {
   return authCall(() => req.patch(url, body, {...config,
-    headers: { ...headersJson, ...authHeader(url) },
+    headers: { ...headersJson, ...authHeader() },
   }))().then(handleApiSuccess).catch(handleApiError);
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(url: string, config: AxiosRequestConfig={}):Promise<any> {
-  return authCall(() => req.delete(url, {...config, headers: authHeader(url)}))()
+  return authCall(() => req.delete(url, {...config, headers: authHeader()}))()
     .then(handleApiSuccess).catch(handleApiError);
 }
 
@@ -37,7 +37,7 @@ function putFile(url: string, key: string, file: any, config: AxiosRequestConfig
   const data = new FormData();
   data.append(key, file);
 
-  return authCall(() => req.put(url, data, {...config, headers: authHeader(url)}))()
+  return authCall(() => req.put(url, data, {...config, headers: authHeader()}))()
     .then(handleApiSuccess).catch(handleApiError);
 }
 
