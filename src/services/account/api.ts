@@ -16,11 +16,10 @@ export const call_login_google = ({ token }:{token: string}) =>
   request.post(`${appConfig.accountUrl}/auth/google`, {token});
 
 export const call_refresh = isStageLocal
-  ? () => request.post(`${appConfig.accountUrl}/refresh-token`, {})
-  : () => {
+  ? () => {
     const user = persistLocal.tryToGetItem<NullableUser>('persistLocal-account').value;
     return request.post(`${appConfig.accountUrl}/refresh-token-local/${user?.id || 'null'}`, {});
-  };
+  } : () => request.post(`${appConfig.accountUrl}/refresh-token`, {});
 
 export const call_verifyEmail = (token: string) =>
   request.post(`${appConfig.accountUrl}/verify-email`, {token});

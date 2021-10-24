@@ -52,10 +52,10 @@ const setImmer = (fn: any) => set(produce(fn));
 
 const _setUser = (user: NullableUser) => set({user});
 
-const setUser = isStageLocal ? _setUser : (user: NullableUser) => {
+const setUser = isStageLocal ? (user: NullableUser) => {
   persistLocal.setItem('persistLocal-account', user);
   _setUser(user);
-}
+} : _setUser;
 
 const setIdle = (idle: boolean) => set({idle});
 const setSignin = (signin: boolean) => set({signin});
