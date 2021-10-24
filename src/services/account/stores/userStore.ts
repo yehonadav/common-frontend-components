@@ -4,6 +4,7 @@ import { NullableBoolean } from '../../../types'
 import { createStore } from '../../../utils/createStore'
 import { isStageLocal } from '../../../variables'
 import { persistLocal } from '@yehonadav/safestorage'
+import { PartialState } from 'zustand'
 
 type State = {
   // persistent
@@ -31,12 +32,27 @@ const state:State = {
   loggedOut: false,
 }
 
+const store = createStore<State>({ getDefaultValues: () => state });
+
 const {
   fetchStore,
   useStore,
   get,
-  set,
-} = createStore<State>({ getDefaultValues: () => state });
+} = store;
+
+// override setter
+const set = isStageLocal
+  ? (s:PartialState<State, keyof State>) => {
+    // @ts-ignore
+    const user:NullableUser = s.user;
+
+    if (user) {
+      persistLocal.setItem('persistLocal-account', user);
+      console.log({setUser: user});
+    }
+    store.set(s);
+  }
+  : store.set;
 
 // create getters
 const getSignin = (): boolean => get().signin;
@@ -49,15 +65,7 @@ const getLoggedOut = (): boolean => get().loggedOut;
 
 // create setters
 const setImmer = (fn: any) => set(produce(fn));
-
-const _setUser = (user: NullableUser) => set({user});
-
-const setUser = isStageLocal ? (user: NullableUser) => {
-  persistLocal.setItem('persistLocal-account', user);
-  console.log({setUser: user});
-  _setUser(user);
-} : _setUser;
-
+const setUser = (user: NullableUser) => set({user});
 const setIdle = (idle: boolean) => set({idle});
 const setSignin = (signin: boolean) => set({signin});
 const setUserLoading = (loading: NullableBoolean) => set({loading});
