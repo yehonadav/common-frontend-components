@@ -54,6 +54,7 @@ const _setUser = (user: NullableUser) => set({user});
 
 const setUser = isStageLocal ? (user: NullableUser) => {
   persistLocal.setItem('persistLocal-account', user);
+  console.log({setUser: user});
   _setUser(user);
 } : _setUser;
 

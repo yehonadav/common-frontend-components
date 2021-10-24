@@ -18,6 +18,7 @@ export const call_login_google = ({ token }:{token: string}) =>
 export const call_refresh = isStageLocal
   ? () => {
     const user = persistLocal.tryToGetItem<NullableUser>('persistLocal-account').value;
+    console.log({'persistLocal.tryToGetItem:persistLocal-account': user});
     return request.post(`${appConfig.accountUrl}/refresh-token-local/${user?.id || 'null'}`, {});
   } : () => request.post(`${appConfig.accountUrl}/refresh-token`, {});
 
