@@ -4,3 +4,4 @@ export * from "./requestStatus";
 export * from './routes';
 export * from './sizes';
 export * from './now';
+export * from './stage';

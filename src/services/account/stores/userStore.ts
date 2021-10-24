@@ -2,6 +2,8 @@ import produce from "immer";
 import { NullableUser } from "../types";
 import { NullableBoolean } from '../../../types'
 import { createStore } from '../../../utils/createStore'
+import { isStageLocal } from '../../../variables'
+import { persistLocal } from '@yehonadav/safestorage'
 
 type State = {
   // persistent
@@ -47,7 +49,14 @@ const getLoggedOut = (): boolean => get().loggedOut;
 
 // create setters
 const setImmer = (fn: any) => set(produce(fn));
-const setUser  = (user: NullableUser) => set({user});
+
+const _setUser = (user: NullableUser) => set({user});
+
+const setUser = isStageLocal ? _setUser : (user: NullableUser) => {
+  persistLocal.setItem('persistLocal-account', user);
+  _setUser(user);
+}
+
 const setIdle = (idle: boolean) => set({idle});
 const setSignin = (signin: boolean) => set({signin});
 const setUserLoading = (loading: NullableBoolean) => set({loading});

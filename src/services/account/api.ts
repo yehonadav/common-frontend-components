@@ -1,8 +1,10 @@
 import { requestAuth, request } from '../../api'
-import {appConfig} from '../../variables';
+import { appConfig, isStageLocal } from '../../variables'
 import req from 'axios'
 import { handleApiError, handleApiSuccess } from '../../api/helpers'
 import { headersJson } from '../../api/headers'
+import { persistLocal } from '@yehonadav/safestorage'
+import { NullableUser } from './types'
 
 export const call_register = (params: Record<string, unknown>) =>
   request.post(`${appConfig.accountUrl}/register`, params);
@@ -13,8 +15,12 @@ export const call_login = ({email, password, recaptcha}:{email:string, password:
 export const call_login_google = ({ token }:{token: string}) =>
   request.post(`${appConfig.accountUrl}/auth/google`, {token});
 
-export const call_refresh = () =>
-  request.post(`${appConfig.accountUrl}/refresh-token`, {});
+export const call_refresh = isStageLocal
+  ? () => request.post(`${appConfig.accountUrl}/refresh-token`, {})
+  : () => {
+    const user = persistLocal.tryToGetItem<NullableUser>('persistLocal-account').value;
+    return request.post(`${appConfig.accountUrl}/refresh-token-local/${user?.id || 'null'}`, {});
+  };
 
 export const call_verifyEmail = (token: string) =>
   request.post(`${appConfig.accountUrl}/verify-email`, {token});
