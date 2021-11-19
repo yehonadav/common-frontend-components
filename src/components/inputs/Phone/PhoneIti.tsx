@@ -54,7 +54,7 @@ export const PhoneIti = (
     children: any, // need <input id={id} value={inputValue} onChange={onInputChange} {...props}/>
     container: ItiContainerType, // container needs to come from outside of Formik ! (maybe we can make it internal if we get rid of formik)
     initialValue: string|undefined, // full phone number !
-    useIpInfo: boolean, // use ipinfo to get country
+    useIpInfo?: boolean, // use ipinfo to get country
   }):ReactElement =>
 {
   const loadingCountry = useIpinfoLoading();
