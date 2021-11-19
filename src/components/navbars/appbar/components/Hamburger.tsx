@@ -23,7 +23,7 @@ const useHamburger = () => {
     setOpen(false);
     await sleep(400);
     setOpen(true);
-    setIcon(!sidebar ? CloseIcon : MenuIcon);
+    setIcon(sidebar ? CloseIcon : MenuIcon);
   }
 
   return {
