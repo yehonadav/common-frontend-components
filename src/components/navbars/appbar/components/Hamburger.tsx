@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { FC, useState } from 'react'
 import IconButton, {IconButtonTypeMap} from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,7 +9,6 @@ import {ExtendButtonBaseTypeMap} from "@material-ui/core";
 import {useAppbarStyles} from "../useAppbarStyles";
 import { sidebarStore } from '../../../../stores/useSidebarStores'
 import { sleep } from '../../../../utils/sleep'
-import { WithUser } from '../../../wrappers/WithUser'
 import React from 'react';
 
 const useHamburger = () => {
@@ -34,7 +33,7 @@ const useHamburger = () => {
   }
 }
 
-export const Hamburger = WithUser<OverrideProps<ExtendButtonBaseTypeMap<IconButtonTypeMap>, 'button'>>((props) => {
+export const Hamburger:FC<OverrideProps<ExtendButtonBaseTypeMap<IconButtonTypeMap>, 'button'>> = (props) => {
   const { sidebar, Icon, open, handleClick } = useHamburger();
   const classes = useAppbarStyles();
   return (
@@ -53,4 +52,4 @@ export const Hamburger = WithUser<OverrideProps<ExtendButtonBaseTypeMap<IconButt
       </IconButton>
     </Fade>
   );
-});
+}
