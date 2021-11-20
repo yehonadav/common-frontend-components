@@ -11,7 +11,7 @@ import { TransitionProps } from '@material-ui/core/transitions/transition';
 import { getTimeoutNumber } from "./getTimeoutNumber";
 import { useAsync, useOnLoad } from '../../hooks'
 import { createStore, createStorePersist, sleep } from '../../utils'
-import { requestStatus } from '../../variables'
+import { RequestStatus } from '../../variables'
 import { pageRegisteredTransitions } from './pageRegisteredTransitions'
 import { PersistOptions } from '../../types'
 import { getStorageCall } from '@yehonadav/safestorage'
@@ -68,7 +68,7 @@ export class Transition {
   public useSwitchDelay: (open: boolean, delay: TransitionProps["timeout"]) => boolean;
   public useConnect: (state: boolean) => void;
   public useSetOnLoad: (options?: InitialLoad) => void;
-  public useStatus: (status: requestStatus) => requestStatus;
+  public useStatus: (status: RequestStatus) => RequestStatus;
   public Fade: FC<IFadeTransition>;
   public Slide: FC<ISlideTransition>;
   public Collapse: FC<ICollapseTransition>;
@@ -122,11 +122,11 @@ export class Transition {
       })
     };
 
-    this.useStatus = (status: requestStatus) => {
+    this.useStatus = (status: RequestStatus) => {
       const [state, setState] = useState(status);
 
       useAsync(async () => {
-        if (status === requestStatus.pending || status === requestStatus.loading) {
+        if (status === RequestStatus.pending || status === RequestStatus.loading) {
           this.setIn();
           await sleep(1000);
           setState(status);
