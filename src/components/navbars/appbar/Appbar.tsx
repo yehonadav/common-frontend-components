@@ -11,7 +11,7 @@ import { PropTypes } from '@material-ui/core'
 import React from 'react';
 import { AppBarProps } from '@material-ui/core/AppBar/AppBar'
 
-export const Appbar:FC<{component:FC<{color:PropTypes.Color}>;appBarProps:AppBarProps}> = ({component:Component, appBarProps={}}) => {
+export const Appbar:FC<{component:FC<{color:PropTypes.Color}>;appBarProps?:AppBarProps}> = ({component:Component, appBarProps={}}) => {
   const classes = useAppbarStyles();
   const isScrollingUp = bodyScroll.useIsScrollingUp();
   const isScrolledToTop = bodyScroll.useIsScrolledToTop();
