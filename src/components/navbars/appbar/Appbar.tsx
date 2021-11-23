@@ -13,7 +13,7 @@ import { AppBarProps } from '@material-ui/core/AppBar/AppBar'
 import { ToolbarProps } from '@material-ui/core/Toolbar/Toolbar'
 
 export const Appbar:FC<{
-  component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string}>;
+  component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string, appbarClass:string}>;
   appBarProps?:AppBarProps;
   toolbarProps?:ToolbarProps;
 }> = ({component:Component, appBarProps={}, toolbarProps={}}) => {
@@ -33,6 +33,7 @@ export const Appbar:FC<{
               isScrolledToTop={isScrolledToTop}
               isScrollingUp={isScrollingUp}
               toolBarClass={toolBarClass}
+              appbarClass={classes.appbar}
             />
           </Toolbar>
         </AppBar>
