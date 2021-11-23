@@ -10,8 +10,13 @@ import { bodyScroll } from '../../../services/scroll/Scroll';
 import { PropTypes } from '@material-ui/core'
 import React from 'react';
 import { AppBarProps } from '@material-ui/core/AppBar/AppBar'
+import { ToolbarProps } from '@material-ui/core/Toolbar/Toolbar'
 
-export const Appbar:FC<{component:FC<{color:PropTypes.Color}>;appBarProps?:AppBarProps}> = ({component:Component, appBarProps={}}) => {
+export const Appbar:FC<{
+  component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string}>;
+  appBarProps?:AppBarProps;
+  toolbarProps?:ToolbarProps;
+}> = ({component:Component, appBarProps={}, toolbarProps={}}) => {
   const classes = useAppbarStyles();
   const isScrollingUp = bodyScroll.useIsScrollingUp();
   const isScrolledToTop = bodyScroll.useIsScrolledToTop();
@@ -22,8 +27,13 @@ export const Appbar:FC<{component:FC<{color:PropTypes.Color}>;appBarProps?:AppBa
     <>
       <HideOnScroll scroller={bodyScroll}>
         <AppBar className={classes.appbar} {...appBarProps}>
-          <Toolbar className={toolBarClass}>
-            <Component color={color}/>
+          <Toolbar className={toolBarClass} {...toolbarProps}>
+            <Component
+              color={color}
+              isScrolledToTop={isScrolledToTop}
+              isScrollingUp={isScrollingUp}
+              toolBarClass={toolBarClass}
+            />
           </Toolbar>
         </AppBar>
       </HideOnScroll>
