@@ -145,6 +145,8 @@ const intervals = [
 
 export function timeSince(date:Date) {
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (seconds < 1)
+    return 'now';
   const interval = intervals.find(i => i.seconds < seconds) || intervals[0];
   const count = Math.floor(seconds / interval.seconds);
   return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
