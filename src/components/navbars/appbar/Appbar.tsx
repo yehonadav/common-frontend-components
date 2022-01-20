@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {useAppbarStyles} from "./useAppbarStyles";
 import {AppbarPlaceholder} from "./components/AppbarPlaceholder";
 import {HideOnScroll} from "./HideOnScroll";
@@ -16,7 +16,14 @@ export const Appbar:FC<{
   component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string, appbarClass:string}>;
   appBarProps?:AppBarProps;
   toolbarProps?:ToolbarProps;
-}> = ({component:Component, appBarProps={}, toolbarProps={}}) => {
+  placeHolder?:ReactNode;
+}> = (
+  {
+    component:Component,
+    appBarProps={},
+    toolbarProps={},
+    placeHolder=<AppbarPlaceholder/>
+  }) => {
   const classes = useAppbarStyles();
   const isScrollingUp = bodyScroll.useIsScrollingUp();
   const isScrolledToTop = bodyScroll.useIsScrolledToTop();
@@ -39,7 +46,7 @@ export const Appbar:FC<{
         </AppBar>
       </HideOnScroll>
 
-      <AppbarPlaceholder/>
+      {placeHolder}
     </>
   )
 }
