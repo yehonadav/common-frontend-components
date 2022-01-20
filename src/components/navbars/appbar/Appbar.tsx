@@ -12,12 +12,14 @@ import React from 'react';
 import { AppBarProps } from '@material-ui/core/AppBar/AppBar'
 import { ToolbarProps } from '@material-ui/core/Toolbar/Toolbar'
 
-export const Appbar:FC<{
+export type AppbarProps = {
   component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string, appbarClass:string}>;
   appBarProps?:AppBarProps;
   toolbarProps?:ToolbarProps;
   placeHolder?:ReactNode;
-}> = (
+}
+
+export const Appbar:FC<AppbarProps> = (
   {
     component:Component,
     appBarProps={},
