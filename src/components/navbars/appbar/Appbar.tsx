@@ -16,8 +16,14 @@ export const Appbar:FC<{
   component:FC<{color:PropTypes.Color; isScrollingUp:boolean; isScrolledToTop:boolean; toolBarClass:string, appbarClass:string}>;
   appBarProps?:AppBarProps;
   toolbarProps?:ToolbarProps;
-}> = ({component:Component, appBarProps={}, toolbarProps={}}) => {
-  const classes = useAppbarStyles();
+  useStyles?:typeof useAppbarStyles;
+}> = ({
+                            component:Component,
+                            appBarProps={},
+                            toolbarProps={},
+                            useStyles=useAppbarStyles,
+}) => {
+  const classes = useStyles();
   const isScrollingUp = bodyScroll.useIsScrollingUp();
   const isScrolledToTop = bodyScroll.useIsScrolledToTop();
   const color = useColor(isScrolledToTop);
