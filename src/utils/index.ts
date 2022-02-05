@@ -21,3 +21,4 @@ export * from "./createStorePersist";
 export { createLinks } from './createLinks';
 export { createPageTransitions } from './createPageTransitions';
 export { useUrlQuery, getUrlQuery, Query, GetQuery, useUrlQueryOnLoad, getUrlQueryOnLoad } from './urlQuery';
+export * from "./runAsyncInOrder";
